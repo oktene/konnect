@@ -6,20 +6,17 @@ import { UserService } from 'src/modules/user/user.service';
 export class AuthService {
   constructor(
     private userService: UserService,
-    private jwtService: JwtService
+    private readonly jwtService: JwtService
   ) {}
 
-  // async signIn(
-  //   username: string,
-  //   pass: string,
-  // ): Promise<{ access_token: string }> {
-  //   const user = await this.userService.findOne(username);
-  //   if (user?.password !== pass) {
-  //     throw new UnauthorizedException();
-  //   }
-  //   const payload = { sub: user.userId, username: user.username };
-  //   return {
-  //     access_token: await this.jwtService.signAsync(payload),
-  //   };
-  // }
+  async signIn(email: string, password: string): Promise<{ access_token: string }> {
+    const user = await this.userService.getOneByEmail(email);
+    if (user?.password !== password) {
+      throw new UnauthorizedException();
+    }
+    const payload = { sub: user.id, email: user.email };
+    return {
+      access_token: await this.jwtService.signAsync(payload),
+    };
+  }
 }

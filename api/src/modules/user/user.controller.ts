@@ -15,13 +15,18 @@ export class UserController {
   }
 
   @Get()
-  async findAll() {
-    return await this.userService.findAll();
+  async getAll() {
+    return await this.userService.getAll();
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
-    return this.userService.findOne(id);
+  async getOneById(@Param('id') id: string) {
+    return this.userService.getOneById(id);
+  }
+
+  @Get(':email')
+  async getOneByEmail(@Param('email') email: string) {
+    return this.userService.getOneByEmail(decodeURIComponent(email));
   }
 
   @Patch(':id')
