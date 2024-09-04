@@ -20,6 +20,7 @@ model User {
   name            String
   phone           String
   cpf             String?
+  password        String
   permissionLevel PermissionLevel
   role            Role
 
