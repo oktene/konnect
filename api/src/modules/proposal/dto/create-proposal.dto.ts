@@ -1,1 +1,4 @@
-export class CreateProposalDto {}
+export class CreateProposalDto {
+  companyId: string;
+  oportunityId: string;
+}
