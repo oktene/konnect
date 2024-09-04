@@ -19,6 +19,16 @@ async function bootstrap() {
     .setTitle('Konnect')
     .setDescription('The Konnect API description')
     .setVersion('1.0')
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'Bearer',
+        bearerFormat: 'JWT',
+        in: 'header',
+      },
+      'token',
+    )
+    .addSecurityRequirements('token')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
