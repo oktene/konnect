@@ -20,6 +20,7 @@ model User {
   name            String
   phone           String
   cpf             String?
+  password        String
   permissionLevel PermissionLevel
   role            Role
 
@@ -121,6 +122,7 @@ model SubCategory {
 enum TypeOpportunity {
   SERVICO
   MATERIAL
+  LOCACAO
 }
 
 model Attachment {
