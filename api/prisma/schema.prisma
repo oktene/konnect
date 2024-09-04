@@ -121,6 +121,7 @@ model SubCategory {
 enum TypeOpportunity {
   SERVICO
   MATERIAL
+  LOCACAO
 }
 
 model Attachment {
