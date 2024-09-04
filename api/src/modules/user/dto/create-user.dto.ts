@@ -7,6 +7,7 @@ export class CreateUserDto {
     phone: string;
     cpf?: string;
     permissionLevel: PermissionLevel;
+    password: string;
     role: Role;
     companyId: string;
 }
