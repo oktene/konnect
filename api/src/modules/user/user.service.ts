@@ -53,8 +53,19 @@ export class UserService {
     });
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(userId: string, updateUserDto: UpdateUserDto) {
+    try {
+      const updatedUser = await this.prisma.user.update({
+        where: { id: userId },
+        data: {
+          ...updateUserDto,
+        },
+      });
+
+      return updatedUser;
+    } catch (error) {
+      throw new NotFoundException(`User with ID ${userId} not found`);
+    }
   }
 
   async remove(id: string) {
