@@ -24,4 +24,6 @@ export class CompanyService {
 
     return company;
   } */
+
+  async getCompanyById() {}
 }
