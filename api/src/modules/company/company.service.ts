@@ -1,19 +1,46 @@
 import { Injectable } from '@nestjs/common';
 import { CreateCompanyDto } from './dto/create-company.dto';
 import { UpdateCompanyDto } from './dto/update-company.dto';
+import { PrismaService } from 'prisma/prisma.service';
+import { Company } from '@prisma/client';
+
 
 @Injectable()
 export class CompanyService {
-  create(createCompanyDto: CreateCompanyDto) {
-    return 'This action adds a new company';
+  constructor(
+    private readonly prisma: PrismaService,
+  ) {}
+  
+  create(data: CreateCompanyDto) {
+    return this.prisma.company.create({
+      data
+    });
   }
 
-  findAll() {
-    return `This action returns all company`;
+  getAll() {
+    return this.prisma.company.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} company`;
+  getById(id: string) {
+    return this.prisma.company.findUnique({
+      where: { id },
+    });
+  }
+
+  async getCompanyWithDetails(companyId: string): Promise<Company | null> {
+    const company = this.prisma.company.findUnique({
+      where: { id: companyId },
+      include: {
+        users: true,
+        opportunities: true,
+        proposals: true,
+        addresses: true,
+      },
+    });
+
+    console.log('Company with details:', company);
+
+    return company;
   }
 
   update(id: number, updateCompanyDto: UpdateCompanyDto) {

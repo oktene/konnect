@@ -1,15 +1,40 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'prisma/prisma.service';
 import { User } from './entities/user.entity';
+import * as bcrypt from 'bcrypt';
+import { CompanyService } from '../company/company.service';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly prisma: PrismaService){}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly companyService: CompanyService,
+  ) {}
 
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+  async create(createUserDto: CreateUserDto): Promise<User | undefined> {
+    const company = await this.companyService.getById(createUserDto.companyId);
+
+    if (!company) {
+      throw new NotFoundException('A empresa associada não existe.');
+    }
+
+    const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
+    const userData: Prisma.UserCreateInput = {
+      email: createUserDto.email,
+      name: createUserDto.name,
+      phone: createUserDto.phone,
+      password: hashedPassword,
+      company: { connect: { id: createUserDto.companyId } },
+      permissionLevel: createUserDto.permissionLevel,
+      role: createUserDto.role,
+    };
+
+    return this.prisma.user.create({
+      data: userData,
+    });
   }
 
   getAll() {
@@ -28,8 +53,19 @@ export class UserService {
     });
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(userId: string, updateUserDto: UpdateUserDto) {
+    try {
+      const updatedUser = await this.prisma.user.update({
+        where: { id: userId },
+        data: {
+          ...updateUserDto,
+        },
+      });
+
+      return updatedUser;
+    } catch (error) {
+      throw new NotFoundException(`User with ID ${userId} not found`);
+    }
   }
 
   async remove(id: string) {

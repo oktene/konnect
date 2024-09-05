@@ -15,13 +15,18 @@ export class CompanyController {
   }
 
   @Get()
-  findAll() {
-    return this.companyService.findAll();
+  getAll() {
+    return this.companyService.getAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.companyService.findOne(+id);
+  getOne(@Param('id') id: string) {
+    return this.companyService.getById(id);
+  }
+
+  @Get(':companyId')
+  getCompanyWithDetails(@Param('companyId') id: string) {
+    return this.companyService.getCompanyWithDetails(id);
   }
 
   @Patch(':id')
