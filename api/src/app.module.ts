@@ -4,12 +4,10 @@ import { UserModule } from './modules/user/user.module';
 import { CompanyModule } from './modules/company/company.module';
 import { ProposalModule } from './modules/proposal/proposal.module';
 import { OpportunityModule } from './modules/opportunity/opportunity.module';
-import { PrismaModule } from '../prisma/prisma.module';
 import { AppService } from './app.service';
-import { APP_GUARD } from '@nestjs/core';
-import { AuthGuard } from './auth/auth.guard';
 import { AuthModule } from './modules/auth/auth.module';
-
+import { DatabaseModule } from './shared/database/database.module';
+import { ConfigModule } from '@nestjs/config';
 @Module({
   controllers: [AppController],
   providers: [AppService],
@@ -19,7 +17,8 @@ import { AuthModule } from './modules/auth/auth.module';
     ProposalModule,
     OpportunityModule,
     AuthModule,
-    PrismaModule,
+    DatabaseModule,
+    ConfigModule.forRoot({ isGlobal: true }),
   ],
 })
 export class AppModule {}

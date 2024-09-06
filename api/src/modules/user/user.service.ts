@@ -1,76 +1,24 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { PrismaService } from 'prisma/prisma.service';
-import { User } from './entities/user.entity';
-import * as bcrypt from 'bcrypt';
 import { CompanyService } from '../company/company.service';
-import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class UserService {
-  constructor(
-    private readonly prisma: PrismaService,
-    private readonly companyService: CompanyService,
-  ) {}
-
-  async create(createUserDto: CreateUserDto): Promise<User | undefined> {
-    const company = await this.companyService.getById(createUserDto.companyId);
-
-    if (!company) {
-      throw new NotFoundException('A empresa associada não existe.');
-    }
-
-    const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
-    const userData: Prisma.UserCreateInput = {
-      email: createUserDto.email,
-      name: createUserDto.name,
-      phone: createUserDto.phone,
-      password: hashedPassword,
-      company: { connect: { id: createUserDto.companyId } },
-      permissionLevel: createUserDto.permissionLevel,
-      role: createUserDto.role,
-    };
-
-    return this.prisma.user.create({
-      data: userData,
-    });
-  }
+  constructor(private readonly companyService: CompanyService) {}
 
   getAll() {
-    return this.prisma.user.findMany();
+    //return this.prisma.user.findMany();
   }
 
-  async getOneById(id: string): Promise<User | undefined> {
-    return this.prisma.user.findUnique({
-      where: { id },
-    });
+  async getOneById(id: string) {
+    return 'one user';
   }
 
-  async getOneByEmail(email: string): Promise<User | undefined> {
-    return this.prisma.user.findFirstOrThrow({
-      where: { email },
-    });
+  async getOneByEmail(email: string) {
+    return 'one user';
   }
 
-  async update(userId: string, updateUserDto: UpdateUserDto) {
-    try {
-      const updatedUser = await this.prisma.user.update({
-        where: { id: userId },
-        data: {
-          ...updateUserDto,
-        },
-      });
+  async update(userId: string, updateUserDto: UpdateUserDto) {}
 
-      return updatedUser;
-    } catch (error) {
-      throw new NotFoundException(`User with ID ${userId} not found`);
-    }
-  }
-
-  async remove(id: string) {
-    return await this.prisma.user.delete({
-      where: { id },
-    });
-  }
+  async remove(id: string) {}
 }

@@ -1,6 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { UserService } from './user.service';
-import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 
@@ -9,40 +16,33 @@ import { ApiBearerAuth, ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
-  
-  @Post()
-  @ApiOperation({summary: 'Create an user'})
-  @ApiBody({type:CreateUserDto})
-  create(@Body() data: CreateUserDto) {
-    return this.userService.create(data);
-  }
 
   @Get()
-  @ApiOperation({summary: 'Get all users in the Konnect'})
+  @ApiOperation({ summary: 'Get all users in the Konnect' })
   async getAll() {
     return await this.userService.getAll();
   }
 
   @Get(':id')
-  @ApiOperation({summary: 'Get an user in the Konnect by ID'})
+  @ApiOperation({ summary: 'Get an user in the Konnect by ID' })
   async getOneById(@Param('id') id: string) {
     return this.userService.getOneById(id);
   }
 
   @Get(':email')
-  @ApiOperation({summary: 'Get an user in the Konnect by Email'})
+  @ApiOperation({ summary: 'Get an user in the Konnect by Email' })
   async getOneByEmail(@Param('email') email: string) {
     return this.userService.getOneByEmail(decodeURIComponent(email));
   }
 
   @Patch(':id')
-  @ApiOperation({summary: 'Update an user'})
+  @ApiOperation({ summary: 'Update an user' })
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.update(id, updateUserDto);
   }
 
   @Delete(':id')
-  @ApiOperation({summary: 'Delete an user'})
+  @ApiOperation({ summary: 'Delete an user' })
   async remove(@Param('id') id: string) {
     return await this.userService.remove(id);
   }

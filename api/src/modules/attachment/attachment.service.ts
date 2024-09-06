@@ -3,25 +3,24 @@ import { CreateAttachmentDto } from './dto/create-attachment.dto';
 import { UpdateAttachmentDto } from './dto/update-attachment.dto';
 import { createReadStream } from 'fs';
 import { join } from 'path';
-import { PrismaService } from 'prisma/prisma.service';
 import { Attachment } from '@prisma/client';
 
 @Injectable()
 export class AttachmentService {
-  constructor(
-    private readonly prisma: PrismaService,
-  ) {}
-  
+  constructor() {}
+
   create(createAttachmentDto: CreateAttachmentDto) {
     return 'This action adds a new attachment';
   }
 
-  async getFilesByOpportunities(opportunityId: string): Promise<Attachment|null> {
+  async getFilesByOpportunities(
+    opportunityId: string,
+  ): Promise<Attachment | null> {
     // return await this.prisma.attachment.findMany({
     //   where: { opportunityId }
     // })
 
-    return null
+    return null;
   }
 
   update(id: string, updateAttachmentDto: UpdateAttachmentDto) {
