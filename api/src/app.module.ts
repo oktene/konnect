@@ -8,6 +8,10 @@ import { DatabaseModule } from './shared/database/database.module';
 import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './modules/auth/auth.guard';
+import { CategoryModule } from './modules/category/category.module';
+import { SubcategoryModule } from './modules/subcategory/subcategory.module';
+import { AttachmentModule } from './modules/attachment/attachment.module';
+import { ResponseHandlerService } from './shared/handlers/responseHandler.service';
 
 @Module({
   providers: [
@@ -17,11 +21,14 @@ import { AuthGuard } from './modules/auth/auth.guard';
     },
   ],
   imports: [
+    AuthModule,
     UserModule,
     CompanyModule,
     ProposalModule,
     OpportunityModule,
-    AuthModule,
+    CategoryModule,
+    SubcategoryModule,
+    AttachmentModule,
     DatabaseModule,
     ConfigModule.forRoot({ isGlobal: true }),
   ],
