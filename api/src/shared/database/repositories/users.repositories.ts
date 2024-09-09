@@ -9,16 +9,20 @@ export class UserRepository {
   async create(createDto: Prisma.UserCreateArgs) {
     return await this.prismaService.user.create(createDto);
   }
+  
+  async findAll(findAll: Prisma.UserFindManyArgs) {
+    return await this.prismaService.user.findMany(findAll);
+  }
 
   async findUnique(findUniqueDto: Prisma.UserFindUniqueArgs) {
     return await this.prismaService.user.findUnique(findUniqueDto);
   }
 
-  async findAll(findAll: Prisma.UserFindManyArgs) {
-    return await this.prismaService.user.findMany(findAll);
-  }
-
   async update(updateDto: Prisma.UserUpdateArgs) {
     return await this.prismaService.user.update(updateDto);
+  }
+
+  async delete(deleteDto: Prisma.UserDeleteArgs) {
+    return await this.prismaService.user.delete(deleteDto);
   }
 }

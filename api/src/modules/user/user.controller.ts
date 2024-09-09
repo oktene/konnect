@@ -20,30 +20,30 @@ export class UserController {
   @Get()
   @ApiOperation({ summary: 'Get all users in the Konnect' })
   async getAll() {
-    return await this.userService.getAll();
+    return this.userService.getAll();
   }
 
   @Get(':id')
   @ApiOperation({ summary: 'Get an user in the Konnect by ID' })
-  async getOneById(@Param('id') id: string) {
-    return this.userService.getOneById(id);
+  async getOneById(@Param('id') userId: string) {
+    return await this.userService.getOneById(userId);
   }
 
   @Get(':email')
   @ApiOperation({ summary: 'Get an user in the Konnect by Email' })
-  async getOneByEmail(@Param('email') email: string) {
-    return this.userService.getOneByEmail(decodeURIComponent(email));
+  async getOneByEmail(@Param('email') userEmail: string) {
+    return this.userService.getOneByEmail(decodeURIComponent(userEmail));
   }
 
   @Patch(':id')
   @ApiOperation({ summary: 'Update an user' })
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(id, updateUserDto);
+  async update(@Param('id') userId: string, @Body() updateUserDto: UpdateUserDto) {
+    return await this.userService.update(userId, updateUserDto);
   }
 
   @Delete(':id')
   @ApiOperation({ summary: 'Delete an user' })
-  async remove(@Param('id') id: string) {
-    return await this.userService.remove(id);
+  async remove(@Param('id') userId: string) {
+    return await this.userService.delete(userId);
   }
 }

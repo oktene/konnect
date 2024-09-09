@@ -12,7 +12,7 @@ export class SubcategoryService {
     return `This action returns all subcategory`;
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} subcategory`;
   }
 

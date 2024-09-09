@@ -10,29 +10,34 @@ import {
 import { CompanyService } from './company.service';
 import { CreateCompanyDto } from './dto/create-company.dto';
 import { UpdateCompanyDto } from './dto/update-company.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 
+@ApiBearerAuth()
 @ApiTags('Company')
 @Controller('company')
 export class CompanyController {
   constructor(private readonly companyService: CompanyService) {}
 
   @Post()
-  create(@Body() createCompanyDto: CreateCompanyDto) {
-    return this.companyService.create(createCompanyDto);
+  @ApiOperation({ summary: 'Create a Company' })
+  async create(@Body() createCompanyDto: CreateCompanyDto) {
+    return await this.companyService.create(createCompanyDto);
   }
 
   @Get()
+  @ApiOperation({ summary: 'Get all companies in the Konnect' })
   getAll() {
     return this.companyService.findAll();
   }
 
   @Get(':companyId')
+  @ApiOperation({ summary: 'Get a specific company by Id' })
   getOneById(@Param() companyId: string) {
     return this.companyService.findUnique(companyId);
   }
 
   @Delete(':companyId')
+  @ApiOperation({ summary: 'Delete a specific company' })
   delete(@Param() companyId: string) {
     return this.companyService.delete(companyId);
   }

@@ -1,24 +1,27 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { CompanyService } from '../company/company.service';
+import { UserRepository } from 'src/shared/database/repositories/users.repositories';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly companyService: CompanyService) {}
+  constructor(private readonly usersRepo: UserRepository) {}
 
-  getAll() {
-    //return this.prisma.user.findMany();
+  async getAll() {
+    return await this.usersRepo.findAll({});
   }
 
-  async getOneById(id: string) {
-    return 'one user';
+  async getOneById(userId: string) {
+    return await this.usersRepo.findUnique({ where: { id: userId } });
   }
-
-  async getOneByEmail(email: string) {
-    return 'one user';
+  
+  async getOneByEmail(userEmail: string) {
+    return await this.usersRepo.findUnique({ where: { email: userEmail } });
   }
-
+  
   async update(userId: string, updateUserDto: UpdateUserDto) {}
 
-  async remove(id: string) {}
+  async delete(companyId: string) {
+    return await this.usersRepo.delete({ where: { id: companyId } });
+  }
 }

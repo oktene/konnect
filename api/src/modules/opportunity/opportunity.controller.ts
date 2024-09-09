@@ -2,34 +2,40 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { OpportunityService } from './opportunity.service';
 import { CreateOpportunityDto } from './dto/create-opportunity.dto';
 import { UpdateOpportunityDto } from './dto/update-opportunity.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 
+@ApiBearerAuth()
 @ApiTags('Opportunity')
 @Controller('opportunity')
 export class OpportunityController {
   constructor(private readonly opportunityService: OpportunityService) {}
 
   @Post()
+  @ApiOperation({ summary: 'Get all users in the Konnect' })
   create(@Body() createOpportunityDto: CreateOpportunityDto) {
     return this.opportunityService.create(createOpportunityDto);
   }
 
   @Get()
+  @ApiOperation({ summary: 'Get all users in the Konnect' })
   findAll() {
     return this.opportunityService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.opportunityService.findOne(+id);
+  @ApiOperation({ summary: 'Get all users in the Konnect' })
+  async findOne(@Param('id') id: string) {
+    return await this.opportunityService.findOne(+id);
   }
 
   @Patch(':id')
+  @ApiOperation({ summary: 'Get all users in the Konnect' })
   update(@Param('id') id: string, @Body() updateOpportunityDto: UpdateOpportunityDto) {
     return this.opportunityService.update(+id, updateOpportunityDto);
   }
 
   @Delete(':id')
+  @ApiOperation({ summary: 'Get all users in the Konnect' })
   remove(@Param('id') id: string) {
     return this.opportunityService.remove(+id);
   }

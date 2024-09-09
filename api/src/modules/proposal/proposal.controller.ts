@@ -2,8 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { ProposalService } from './proposal.service';
 import { CreateProposalDto } from './dto/create-proposal.dto';
 import { UpdateProposalDto } from './dto/update-proposal.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiBearerAuth()
 @ApiTags('Proposal')
 @Controller('proposal')
 export class ProposalController {
