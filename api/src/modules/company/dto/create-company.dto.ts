@@ -1,15 +1,19 @@
-import { IsBoolean, IsString } from "class-validator";
+import { IsBoolean, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class CreateCompanyDto {
+  @IsNotEmpty()
   @IsString()
   name: string;
 
   @IsString()
+  @IsNotEmpty()
   companyRegistration?: string;
 
   @IsBoolean()
-  isInternational?: boolean = false;
+  @IsOptional()
+  isInternational: boolean = false;
 
   @IsString()
-  about?: string;
+  @IsOptional()
+  about: string;
 }

@@ -21,4 +21,8 @@ export class CompanyRepository {
   async update(updateDto: Prisma.CompanyUpdateArgs) {
     return await this.prismaService.company.update(updateDto);
   }
+
+  async delete(deleteDto: Prisma.CompanyDeleteArgs) {
+    return await this.prismaService.company.delete(deleteDto);
+  }
 }

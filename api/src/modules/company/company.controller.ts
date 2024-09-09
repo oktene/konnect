@@ -19,6 +19,21 @@ export class CompanyController {
 
   @Post()
   create(@Body() createCompanyDto: CreateCompanyDto) {
-    return this.companyService.create();
+    return this.companyService.create(createCompanyDto);
+  }
+
+  @Get()
+  getAll() {
+    return this.companyService.findAll();
+  }
+
+  @Get(':companyId')
+  getOneById(@Param() companyId: string) {
+    return this.companyService.findUnique(companyId);
+  }
+
+  @Delete(':companyId')
+  delete(@Param() companyId: string) {
+    return this.companyService.delete(companyId);
   }
 }

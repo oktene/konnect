@@ -1,29 +1,36 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { CreateCompanyDto } from './dto/create-company.dto';
-import { UpdateCompanyDto } from './dto/update-company.dto';
-
-import { Company } from '@prisma/client';
+import { CompanyRepository } from 'src/shared/database/repositories/company.repositories';
 
 @Injectable()
 export class CompanyService {
-  constructor() {}
+  constructor(private readonly companiesRepo: CompanyRepository) {}
 
-  async create() {}
-  /*  async getCompanyWithDetails(companyId: string): Promise<Company | null> {
-    const company = this.prisma.company.findUnique({
-      where: { id: companyId },
-      include: {
-        users: true,
-        opportunities: true,
-        proposals: true,
-        addresses: true,
+  async create(createCompanyDto: CreateCompanyDto) {
+    const { companyRegistration } = createCompanyDto;
+
+    const companyRegistrationExists = await this.companiesRepo.findUnique({
+      where: {
+        companyRegistration: companyRegistration,
       },
     });
 
-    console.log('Company with details:', company);
+    if (companyRegistrationExists) {
+      throw new ConflictException('Empresa já cadastrada.');
+    }
 
-    return company;
-  } */
+    return await this.companiesRepo.create({ data: createCompanyDto });
+  }
 
-  async getCompanyById() {}
+  async findAll() {
+    return await this.companiesRepo.findAll({});
+  }
+
+  async findUnique(companyId: string) {
+    return await this.companiesRepo.findUnique({ where: { id: companyId } });
+  }
+
+  async delete(companyId: string) {
+    await this.companiesRepo.delete({ where: { id: companyId } });
+  }
 }
