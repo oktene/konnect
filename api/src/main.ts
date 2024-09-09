@@ -21,12 +21,13 @@ async function bootstrap() {
     .setVersion('1.0')
     .addBearerAuth(
       {
+        name: 'Authorization',
         type: 'http',
         scheme: 'Bearer',
         bearerFormat: 'JWT',
         in: 'header',
+        description: "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter your token in the text input below.",
       },
-      'token',
     )
     .addSecurityRequirements('token')
     .build();
