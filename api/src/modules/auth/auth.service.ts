@@ -9,13 +9,13 @@ import { SigninDto } from './dto/sign-in.dto';
 import { SignupDto } from './dto/sign-up.dto';
 import { UserRepository } from 'src/shared/database/repositories/users.repositories';
 import { compare, hash } from 'bcrypt';
-import { PermissionLevel } from './entities/PermissionLevel';
-import { Role } from './entities/Role';
 import { JwtService } from '@nestjs/jwt';
 import { CompanyRepository } from 'src/shared/database/repositories/company.repositories';
 import { MailerService } from '@nestjs-modules/mailer';
 import { v4 as uuidv4 } from 'uuid';
 import * as bcrypt from 'bcrypt';
+import { PermissionLevel } from 'src/shared/enums/permissionLevel.enum';
+import { Role } from 'src/shared/enums/role.enum';
 
 @Injectable()
 export class AuthService {
