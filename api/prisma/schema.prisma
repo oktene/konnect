@@ -23,6 +23,8 @@ model User {
   password        String
   permissionLevel PermissionLevel
   role            Role
+  recoveryToken         String?
+  recoveryTokenExpires  DateTime?
 
   companyId String @db.Uuid
   company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)

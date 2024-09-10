@@ -12,6 +12,7 @@ import { CategoryModule } from './modules/category/category.module';
 import { SubcategoryModule } from './modules/subcategory/subcategory.module';
 import { AttachmentModule } from './modules/attachment/attachment.module';
 import { ResponseHandlerService } from './shared/handlers/responseHandler.service';
+import { EmailModule } from './modules/email/email.module';
 
 @Module({
   providers: [
@@ -31,6 +32,7 @@ import { ResponseHandlerService } from './shared/handlers/responseHandler.servic
     AttachmentModule,
     DatabaseModule,
     ConfigModule.forRoot({ isGlobal: true }),
+    EmailModule,
   ],
 })
 export class AppModule {}

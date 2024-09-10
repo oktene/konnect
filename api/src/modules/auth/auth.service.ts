@@ -1,17 +1,21 @@
 import {
+  BadRequestException,
   ConflictException,
   Injectable,
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
-import { SigninDto } from './dto/signin.dto';
-import { SignupDto } from './dto/signup.dto';
+import { SigninDto } from './dto/sign-in.dto';
+import { SignupDto } from './dto/sign-up.dto';
 import { UserRepository } from 'src/shared/database/repositories/users.repositories';
 import { compare, hash } from 'bcrypt';
 import { PermissionLevel } from './entities/PermissionLevel';
 import { Role } from './entities/Role';
 import { JwtService } from '@nestjs/jwt';
 import { CompanyRepository } from 'src/shared/database/repositories/company.repositories';
+import { MailerService } from '@nestjs-modules/mailer';
+import { v4 as uuidv4 } from 'uuid';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
@@ -19,10 +23,11 @@ export class AuthService {
     private readonly usersRepo: UserRepository,
     private readonly companiesRepo: CompanyRepository,
     private readonly jwtService: JwtService,
+    private readonly mailerService: MailerService
   ) {}
 
-  async signin(signinDto: SigninDto) {
-    const { email, password } = signinDto;
+  async signIn(signInDto: SigninDto) {
+    const { email, password } = signInDto;
 
     const user = await this.usersRepo.findUnique({
       where: { email },
@@ -47,7 +52,7 @@ export class AuthService {
     return { accessToken };
   }
 
-  async signup(signupDto: SignupDto) {
+  async signUp(signUpDto: SignupDto) {
     const {
       companyId,
       email,
@@ -57,7 +62,7 @@ export class AuthService {
       permissionLevel,
       phone,
       role,
-    } = signupDto;
+    } = signUpDto;
 
     //Verifica primeiro a existência da empresa
     const companyExists = await this.companiesRepo.findUnique({
@@ -103,6 +108,39 @@ export class AuthService {
     );
 
     return { accessToken };
+  }
+
+  async requestPasswordRecovery(email: string): Promise<void> {
+    const user = await this.usersRepo.findByEmail(email);
+
+    if (!user) {
+      throw new BadRequestException('User not found');
+    }
+
+    const recoveryToken = uuidv4();
+    const recoveryTokenExpires = new Date(Date.now() + 3600000); // Token expira em 1 hora
+
+    await this.usersRepo.updateRecoveryToken(email, recoveryToken, recoveryTokenExpires);
+
+    const recoveryLink = `http://your-app.com/reset-password?token=${recoveryToken}`;
+    await this.mailerService.sendMail({
+      to: email,
+      subject: 'Password Recovery',
+      template: './recovery',
+      context: { recoveryLink },
+    });
+  }
+
+  async resetPassword(token: string, newPassword: string): Promise<void> {
+    const user = await this.usersRepo.findByRecoveryToken(token);
+
+    if (!user) {
+      throw new BadRequestException('Invalid or expired token');
+    }
+
+    const hashedPassword = await hash(newPassword, 10);
+
+    await this.usersRepo.updatePassword(user.id, hashedPassword);
   }
 
   //Função para gerar o JWT com as informações do usuário
