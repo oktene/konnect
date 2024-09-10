@@ -62,14 +62,17 @@ model Opportunity {
   deadlineSubmission DateTime
   typeOpportunity    TypeOpportunity
   isExpired          Boolean         @default(false)
+  attachments        Attachment[]
+  proposals          Proposal[]
+ 
   companyId          String          @db.Uuid
   subCategoryId      String          @db.Uuid
+  
   createdAt          DateTime        @default(now())
   updatedAt          DateTime        @updatedAt
-  attachments        Attachment[]
+  
   company            Company         @relation(fields: [companyId], references: [id], onDelete: Cascade)
   subCategory        SubCategory     @relation(fields: [subCategoryId], references: [id])
-  proposals          Proposal[]
 }
 
 model Category {
@@ -108,6 +111,7 @@ model Proposal {
 enum PermissionLevel {
   ADMIN
   USER
+  EDITOR
 }
 
 enum Role {
