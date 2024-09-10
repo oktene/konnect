@@ -10,7 +10,6 @@ export class CreateCompanyDto {
   companyRegistration?: string;
 
   @IsBoolean()
-  @IsOptional()
   isInternational: boolean = false;
 
   @IsString()

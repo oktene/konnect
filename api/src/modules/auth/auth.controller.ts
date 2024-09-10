@@ -25,11 +25,9 @@ export class AuthController {
   @ApiResponse({ status: 403, description: `You don't have permission to access '/signUp' on the server.` })
   async signUp(@Body() signupDto: SignupDto) {
     try {
-      const user = this.authService.signUp(signupDto);
-      return this.responseHandler.success(user, 'User registered successfully');
+      return await this.authService.signUp(signupDto);
     } catch (error) {
-      return this.responseHandler.error('Authentication failed', 401);
-      throw new HttpException('Registration failed', HttpStatus.BAD_REQUEST);
+      return this.responseHandler.error('Registration failed', 401);
     }
   }
 
@@ -43,19 +41,19 @@ export class AuthController {
     return this.authService.signIn(signinDto);
   }
 
-  // @Post('password-recovery')
-  // @ApiOperation({ summary: `Recovery the user's password` })
-  // @ApiBody({ type: RequestRecoveryDto })
-  // async requestPasswordRecovery(@Body() requestRecoveryDto: RequestRecoveryDto) {
-  //   await this.authService.requestPasswordRecovery(requestRecoveryDto.email);
-  //   return { message: 'Recovery email sent' };
-  // }
+  @Post('password-recovery')
+  @ApiOperation({ summary: `Recovery the user's password` })
+  @ApiBody({ type: RequestRecoveryDto })
+  async requestPasswordRecovery(@Body() requestRecoveryDto: RequestRecoveryDto) {
+    await this.authService.requestPasswordRecovery(requestRecoveryDto.email);
+    return { message: 'Recovery email sent' };
+  }
 
-  // @Post('reset-password')
-  // @ApiOperation({ summary: 'Reset the password' })
-  // @ApiBody({ type: ResetPasswordDto })
-  // async resetPassword(@Query('token') token: string, @Body() resetPasswordDto: ResetPasswordDto) {
-  //   await this.authService.resetPassword(token, resetPasswordDto.newPassword);
-  //   return { message: 'Password has been reset' };
-  // }
+  @Post('reset-password')
+  @ApiOperation({ summary: 'Reset the password' })
+  @ApiBody({ type: ResetPasswordDto })
+  async resetPassword(@Query('token') token: string, @Body() resetPasswordDto: ResetPasswordDto) {
+    await this.authService.resetPassword(token, resetPasswordDto.newPassword);
+    return this.responseHandler.success('Password has been reset');
+  }
 }
