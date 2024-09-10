@@ -9,9 +9,10 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
-import { PermissionLevel } from '../entities/PermissionLevel';
-import { Role } from '../entities/Role';
+
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { PermissionLevel } from 'src/shared/enums/permissionLevel.enum';
+import { Role } from 'src/shared/enums/role.enum';
 
 export class SignupDto {
   @IsString({ message: 'O nome precisa ser uma String!' })

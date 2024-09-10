@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -13,24 +7,102 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-//MODELS USER
 model User {
-  id              String          @id @default(uuid()) @db.Uuid
-  email           String          @unique
-  name            String
-  phone           String
-  cpf             String?
-  password        String
-  permissionLevel PermissionLevel
-  role            Role
-  recoveryToken         String?
-  recoveryTokenExpires  DateTime?
+  id                   String          @id @default(uuid()) @db.Uuid
+  email                String          @unique
+  name                 String
+  phone                String
+  cpf                  String?
+  permissionLevel      PermissionLevel
+  role                 Role
+  companyId            String          @db.Uuid
+  createdAt            DateTime        @default(now())
+  updatedAt            DateTime        @updatedAt
+  password             String
+  recoveryToken        String?
+  recoveryTokenExpires DateTime?
+  company              Company         @relation(fields: [companyId], references: [id], onDelete: Cascade)
+}
 
-  companyId String @db.Uuid
-  company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+model Company {
+  id                  String        @id @default(uuid()) @db.Uuid
+  name                String
+  companyRegistration String?       @unique
+  isInternational     Boolean       @default(false)
+  about               String?
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+  addresses           Address[]
+  opportunities       Opportunity[]
+  proposals           Proposal[]
+  users               User[]
+}
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model Address {
+  id           String  @id @default(uuid()) @db.Uuid
+  street       String
+  number       String
+  city         String
+  state        String
+  zipCode      String
+  country      Country
+  neighborhood String
+  isMatriz     Boolean @default(true)
+  companyId    String  @db.Uuid
+  company      Company @relation(fields: [companyId], references: [id])
+}
+
+model Opportunity {
+  id                 String          @id @default(uuid()) @db.Uuid
+  codeRFQ            String          @unique
+  description        String
+  quantity           Int?
+  unityMetric        String?
+  executionPeriod    DateTime?
+  deadlineSubmission DateTime
+  typeOpportunity    TypeOpportunity
+  isExpired          Boolean         @default(false)
+  companyId          String          @db.Uuid
+  subCategoryId      String          @db.Uuid
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+  attachments        Attachment[]
+  company            Company         @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  subCategory        SubCategory     @relation(fields: [subCategoryId], references: [id])
+  proposals          Proposal[]
+}
+
+model Category {
+  id            String        @id @default(uuid()) @db.Uuid
+  name          String        @unique
+  subcategories SubCategory[]
+}
+
+model SubCategory {
+  id            String        @id @default(uuid()) @db.Uuid
+  name          String
+  categoryId    String        @db.Uuid
+  opportunities Opportunity[]
+  category      Category      @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+}
+
+model Attachment {
+  id            String      @id @default(uuid()) @db.Uuid
+  filePath      String
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  opportunityId String      @db.Uuid
+  opportunity   Opportunity @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
+}
+
+model Proposal {
+  id            String      @id @default(uuid()) @db.Uuid
+  appliedAt     DateTime    @default(now())
+  companyId     String      @db.Uuid
+  updatedAt     DateTime    @updatedAt
+  opportunityId String      @db.Uuid
+  appliedBy     Company     @relation(fields: [companyId], references: [id])
+  opportunity   Opportunity @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
 }
 
 enum PermissionLevel {
@@ -43,83 +115,6 @@ enum Role {
   FORNECEDOR
   AMBOS
 }
-// END MODELS USER
-
-// MODELS COMPANY
-model Company {
-  id                  String   @id @default(uuid()) @db.Uuid
-  name                String
-  companyRegistration String?  @unique
-  isInternational     Boolean  @default(false)
-  about               String?
-  createdAt           DateTime @default(now())
-  updatedAt           DateTime @updatedAt
-
-  users        User[]
-  opportunities Opportunity[]
-  proposals    Proposal[]
-  addresses    Address[]
-}
-// END MODEL COMPANY
-
-// MODEL LOCALIZATION
-model Address {
-  id           String  @id @default(uuid()) @db.Uuid
-  street       String
-  number       String
-  city         String
-  state        String
-  zipCode      String
-  country      String
-  neighborhood String
-  isMatriz     Boolean @default(true)
-
-  companyId String  @db.Uuid
-  company   Company @relation(fields: [companyId], references: [id])
-}
-// END MODEL LOCALIZATION
-
-
-//MODELS OPORTUNITY
-model Opportunity {
-  id                 String    @id @default(uuid()) @db.Uuid
-  codeRFQ            String    @unique
-  description        String
-  quantity           Int?
-  unityMetric        String?
-  executionPeriod    DateTime?
-  deadlineSubmission DateTime
-  typeOpportunity     TypeOpportunity 
-  isExpired          Boolean   @default(false)
-  companyId          String    @db.Uuid
-  subCategoryId      String    @db.Uuid
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  company          Company        @relation(fields: [companyId], references: [id], onDelete: Cascade)
-  subCategory      SubCategory    @relation(fields: [subCategoryId], references: [id])
-  
-
-  attachments Attachment[]
-  proposals    Proposal[]
-}
-model Category {
-  id   String @id @default(uuid()) @db.Uuid
-  name String @unique
-
-  subcategories SubCategory[]
-}
-
-model SubCategory {
-  id   String @id @default(uuid()) @db.Uuid
-  name String
-
-  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-  categoryId String @db.Uuid
-
-  opportunities Opportunity[]
-}
 
 enum TypeOpportunity {
   SERVICO
@@ -127,25 +122,198 @@ enum TypeOpportunity {
   LOCACAO
 }
 
-model Attachment {
-  id   String @id @default(uuid()) @db.Uuid
-  filePath String
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt()
-
-  opportunity   Opportunity @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
-  opportunityId String @db.Uuid
-}
-// END MODEL OPORTUNITY
-
-model Proposal {
-  id        String   @id @default(uuid()) @db.Uuid
-  appliedAt DateTime @default(now())
-  appliedBy Company  @relation(fields: [companyId], references: [id])
-  companyId String @db.Uuid
-  updatedAt DateTime @updatedAt
-
-  opportunity   Opportunity @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
-  opportunityId String @db.Uuid
+enum Country {
+  AF
+  AL
+  DZ
+  AD
+  AO
+  AG
+  AR
+  AM
+  AU
+  AT
+  AZ
+  BS
+  BH
+  BD
+  BB
+  BY
+  BE
+  BZ
+  BJ
+  BT
+  BO
+  BA
+  BW
+  BR
+  BN
+  BG
+  BF
+  BI
+  CV
+  KH
+  CM
+  CA
+  CF
+  TD
+  CL
+  CN
+  CO
+  KM
+  CG
+  CD
+  CR
+  HR
+  CU
+  CY
+  CZ
+  DK
+  DJ
+  DM
+  DO
+  EC
+  EG
+  SV
+  GQ
+  ER
+  EE
+  SZ
+  ET
+  FJ
+  FI
+  FR
+  GA
+  GM
+  GE
+  DE
+  GH
+  GR
+  GD
+  GT
+  GN
+  GW
+  GY
+  HT
+  HN
+  HU
+  IS
+  IN
+  ID
+  IR
+  IQ
+  IE
+  IL
+  IT
+  JM
+  JP
+  JO
+  KZ
+  KE
+  KI
+  KP
+  KR
+  KW
+  KG
+  LA
+  LV
+  LB
+  LS
+  LR
+  LY
+  LI
+  LT
+  LU
+  MG
+  MW
+  MY
+  MV
+  ML
+  MT
+  MH
+  MR
+  MU
+  MX
+  FM
+  MD
+  MC
+  MN
+  ME
+  MA
+  MZ
+  MM
+  NA
+  NR
+  NP
+  NL
+  NZ
+  NI
+  NE
+  NG
+  MK
+  NO
+  OM
+  PK
+  PW
+  PA
+  PG
+  PY
+  PE
+  PH
+  PL
+  PT
+  QA
+  RO
+  RU
+  RW
+  KN
+  LC
+  VC
+  WS
+  SM
+  ST
+  SA
+  SN
+  RS
+  SC
+  SL
+  SG
+  SK
+  SI
+  SB
+  SO
+  ZA
+  SS
+  ES
+  LK
+  SD
+  SR
+  SE
+  CH
+  SY
+  TW
+  TJ
+  TZ
+  TH
+  TL
+  TG
+  TO
+  TT
+  TN
+  TR
+  TM
+  TV
+  UG
+  UA
+  AE
+  GB
+  US
+  UY
+  UZ
+  VU
+  VE
+  VN
+  YE
+  ZM
+  ZW
 }

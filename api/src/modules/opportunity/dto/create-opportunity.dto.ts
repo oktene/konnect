@@ -1,4 +1,4 @@
-import { TypeOpportunity } from "../entities/enums/typeOpportunity.entity";
+import { TypeOpportunity } from "../../../shared/enums/typeOpportunity.enum";
 
 export class CreateOpportunityDto {
   codeRFQ: string;

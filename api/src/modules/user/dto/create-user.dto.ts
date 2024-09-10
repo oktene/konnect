@@ -1,6 +1,6 @@
 import { IsEmail, IsEnum, IsNotEmpty, IsOptional, IsPhoneNumber, IsString, Matches, MaxLength, MinLength } from 'class-validator';
-import { PermissionLevel } from '../entities/enums/permissionLevel.entity';
-import { Role } from '../entities/enums/role.entity';
+import { PermissionLevel } from '../../../shared/enums/permissionLevel.enum';
+import { Role } from '../../../shared/enums/role.enum';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class CreateUserDto {
