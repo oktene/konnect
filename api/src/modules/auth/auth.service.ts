@@ -15,6 +15,7 @@ import { MailerService } from '@nestjs-modules/mailer';
 import { v4 as uuidv4 } from 'uuid';
 import { PermissionLevel } from 'src/shared/enums/permissionLevel.enum';
 import { Role } from 'src/shared/enums/role.enum';
+import { ResponseHandlerService } from 'src/shared/handlers/responseHandler.service';
 
 @Injectable()
 export class AuthService {
@@ -22,7 +23,8 @@ export class AuthService {
     private readonly usersRepo: UserRepository,
     private readonly companiesRepo: CompanyRepository,
     private readonly jwtService: JwtService,
-    private readonly mailerService: MailerService
+    private readonly mailerService: MailerService,
+    private readonly responseHandler: ResponseHandlerService
   ) {}
 
   async signIn(signInDto: SigninDto) {
@@ -69,6 +71,7 @@ export class AuthService {
     });
 
     if (!companyExists) {
+      return this.responseHandler.error(`The company doesn't exist`, 401);
       throw new NotFoundException('A empresa não existe.');
     }
 
@@ -113,7 +116,8 @@ export class AuthService {
     const user = await this.usersRepo.findByEmail(email);
 
     if (!user) {
-      throw new BadRequestException('User not found');
+      this.responseHandler.error('User not found', 401);
+      // throw new BadRequestException('User not found');
     }
 
     const recoveryToken = uuidv4();
