@@ -5,7 +5,8 @@ import { UserRepository } from 'src/shared/database/repositories/users.repositor
 
 @Injectable()
 export class UserService {
-  constructor(private readonly usersRepo: UserRepository) {}
+  constructor(
+    private readonly usersRepo: UserRepository) {}
 
   async getAll() {
     return await this.usersRepo.findAll({});

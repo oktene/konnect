@@ -13,7 +13,6 @@ import { JwtService } from '@nestjs/jwt';
 import { CompanyRepository } from 'src/shared/database/repositories/company.repositories';
 import { MailerService } from '@nestjs-modules/mailer';
 import { v4 as uuidv4 } from 'uuid';
-import * as bcrypt from 'bcrypt';
 import { PermissionLevel } from 'src/shared/enums/permissionLevel.enum';
 import { Role } from 'src/shared/enums/role.enum';
 
@@ -29,24 +28,24 @@ export class AuthService {
   async signIn(signInDto: SigninDto) {
     const { email, password } = signInDto;
 
-    const user = await this.usersRepo.findUnique({
+    const userExists = await this.usersRepo.findUnique({
       where: { email },
     });
 
-    if (!user) {
+    if (!userExists) {
       throw new UnauthorizedException('Usuário não encontrado!');
     }
 
-    const isPasswordValid = await compare(password, user.password);
+    const isPasswordValid = await compare(password, userExists.password);
 
     if (!isPasswordValid) {
       throw new UnauthorizedException('Credenciais inválidas!');
     }
 
     const accessToken = await this.generateAccessToken(
-      user.id,
-      user.permissionLevel as PermissionLevel,
-      user.role as Role,
+      userExists.id,
+      userExists.permissionLevel as PermissionLevel,
+      userExists.role as Role,
     );
 
     return { accessToken };
@@ -132,23 +131,19 @@ export class AuthService {
   }
 
   async resetPassword(token: string, newPassword: string): Promise<void> {
-    const user = await this.usersRepo.findByRecoveryToken(token);
+    const hasUserRecoveryToken = await this.usersRepo.findByRecoveryToken(token);
 
-    if (!user) {
+    if (!hasUserRecoveryToken) {
       throw new BadRequestException('Invalid or expired token');
     }
 
     const hashedPassword = await hash(newPassword, 10);
 
-    await this.usersRepo.updatePassword(user.id, hashedPassword);
+    await this.usersRepo.updatePassword(hasUserRecoveryToken.id, hashedPassword);
   }
 
   //Função para gerar o JWT com as informações do usuário
-  private async generateAccessToken(
-    userId: string,
-    permissionLevel: PermissionLevel,
-    role: Role,
-  ) {
+  private async generateAccessToken(userId: string, permissionLevel: PermissionLevel, role: Role) {
     return await this.jwtService.signAsync({
       sub: userId,
       permissionLevel: permissionLevel,

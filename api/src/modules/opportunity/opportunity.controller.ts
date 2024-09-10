@@ -16,32 +16,32 @@ export class OpportunityController {
   constructor(private readonly opportunityService: OpportunityService) {}
 
   @Post()
-  @ApiOperation({ summary: 'Get all users in the Konnect' })
+  @ApiOperation({ summary: 'Create an opportunity' })
   create(@Body() createOpportunityDto: CreateOpportunityDto) {
     return this.opportunityService.create(createOpportunityDto);
   }
 
   @Get()
-  @ApiOperation({ summary: 'Get all users in the Konnect' })
-  findAll() {
-    return this.opportunityService.findAll();
+  @ApiOperation({ summary: 'Get all opportunities in the Konnect' })
+  getAll() {
+    return this.opportunityService.getAll();
   }
 
   @Get(':id')
-  @ApiOperation({ summary: 'Get all users in the Konnect' })
-  async findOne(@Param('id') id: string) {
-    return await this.opportunityService.findOne(+id);
+  @ApiOperation({ summary: 'Get an specific opportunity in the Konnect' })
+  async getOneById(@Param('id') opportunityId: string) {
+    return await this.opportunityService.getOneById(opportunityId);
   }
 
   @Patch(':id')
-  @ApiOperation({ summary: 'Get all users in the Konnect' })
-  update(@Param('id') id: string, @Body() updateOpportunityDto: UpdateOpportunityDto) {
-    return this.opportunityService.update(+id, updateOpportunityDto);
+  @ApiOperation({ summary: 'Update an opportunity' })
+  update(@Param('id') opportunityId: string, @Body() updateOpportunityDto: UpdateOpportunityDto) {
+    return this.opportunityService.update(opportunityId, updateOpportunityDto);
   }
 
   @Delete(':id')
-  @ApiOperation({ summary: 'Get all users in the Konnect' })
-  remove(@Param('id') id: string) {
-    return this.opportunityService.remove(+id);
+  @ApiOperation({ summary: 'Delete an opportunity' })
+  delete(@Param('id') opportunityId: string) {
+    return this.opportunityService.delete(opportunityId);
   }
 }
