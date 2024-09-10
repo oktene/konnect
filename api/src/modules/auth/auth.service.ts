@@ -110,38 +110,38 @@ export class AuthService {
     return { accessToken };
   }
 
-  async requestPasswordRecovery(email: string): Promise<void> {
-    const user = await this.usersRepo.findByEmail(email);
+  // async requestPasswordRecovery(email: string): Promise<void> {
+  //   const user = await this.usersRepo.findByEmail(email);
 
-    if (!user) {
-      throw new BadRequestException('User not found');
-    }
+  //   if (!user) {
+  //     throw new BadRequestException('User not found');
+  //   }
 
-    const recoveryToken = uuidv4();
-    const recoveryTokenExpires = new Date(Date.now() + 3600000); // Token expira em 1 hora
+  //   const recoveryToken = uuidv4();
+  //   const recoveryTokenExpires = new Date(Date.now() + 3600000); // Token expira em 1 hora
 
-    await this.usersRepo.updateRecoveryToken(email, recoveryToken, recoveryTokenExpires);
+  //   await this.usersRepo.updateRecoveryToken(email, recoveryToken, recoveryTokenExpires);
 
-    const recoveryLink = `http://your-app.com/reset-password?token=${recoveryToken}`;
-    await this.mailerService.sendMail({
-      to: email,
-      subject: 'Password Recovery',
-      template: './recovery',
-      context: { recoveryLink },
-    });
-  }
+  //   const recoveryLink = `http://your-app.com/reset-password?token=${recoveryToken}`;
+  //   await this.mailerService.sendMail({
+  //     to: email,
+  //     subject: 'Password Recovery',
+  //     template: './recovery',
+  //     context: { recoveryLink },
+  //   });
+  // }
 
-  async resetPassword(token: string, newPassword: string): Promise<void> {
-    const user = await this.usersRepo.findByRecoveryToken(token);
+  // async resetPassword(token: string, newPassword: string): Promise<void> {
+  //   const user = await this.usersRepo.findByRecoveryToken(token);
 
-    if (!user) {
-      throw new BadRequestException('Invalid or expired token');
-    }
+  //   if (!user) {
+  //     throw new BadRequestException('Invalid or expired token');
+  //   }
 
-    const hashedPassword = await hash(newPassword, 10);
+  //   const hashedPassword = await hash(newPassword, 10);
 
-    await this.usersRepo.updatePassword(user.id, hashedPassword);
-  }
+  //   await this.usersRepo.updatePassword(user.id, hashedPassword);
+  // }
 
   //Função para gerar o JWT com as informações do usuário
   private async generateAccessToken(

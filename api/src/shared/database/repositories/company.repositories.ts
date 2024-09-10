@@ -23,6 +23,6 @@ export class CompanyRepository {
   }
 
   async delete(deleteDto: Prisma.CompanyDeleteArgs) {
-    return await this.prismaService.company.delete(deleteDto);
+    return await this.prismaService.company.delete(deleteDto)
   }
 }

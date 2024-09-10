@@ -30,36 +30,36 @@ export class UserRepository {
     return this.prismaService.user.findUnique({ where: { email: userEmail } });
   }
 
-  async updateRecoveryToken(userEmail: string, recoveryToken: string, expires: Date) {
-    const updateDto: Prisma.UserUpdateArgs = {
-      where: { email: userEmail },
-      data: {
-        recoveryToken,
-        recoveryTokenExpires: expires,
-      },
-    };
-    return await this.prismaService.user.update(updateDto);
-  }
+  // async updateRecoveryToken(userEmail: string, recoveryToken: string, expires: Date) {
+  //   const updateDto: Prisma.UserUpdateArgs = {
+  //     where: { email: userEmail },
+  //     data: {
+  //       recoveryToken,
+  //       recoveryTokenExpires: expires,
+  //     },
+  //   };
+  //   return await this.prismaService.user.update(updateDto);
+  // }
 
-  async findByRecoveryToken(token: string) {
-    const findDto: Prisma.UserFindFirstArgs = {
-      where: {
-        recoveryToken: token,
-        recoveryTokenExpires: { gt: new Date() },
-      },
-    };
-    return this.prismaService.user.findFirst(findDto);
-  }
+  // async findByRecoveryToken(token: string) {
+  //   const findDto: Prisma.UserFindFirstArgs = {
+  //     where: {
+  //       recoveryToken: token,
+  //       recoveryTokenExpires: { gt: new Date() },
+  //     },
+  //   };
+  //   return this.prismaService.user.findFirst(findDto);
+  // }
 
-  async updatePassword(userId: string, password: string) {
-    const updateDto: Prisma.UserUpdateArgs = {
-      where: { id: userId },
-      data: {
-        password,
-        recoveryToken: null,
-        recoveryTokenExpires: null,
-      },
-    };
-    return await this.prismaService.user.update(updateDto);
-  }
+  // async updatePassword(userId: string, password: string) {
+  //   const updateDto: Prisma.UserUpdateArgs = {
+  //     where: { id: userId },
+  //     data: {
+  //       password,
+  //       recoveryToken: null,
+  //       recoveryTokenExpires: null,
+  //     },
+  //   };
+  //   return await this.prismaService.user.update(updateDto);
+  // }
 }
