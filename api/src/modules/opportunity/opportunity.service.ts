@@ -3,44 +3,26 @@ import { CreateOpportunityDto } from './dto/create-opportunity.dto';
 import { UpdateOpportunityDto } from './dto/update-opportunity.dto';
 import { OpportunityRepository } from 'src/shared/database/repositories/opportunity.repositories';
 import { CompanyRepository } from 'src/shared/database/repositories/company.repositories';
-import { Opportunity } from '@prisma/client';
+import { SubcategoryRepository } from 'src/shared/database/repositories/subcategory.repositories';
 
 @Injectable()
 export class OpportunityService {
   constructor(
     private readonly opportunitiesRepo: OpportunityRepository,
-    private readonly companiesRepo: CompanyRepository
+    private readonly companiesRepo: CompanyRepository,
+    private readonly subcategoriesRepo: SubcategoryRepository
   ) {}
 
   async create(createOpportunityDto: CreateOpportunityDto) {
-    const companyExists = await this.companiesRepo.findUnique({
-      where: {
-        id: createOpportunityDto.companyId
-      },
-    });
-
-    if (!companyExists) {
-      throw new NotFoundException('Empresa inexistente.');
-    }
-
-    return await this.opportunitiesRepo.create({
-      data: {
-        codeRFQ: createOpportunityDto.codeRFQ,
-        description: createOpportunityDto.description,
-        quantity: createOpportunityDto.quantity,
-        unityMetric: createOpportunityDto.unityMetric,
-        executionPeriod: createOpportunityDto.executionPeriod,
-        deadlineSubmission: createOpportunityDto.deadlineSubmission,
-        typeOpportunity: createOpportunityDto.typeOpportunity,
-        isExpired: createOpportunityDto.isExpired,
-        companyId: createOpportunityDto.companyId,
-        subCategoryId: createOpportunityDto.subCategoryId,
-      }
-    });
+    const { companyId, subCategoryId } = createOpportunityDto;
+    
+    await this.verifyIfExists(companyId, subCategoryId);
+    const opportunityData = this.buildOpportunityData(createOpportunityDto);
+    return await this.opportunitiesRepo.create({ data: opportunityData });
   }
 
   getAll() {
-    return this.opportunitiesRepo.findAll;
+    return this.opportunitiesRepo.findAll({});
   }
 
   async getOneById(opportunityId: string) {
@@ -50,20 +32,11 @@ export class OpportunityService {
   }
 
   async update(opportunityId: string, updateOpportunityDto: UpdateOpportunityDto) {
+    const opportunityData = this.buildOpportunityData(updateOpportunityDto);
+
     return await this.opportunitiesRepo.update({
       where: { id: opportunityId },
-      data: {
-        codeRFQ: updateOpportunityDto.codeRFQ,
-        description: updateOpportunityDto.description,
-        quantity: updateOpportunityDto.quantity,
-        unityMetric: updateOpportunityDto.unityMetric,
-        executionPeriod: updateOpportunityDto.executionPeriod,
-        deadlineSubmission: updateOpportunityDto.deadlineSubmission,
-        typeOpportunity: updateOpportunityDto.typeOpportunity,
-        isExpired: updateOpportunityDto.isExpired,
-        companyId: updateOpportunityDto.companyId,
-        subCategoryId: updateOpportunityDto.subCategoryId,
-      }
+      data: opportunityData
     });
   }
 
@@ -71,5 +44,34 @@ export class OpportunityService {
     return await this.opportunitiesRepo.remove({
       where: { id: opportunityId }
     })
+  }
+
+  private async verifyIfExists(companyId: string, subcategoryId: string) {
+    await Promise.all([
+      this.checkExists(this.companiesRepo, companyId, 'Empresa inexistente.'),
+      this.checkExists(this.subcategoriesRepo, subcategoryId, 'Subcategoria inexistente.')
+    ]);
+  }
+  
+  private async checkExists(repo: CompanyRepository | SubcategoryRepository, id: string, errorMessage: string) {
+    const record = await repo.findUnique({ where: { id } });
+    if (!record) {
+      throw new NotFoundException(errorMessage);
+    }
+  }
+  
+  private buildOpportunityData(opportunityDto: CreateOpportunityDto | UpdateOpportunityDto) {
+    return {
+      codeRFQ: opportunityDto.codeRFQ,
+      description: opportunityDto.description,
+      quantity: opportunityDto.quantity,
+      unityMetric: opportunityDto.unityMetric,
+      executionPeriod: opportunityDto.executionPeriod,
+      deadlineSubmission: opportunityDto.deadlineSubmission,
+      typeOpportunity: opportunityDto.typeOpportunity,
+      isExpired: opportunityDto.isExpired,
+      companyId: opportunityDto.companyId,
+      subCategoryId: opportunityDto.subCategoryId,
+    };
   }
 }
