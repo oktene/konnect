@@ -1,6 +1,8 @@
 import { ConflictException, Injectable } from '@nestjs/common';
 import { CreateCompanyDto } from './dto/create-company.dto';
 import { CompanyRepository } from 'src/shared/database/repositories/company.repositories';
+import { UpdateCompanyDto } from './dto/update-company.dto';
+import { UUID } from 'crypto';
 
 @Injectable()
 export class CompanyService {
@@ -28,6 +30,22 @@ export class CompanyService {
 
   async findUnique(companyId: string) {
     return await this.companiesRepo.findUnique({ where: { id: companyId } });
+  }
+
+  async findManyOpportunities(companyId: string) {
+    return await this.companiesRepo.findUnique({ 
+      where: { id: companyId },
+      include: { 
+        opportunities : true
+      }
+    });
+  }
+
+  async update(companyId: UUID, updateCompanyDto: UpdateCompanyDto) {
+    return await this.companiesRepo.update({ 
+      where: { id: companyId },
+      data: updateCompanyDto 
+    });
   }
 
   async delete(companyId: string) {

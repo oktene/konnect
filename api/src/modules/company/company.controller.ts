@@ -11,6 +11,7 @@ import { CompanyService } from './company.service';
 import { CreateCompanyDto } from './dto/create-company.dto';
 import { UpdateCompanyDto } from './dto/update-company.dto';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { UUID } from 'crypto';
 
 @ApiBearerAuth()
 @ApiTags('Company')
@@ -34,6 +35,18 @@ export class CompanyController {
   @ApiOperation({ summary: 'Get a specific company by Id' })
   getOneById(@Param() companyId: string) {
     return this.companyService.findUnique(companyId);
+  }
+
+  @Get(':opportunityId')
+  @ApiOperation({ summary: 'Get all oppportunities of a specific company' })
+  getOpportunitiesByCompany(@Param('companyId') companyId: string) {
+    return this.companyService.findManyOpportunities(companyId);
+  }
+
+  @Patch(':companyId')
+  @ApiOperation({ summary: 'Update a specific company' })
+  update(@Param() companyId: UUID, @Body() updateCompanyDto: UpdateCompanyDto) {
+    return this.companyService.update(companyId, updateCompanyDto);
   }
 
   @Delete(':companyId')

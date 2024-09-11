@@ -18,6 +18,10 @@ export class CompanyRepository {
     return await this.prismaService.company.findMany(findAll);
   }
 
+  async findMany(findMany: Prisma.CompanyFindManyArgs) {
+    return await this.prismaService.company.findMany(findMany);
+  }
+
   async update(updateDto: Prisma.CompanyUpdateArgs) {
     return await this.prismaService.company.update(updateDto);
   }
