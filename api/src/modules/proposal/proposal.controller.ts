@@ -25,18 +25,18 @@ export class ProposalController {
     return this.proposalService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.proposalService.findOne(+id);
+  @Get(':proposalId')
+  findOne(@Param('proposalId') proposalId: string) {
+    return this.proposalService.findOne(proposalId);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateProposalDto: UpdateProposalDto) {
-    return this.proposalService.update(+id, updateProposalDto);
+  @Patch(':proposalId')
+  update(@Param('proposalId') proposalId: string, @Body() updateProposalDto: UpdateProposalDto) {
+    return this.proposalService.update(proposalId, updateProposalDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.proposalService.remove(+id);
+  @Delete(':proposalId')
+  remove(@Param('proposalId') proposalId: string) {
+    return this.proposalService.remove(proposalId);
   }
 }

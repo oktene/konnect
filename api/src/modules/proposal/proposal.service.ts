@@ -1,26 +1,63 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateProposalDto } from './dto/create-proposal.dto';
 import { UpdateProposalDto } from './dto/update-proposal.dto';
+import { ProposalRepository } from 'src/shared/database/repositories/proposal.repositories';
+import { OpportunityRepository } from 'src/shared/database/repositories/opportunity.repositories';
+import { CompanyRepository } from 'src/shared/database/repositories/company.repositories';
 
 @Injectable()
 export class ProposalService {
-  create(createProposalDto: CreateProposalDto) {
-    return 'This action adds a new proposal';
+  constructor(
+    private readonly proposalsRepo: ProposalRepository,
+    private readonly opportunitiesRepo: OpportunityRepository,
+    private readonly companiesRepo: CompanyRepository
+  ) {}
+
+  async create(createProposalDto: CreateProposalDto) {
+    const { companyApplicatorId, opportunityId } = createProposalDto  
+    
+    await this.verifyIfExists(companyApplicatorId, opportunityId);
+    if(this.verifyIfExists) return await this.proposalsRepo.create({ data: createProposalDto })
   }
 
   findAll() {
-    return `This action returns all proposal`;
+    return this.proposalsRepo.findAll({});
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} proposal`;
+  findOne(proposalId: string) {
+    return this.proposalsRepo.findUnique({
+      where: {
+        id: proposalId
+      }
+    });
   }
 
-  update(id: number, updateProposalDto: UpdateProposalDto) {
-    return `This action updates a #${id} proposal`;
+  update(proposalId: string, updateProposalDto: UpdateProposalDto) {
+    return this.proposalsRepo.update({
+      where: { id: proposalId },
+      data: updateProposalDto
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} proposal`;
+  remove(proposalId: string) {
+    return this.proposalsRepo.remove({
+      where: {
+        id: proposalId
+      }
+    });
+  }
+
+  private async verifyIfExists(companyId: string, subcategoryId: string) {
+    await Promise.all([
+      this.checkExists(this.companiesRepo, companyId, 'Empresa inexistente.'),
+      this.checkExists(this.opportunitiesRepo, subcategoryId, 'Subcategoria inexistente.')
+    ]);
+  }
+  
+  private async checkExists(repo: CompanyRepository | OpportunityRepository, id: string, errorMessage: string) {
+    const record = await repo.findUnique({ where: { id } });
+    if (!record) {
+      throw new NotFoundException(errorMessage);
+    }
   }
 }
