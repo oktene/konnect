@@ -29,15 +29,19 @@ export class CategoryService {
     return await this.categoriesRepo.findAll({});
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} category`;
   }
 
-  update(id: number, updateCategoryDto: UpdateCategoryDto) {
-    return `This action updates a #${id} category`;
+  findMany(id: string) {
+    return `This action returns a #${id} category`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} category`;
+  update(categoryId: string, updateCategoryDto: UpdateCategoryDto) {
+    return `This action updates a #${categoryId} category`;
+  }
+
+  remove(categoryId: string) {
+    return `This action removes a #${categoryId} category`;
   }
 }

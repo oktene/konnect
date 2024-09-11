@@ -11,29 +11,38 @@ export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 
   @Post()
-  @ApiOperation({ summary: 'Create a Category' })
+  @ApiOperation({ summary: 'Create a category' })
   async create(@Body() createCategoryDto: CreateCategoryDto) {
     return await this.categoryService.create(createCategoryDto);
   }
 
   @Get()
-  @ApiOperation({ summary: 'Get all companies in the Konnect' })
+  @ApiOperation({ summary: 'Get all categories in the Konnect' })
   getAll() {
     return this.categoryService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.categoryService.findOne(+id);
+  @Get(':categoryId')
+  @ApiOperation({ summary: 'Get a specific category by ID' })
+  getCategoryById(@Param('categoryId') categoryId: string) {
+    return this.categoryService.findOne(categoryId);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCategoryDto: UpdateCategoryDto) {
-    return this.categoryService.update(+id, updateCategoryDto);
+  @Get(':categoryId')
+  @ApiOperation({ summary: 'Get all subcategories of a specific category' })
+  getSubcategoriesByCategory(@Param('categoryId') categoryId: string) {
+    return this.categoryService.findMany(categoryId);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.categoryService.remove(+id);
+  @Patch(':categoryId')
+  @ApiOperation({ summary: 'Update a specific category' })
+  update(@Param('categoryId') categoryId: string, @Body() updateCategoryDto: UpdateCategoryDto) {
+    return this.categoryService.update(categoryId, updateCategoryDto);
+  }
+
+  @Delete(':categoryId')
+  @ApiOperation({ summary: 'Delete a specific category' })
+  remove(@Param('categoryId') categoryId: string) {
+    return this.categoryService.remove(categoryId);
   }
 }
