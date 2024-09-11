@@ -22,25 +22,25 @@ export class SubcategoryController {
     return this.subcategoryService.findAll();
   }
 
-  @Get(':id')
+  @Get(':subcategoryId')
   @ApiOperation({ summary: 'Get a specific subcategory' })
-  getOneById(@Param('id') subcategoryId: string) {
+  getOneById(@Param('subcategoryId') subcategoryId: string) {
     return this.subcategoryService.findOne(subcategoryId);
   }
 
-  @Get(':id')
+  @Get(':subcategoryId')
   @ApiOperation({ summary: 'Get all subcategories specific subcategory' })
-  getSubcategoriesByCategory(@Param('id') categoryId: string) {
-    return this.subcategoryService.findOne(categoryId);
+  getSubcategoriesByCategory(@Param('subcategoryId') subcategoryId: string) {
+    return this.subcategoryService.findOne(subcategoryId);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSubcategoryDto: UpdateSubcategoryDto) {
-    return this.subcategoryService.update(+id, updateSubcategoryDto);
+  @Patch(':subcategoryId')
+  update(@Param('subcategoryId') subcategoryId: string, @Body() updateSubcategoryDto: UpdateSubcategoryDto) {
+    return this.subcategoryService.update(subcategoryId, updateSubcategoryDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.subcategoryService.remove(+id);
+  @Delete(':subcategoryId')
+  remove(@Param('subcategoryId') subcategoryId: string) {
+    return this.subcategoryService.remove(subcategoryId);
   }
 }
