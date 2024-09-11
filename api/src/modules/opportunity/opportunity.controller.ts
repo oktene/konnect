@@ -13,7 +13,9 @@ import { Role as UserRole } from 'src/shared/enums/role.enum';
 @UseGuards(RolesGuard)
 @Roles(UserRole.COMPRADOR || UserRole.AMBOS)
 export class OpportunityController {
-  constructor(private readonly opportunityService: OpportunityService) {}
+  constructor(
+    private readonly opportunityService: OpportunityService,
+  ) {}
 
   @Post()
   @ApiOperation({ summary: 'Create an opportunity' })
@@ -27,21 +29,21 @@ export class OpportunityController {
     return this.opportunityService.getAll();
   }
 
-  @Get(':id')
+  @Get(':opportunityId')
   @ApiOperation({ summary: 'Get an specific opportunity in the Konnect' })
-  async getOneById(@Param('id') opportunityId: string) {
+  async getOneById(@Param('opportunityId') opportunityId: string) {
     return await this.opportunityService.getOneById(opportunityId);
   }
 
-  @Patch(':id')
+  @Patch(':opportunityId')
   @ApiOperation({ summary: 'Update an opportunity' })
-  update(@Param('id') opportunityId: string, @Body() updateOpportunityDto: UpdateOpportunityDto) {
+  update(@Param('opportunityId') opportunityId: string, @Body() updateOpportunityDto: UpdateOpportunityDto) {
     return this.opportunityService.update(opportunityId, updateOpportunityDto);
   }
 
-  @Delete(':id')
+  @Delete(':opportunityId')
   @ApiOperation({ summary: 'Delete an opportunity' })
-  delete(@Param('id') opportunityId: string) {
+  delete(@Param('opportunityId') opportunityId: string) {
     return this.opportunityService.delete(opportunityId);
   }
 }
