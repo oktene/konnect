@@ -8,20 +8,20 @@ export class CategoryService {
   constructor(private readonly categoriesRepo: CategoryRepository){}
 
   async create(createCategoryDto: CreateCategoryDto) {  
-    const { nameCategory } = createCategoryDto;
+    const { name } = createCategoryDto;
 
-    const nameCategoryExists = await this.categoriesRepo.findUnique({
+    const nameExists = await this.categoriesRepo.findUnique({
       where: {
-        name: nameCategory,
+        name: name,
       },
     });
 
-    if (nameCategoryExists) {
+    if (nameExists) {
       throw new ConflictException("Categoria já existe.");
     }
 
     return await this.categoriesRepo.create({
-      data: { name: nameCategory }
+      data: { name: name }
     });
   }
 
@@ -29,19 +29,44 @@ export class CategoryService {
     return await this.categoriesRepo.findAll({});
   }
 
-  findOne(id: string) {
-    return `This action returns a #${id} category`;
+  async getOneById(categoryId: string) {
+    return await this.categoriesRepo.findUnique({
+      where: { id: categoryId }
+    })
   }
 
   findMany(id: string) {
     return `This action returns a #${id} category`;
   }
 
-  update(categoryId: string, updateCategoryDto: UpdateCategoryDto) {
-    return `This action updates a #${categoryId} category`;
+  async update(categoryId: string, updateCategoryDto: UpdateCategoryDto) {
+    // return this.categoriesRepo.update({
+    //   where: { id: categoryId },
+    //   data: updateCategoryDto
+    // });
+
+    const categoryData = this.buildCategoryData(updateCategoryDto);
+
+    return await this.categoriesRepo.update({
+        where: { id: categoryId },
+        data: categoryData
+      });
   }
 
-  remove(categoryId: string) {
-    return `This action removes a #${categoryId} category`;
+  async remove(categoryId: string) {
+    return await this.categoriesRepo.remove({
+      where: {
+        id: categoryId
+      }
+    });
+  }
+
+
+
+
+  private buildCategoryData(categoryDto: CreateCategoryDto | UpdateCategoryDto) {
+    return {
+      name: categoryDto.name
+    };
   }
 }

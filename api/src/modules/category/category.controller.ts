@@ -25,7 +25,7 @@ export class CategoryController {
   @Get(':categoryId')
   @ApiOperation({ summary: 'Get a specific category by ID' })
   getCategoryById(@Param('categoryId') categoryId: string) {
-    return this.categoryService.findOne(categoryId);
+    return this.categoryService.getOneById(categoryId);
   }
 
   @Get(':categoryId')
