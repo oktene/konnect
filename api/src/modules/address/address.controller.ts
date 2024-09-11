@@ -20,18 +20,18 @@ export class AddressController {
     return this.addressService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.addressService.findOne(+id);
+  @Get(':addressId')
+  findOne(@Param('addressId') addressId: string) {
+    return this.addressService.findOne(addressId);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAddressDto: UpdateAddressDto) {
-    return this.addressService.update(+id, updateAddressDto);
+  @Patch(':addressId')
+  update(@Param('addressId') addressId: string, @Body() updateAddressDto: UpdateAddressDto) {
+    return this.addressService.update(addressId, updateAddressDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.addressService.remove(+id);
+  @Delete(':addressId')
+  remove(@Param('addressId') addressId: string) {
+    return this.addressService.remove(addressId);
   }
 }
