@@ -4,10 +4,11 @@ import { OpportunityRepository } from './repositories/opportunity.repositories';
 import { CompanyRepository } from './repositories/company.repositories';
 import { PrismaService } from './prisma.service';
 import { CategoryRepository } from './repositories/category.repositories';
+import { SubcategoryRepository } from './repositories/subcategory.repositories';
 
 @Global()
 @Module({
-  providers: [UserRepository, CompanyRepository, OpportunityRepository, PrismaService],
-  exports: [UserRepository, CompanyRepository, OpportunityRepository, PrismaService],
+  providers: [UserRepository, CompanyRepository, CategoryRepository, SubcategoryRepository, OpportunityRepository, PrismaService],
+  exports: [UserRepository, CompanyRepository, CategoryRepository, SubcategoryRepository, OpportunityRepository, PrismaService],
 })
 export class DatabaseModule {}
