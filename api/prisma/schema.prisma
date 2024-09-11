@@ -64,15 +64,15 @@ model Opportunity {
   isExpired          Boolean         @default(false)
   attachments        Attachment[]
   proposals          Proposal[]
- 
-  companyId          String          @db.Uuid
-  subCategoryId      String          @db.Uuid
-  
-  createdAt          DateTime        @default(now())
-  updatedAt          DateTime        @updatedAt
-  
-  company            Company         @relation(fields: [companyId], references: [id], onDelete: Cascade)
-  subCategory        SubCategory     @relation(fields: [subCategoryId], references: [id])
+
+  companyId     String @db.Uuid
+  subCategoryId String @db.Uuid
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  company     Company     @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  subCategory SubCategory @relation(fields: [subCategoryId], references: [id])
 }
 
 model Category {
@@ -96,16 +96,22 @@ model Attachment {
   updatedAt     DateTime    @updatedAt
   opportunityId String      @db.Uuid
   opportunity   Opportunity @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
+  proposalId    String      @db.Uuid
+  proposal      Proposal    @relation(fields: [proposalId], references: [id], onDelete: Cascade)
 }
 
 model Proposal {
-  id            String      @id @default(uuid()) @db.Uuid
-  appliedAt     DateTime    @default(now())
-  companyId     String      @db.Uuid
-  updatedAt     DateTime    @updatedAt
-  opportunityId String      @db.Uuid
-  appliedBy     Company     @relation(fields: [companyId], references: [id])
-  opportunity   Opportunity @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
+  id        String   @id @default(uuid()) @db.Uuid
+  appliedAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  companyApplicatorId String       @db.Uuid
+  opportunityId       String       @db.Uuid
+  description         String
+  attachments         Attachment[]
+
+  appliedBy   Company     @relation(fields: [companyApplicatorId], references: [id])
+  opportunity Opportunity @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
 }
 
 enum PermissionLevel {
