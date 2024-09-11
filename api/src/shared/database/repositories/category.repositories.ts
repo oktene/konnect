@@ -21,4 +21,8 @@ export class CategoryRepository {
   async update(updateDto: Prisma.CategoryUpdateArgs) {
     return await this.prismaService.category.update(updateDto);
   }
+
+  async delete(deleteDto: Prisma.CategoryDeleteArgs) {
+    return await this.prismaService.category.delete(deleteDto)
+  }
 }

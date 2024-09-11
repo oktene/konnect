@@ -7,9 +7,8 @@ import { CategoryRepository } from '../../shared/database/repositories/category.
 export class CategoryService {
   constructor(private readonly categoriesRepo: CategoryRepository){}
 
-  async create(createCategoryDto: CreateCategoryDto) {
-    
-    const {nameCategory} = createCategoryDto;
+  async create(createCategoryDto: CreateCategoryDto) {  
+    const { nameCategory } = createCategoryDto;
 
     const nameCategoryExists = await this.categoriesRepo.findUnique({
       where: {
@@ -21,8 +20,9 @@ export class CategoryService {
       throw new ConflictException("Categoria já existe.");
     }
 
-
-    return await this.categoriesRepo.create({data: {name: nameCategory}});
+    return await this.categoriesRepo.create({
+      data: { name: nameCategory }
+    });
   }
 
   async findAll() {
