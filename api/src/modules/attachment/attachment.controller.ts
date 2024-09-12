@@ -11,8 +11,8 @@ export class AttachmentController {
   constructor(private readonly attachmentService: AttachmentService) {}
 
   @Post()
-  create(@Body() createAttachmentDto: CreateAttachmentDto) {
-    return this.attachmentService.create(createAttachmentDto);
+  async create(@Body() createAttachmentDto: CreateAttachmentDto) {
+    return await this.attachmentService.create(createAttachmentDto);
   }
 
   @Get(':id')

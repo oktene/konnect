@@ -1,16 +1,31 @@
-import { Injectable, StreamableFile } from '@nestjs/common';
+import { ConflictException, Injectable, StreamableFile } from '@nestjs/common';
 import { CreateAttachmentDto } from './dto/create-attachment.dto';
 import { UpdateAttachmentDto } from './dto/update-attachment.dto';
+import { AttachmentRepository} from '../../shared/database/repositories/attachment.repositories';
 import { createReadStream } from 'fs';
 import { join } from 'path';
 import { Attachment } from '@prisma/client';
 
 @Injectable()
 export class AttachmentService {
-  constructor() {}
+  constructor(private readonly attachmentRepo: AttachmentRepository) {}
 
-  create(createAttachmentDto: CreateAttachmentDto) {
-    return 'This action adds a new attachment';
+  async create(createAttachmentDto: CreateAttachmentDto) {
+    const { filePath, opportunityId, proposalId } = createAttachmentDto;
+
+    const filePathExists = await this.attachmentRepo.findUnique({
+      where: {
+        id: filePath,
+      },
+    });
+
+    if (filePathExists) {
+      throw new ConflictException("Categoria já existe.");
+    }
+
+    return await this.attachmentRepo.create({
+      data: { filePath, opportunityId, proposalId },
+    });
   }
 
   async getFilesByOpportunities(

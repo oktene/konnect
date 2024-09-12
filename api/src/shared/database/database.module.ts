@@ -7,10 +7,11 @@ import { CategoryRepository } from './repositories/category.repositories';
 import { SubcategoryRepository } from './repositories/subcategory.repositories';
 import { AddressModule } from 'src/modules/address/address.module';
 import { ProposalModule } from 'src/modules/proposal/proposal.module';
+import { AttachmentRepository } from './repositories/attachment.repositories';
 
 @Global()
 @Module({
-  providers: [UserRepository, CompanyRepository, CategoryRepository, SubcategoryRepository, OpportunityRepository, AddressModule, ProposalModule, PrismaService],
-  exports: [UserRepository, CompanyRepository, CategoryRepository, SubcategoryRepository, OpportunityRepository, AddressModule, ProposalModule, PrismaService],
+  providers: [UserRepository, CompanyRepository, CategoryRepository, SubcategoryRepository, OpportunityRepository, AddressModule, ProposalModule, PrismaService,AttachmentRepository],
+  exports: [UserRepository, CompanyRepository, CategoryRepository, SubcategoryRepository, OpportunityRepository, AddressModule, ProposalModule, PrismaService,AttachmentRepository],
 })
 export class DatabaseModule {}

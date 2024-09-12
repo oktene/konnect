@@ -12,7 +12,7 @@ export class CategoryService {
 
     const nameExists = await this.categoriesRepo.findUnique({
       where: {
-        name: name,
+        name,
       },
     });
 
@@ -21,7 +21,7 @@ export class CategoryService {
     }
 
     return await this.categoriesRepo.create({
-      data: { name: name }
+      data: { name }
     });
   }
 
@@ -35,15 +35,8 @@ export class CategoryService {
     })
   }
 
-  findMany(id: string) {
-    return `This action returns a #${id} category`;
-  }
-
   async update(categoryId: string, updateCategoryDto: UpdateCategoryDto) {
-    // return this.categoriesRepo.update({
-    //   where: { id: categoryId },
-    //   data: updateCategoryDto
-    // });
+    
 
     const categoryData = this.buildCategoryData(updateCategoryDto);
 

@@ -3,7 +3,8 @@ import { AttachmentService } from './attachment.service';
 import { AttachmentController } from './attachment.controller';
 
 @Module({
+  exports: [AttachmentService],
   controllers: [AttachmentController],
-  providers: [AttachmentService]
+  providers: [AttachmentService],
 })
 export class AttachmentModule {}

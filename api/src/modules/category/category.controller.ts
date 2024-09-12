@@ -28,12 +28,6 @@ export class CategoryController {
     return this.categoryService.getOneById(categoryId);
   }
 
-  @Get(':categoryId')
-  @ApiOperation({ summary: 'Get all subcategories of a specific category' })
-  getSubcategoriesByCategory(@Param('categoryId') categoryId: string) {
-    return this.categoryService.findMany(categoryId);
-  }
-
   @Patch(':categoryId')
   @ApiOperation({ summary: 'Update a specific category' })
   update(@Param('categoryId') categoryId: string, @Body() updateCategoryDto: UpdateCategoryDto) {
