@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Body, Patch, Param, Delete } from '@nestjs/common';
 import { AttachmentService } from './attachment.service';
 import { CreateAttachmentDto } from './dto/create-attachment.dto';
 import { UpdateAttachmentDto } from './dto/update-attachment.dto';
@@ -10,9 +10,9 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 export class AttachmentController {
   constructor(private readonly attachmentService: AttachmentService) {}
 
-  @Post()
-  async create(@Body() createAttachmentDto: CreateAttachmentDto) {
-    return await this.attachmentService.create(createAttachmentDto);
+  @Get()
+  findAll() {
+    return this.attachmentService.getAll();
   }
 
   @Get(':id')
