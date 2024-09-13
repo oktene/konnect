@@ -25,13 +25,7 @@ export class CategoryController {
   @Get(':categoryId')
   @ApiOperation({ summary: 'Get a specific category by ID' })
   getCategoryById(@Param('categoryId') categoryId: string) {
-    return this.categoryService.findOne(categoryId);
-  }
-
-  @Get(':categoryId')
-  @ApiOperation({ summary: 'Get all subcategories of a specific category' })
-  getSubcategoriesByCategory(@Param('categoryId') categoryId: string) {
-    return this.categoryService.findMany(categoryId);
+    return this.categoryService.getOneById(categoryId);
   }
 
   @Patch(':categoryId')

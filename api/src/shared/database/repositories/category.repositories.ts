@@ -22,7 +22,7 @@ export class CategoryRepository {
     return await this.prismaService.category.update(updateDto);
   }
 
-  async delete(deleteDto: Prisma.CategoryDeleteArgs) {
+  async remove(deleteDto: Prisma.CategoryDeleteArgs) {
     return await this.prismaService.category.delete(deleteDto)
   }
 }
