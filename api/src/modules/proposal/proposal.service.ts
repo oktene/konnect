@@ -28,7 +28,8 @@ export class ProposalService {
     return this.proposalsRepo.findUnique({
       where: {
         id: proposalId
-      }
+      },
+      include: { opportunity: true, appliedBy: true, attachments: true }
     });
   }
 

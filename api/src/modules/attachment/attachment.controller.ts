@@ -19,7 +19,12 @@ export class AttachmentController {
   findOne(@Param('id') id: string) {
     return this.attachmentService.getFilesByOpportunities(id);
   }
-
+  
+  // @Get(':id')
+  // findOneByProposal(@Param('id') id: string) {
+  //   return this.attachmentService.getFilesByProposal(id);
+  // }
+  
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateAttachmentDto: UpdateAttachmentDto) {
     return this.attachmentService.update(id, updateAttachmentDto);
