@@ -8,11 +8,14 @@ import {
   Matches,
   MaxLength,
   MinLength,
+  ValidateNested,
 } from 'class-validator';
 
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { PermissionLevel } from 'src/shared/enums/permissionLevel.enum';
 import { Role } from 'src/shared/enums/role.enum';
+import { CreateCompanyDto } from 'src/modules/company/dto/create-company.dto';
+import { Type } from 'class-transformer';
 
 export class SignupDto {
   @IsString({ message: 'O nome precisa ser uma String!' })
@@ -37,13 +40,7 @@ export class SignupDto {
   @ApiPropertyOptional()
   cpf: string;
 
-  //Alterar mensagens de erro
-  @IsString({ message: 'O companyId precisa ser uma String!' })
-  @IsNotEmpty({ message: 'O companyId é obrigatório!' })
-  @IsUUID()
-  @ApiProperty()
-  companyId: string;
-
+  
   @IsString()
   @IsNotEmpty()
   @MinLength(8)
@@ -58,9 +55,18 @@ export class SignupDto {
   @IsEnum(PermissionLevel)
   @ApiProperty({ enum: PermissionLevel })
   permissionLevel: PermissionLevel;
-
+  
   @IsNotEmpty()
   @IsEnum(Role)
   @ApiProperty({ enum: Role })
   role: Role;
+
+  @IsOptional() // Caso o usuário queira associar a um companyId existente
+  @IsString({ message: 'O ID da empresa deve ser uma string.' })
+  companyId?: string;
+
+  @ValidateNested()
+  @Type(() => CreateCompanyDto)
+  @ApiProperty()
+  company: CreateCompanyDto;
 }

@@ -28,8 +28,12 @@ export class CompanyService {
     return await this.companiesRepo.findAll({});
   }
 
-  async findUnique(companyId: string) {
+  async getOneById(companyId: string) {
     return await this.companiesRepo.findUnique({ where: { id: companyId } });
+  }
+
+  async getOneByCompanyRegistration(companyId: string) {
+    return await this.companiesRepo.findUnique({ where: { companyRegistration: companyId } });
   }
 
   async findManyOpportunities(companyId: string) {

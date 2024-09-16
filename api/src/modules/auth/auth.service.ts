@@ -16,6 +16,9 @@ import { v4 as uuidv4 } from 'uuid';
 import { PermissionLevel } from 'src/shared/enums/permissionLevel.enum';
 import { Role } from 'src/shared/enums/role.enum';
 import { ResponseHandlerService } from 'src/shared/handlers/responseHandler.service';
+import { CreateCompanyDto } from '../company/dto/create-company.dto';
+import { UpdateCompanyDto } from '../company/dto/update-company.dto';
+import { Company } from '../company/entities/company.entity';
 
 @Injectable()
 export class AuthService {
@@ -55,7 +58,7 @@ export class AuthService {
 
   async signUp(signUpDto: SignupDto) {
     const {
-      companyId,
+      company,
       email,
       cpf,
       name,
@@ -65,14 +68,25 @@ export class AuthService {
       role,
     } = signUpDto;
 
+    let createdCompany: Company = null;
+
     //Verifica primeiro a existência da empresa
     const companyExists = await this.companiesRepo.findUnique({
-      where: { id: companyId },
+      where: { companyRegistration: company.companyRegistration },
     });
 
-    if (!companyExists) {
-      return this.responseHandler.error(`The company doesn't exist`, 401);
+    if (companyExists) {
+      return this.responseHandler.error(`The company alredy exist`, 401);
       throw new NotFoundException('A empresa não existe.');
+    } else {
+      createdCompany = await this.companiesRepo.create({
+        data: {
+          name: company.name,
+          companyRegistration: company.companyRegistration,
+          isInternational: company.isInternational,
+          about: company.about
+        },
+      });
     }
 
     //Verifica se já existe um usuário com o mesmo email
@@ -97,7 +111,7 @@ export class AuthService {
         permissionLevel,
         phone,
         role,
-        companyId,
+        companyId: createdCompany.id,
         cpf,
       },
     });
