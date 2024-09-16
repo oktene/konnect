@@ -1,12 +1,17 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { CategoryService } from './category.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { PermissionsLevelsGuard } from 'src/shared/guards/permissionLevels.guard';
+import { Permissions } from 'src/shared/decorators/permission.decorator';
+import { PermissionLevel } from 'src/shared/enums/permissionLevel.enum';
 
 @ApiBearerAuth()
 @ApiTags('Category')
 @Controller('category')
+@UseGuards(PermissionsLevelsGuard)
+@Permissions(PermissionLevel.EDITOR)
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 
