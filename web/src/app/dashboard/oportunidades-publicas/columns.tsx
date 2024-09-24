@@ -1,52 +1,9 @@
 "use client";
 
+import { Opportunity } from "@/src/zodSchemas/opportunity";
 import { ColumnDef } from "@tanstack/react-table";
-import { z } from 'zod';
 
-const AttachmentSchema = z.object({
-  id: z.string().uuid(),
-  filename: z.string(),
-  url: z.string().url(),
-});
-
-const ProposalSchema = z.object({
-  id: z.string().uuid(),
-  amount: z.number(),
-  status: z.enum(["pending", "accepted", "rejected"]),
-});
-
-const CompanySchema = z.object({
-  id: z.string().uuid(),
-  name: z.string(),
-});
-
-const SubCategorySchema = z.object({
-  id: z.string().uuid(),
-  name: z.string(),
-});
-
-const TypeOpportunitySchema = z.enum(["service", "product"]);
-
-// Main schema for the table row
-export const OpportunitySchema = z.object({
-    id: z.string(),
-    codeRFQ: z.string(),
-    description: z.string(),
-    quantity: z.number().optional(),
-    unityMetric: z.string().optional(),
-    executionPeriod: z.date().optional(),
-    deadlineSubmission: z.date(),
-    typeOpportunity: z.enum(["Service", "Product"]),
-    isExpired: z.boolean().default(false),
-    attachments: z.array(z.object({ id: z.string(), filename: z.string(), url: z.string().url() })),
-    proposals: z.array(z.object({ id: z.string(), amount: z.number(), status: z.enum(["Pending", "Accepted", "Rejected"]) })),
-    companyId: z.string(),
-    subCategoryId: z.string(),
-  });
-
-export type DataTableRow = z.infer<typeof OpportunitySchema>;
-
-export const columns: ColumnDef<DataTableRow>[] = [
+export const columns: ColumnDef<Opportunity>[] = [
   {
     accessorKey: "codeRFQ",
     header: "RFQ Code",
