@@ -1,16 +1,22 @@
 "use client";
 
-import Header from '@/src/components/layout/Header';
+import AdminPanelLayout from '@/src/components/admin-panel/admin-panel-layout';
 import Sidebar from '@/src/components/layout/Sidebar';
+import { ModeToggle } from '@/src/components/mode-toggle';
+import { ThemeProvider } from 'next-themes';
 import { ReactNode } from 'react';
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   return (
     <div className="flex">
-      <Sidebar />
-      <div className="flex flex-col w-full ">
-        <main className="p-4 ml-580">{children}</main>
-      </div>
+        <AdminPanelLayout children={undefined}/>
+        <div className="flex flex-col w-full ">
+          <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+            <main className="flex flex-col w-full ">
+              {children}
+            </main>
+          </ThemeProvider>
+        </div>
     </div>
   );
 }

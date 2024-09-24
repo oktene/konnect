@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import { cn } from "../lib/utils";
+import { ThemeProvider } from "next-themes";
 
 const poppins = Poppins({
   weight: ["400", "600", "900"],
@@ -22,10 +23,10 @@ export default function RootLayout({
     <html lang="pt-br">
       <body className={
         cn(
-          "min-h-screen bg-background font-sans antialized",
+          "",
           poppins.className
         )}>
-        {children}
+          {children}
       </body>
     </html>
   );
