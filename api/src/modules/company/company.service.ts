@@ -1,26 +1,58 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { CreateCompanyDto } from './dto/create-company.dto';
+import { CompanyRepository } from 'src/shared/database/repositories/company.repositories';
 import { UpdateCompanyDto } from './dto/update-company.dto';
+import { UUID } from 'crypto';
 
 @Injectable()
 export class CompanyService {
-  create(createCompanyDto: CreateCompanyDto) {
-    return 'This action adds a new company';
+  constructor(private readonly companiesRepo: CompanyRepository) {}
+
+  async create(createCompanyDto: CreateCompanyDto) {
+    const { companyRegistration } = createCompanyDto;
+
+    const companyRegistrationExists = await this.companiesRepo.findUnique({
+      where: {
+        companyRegistration: companyRegistration,
+      },
+    });
+
+    if (companyRegistrationExists) {
+      throw new ConflictException('Empresa já cadastrada.');
+    }
+
+    return await this.companiesRepo.create({ data: createCompanyDto });
   }
 
-  findAll() {
-    return `This action returns all company`;
+  async findAll() {
+    return await this.companiesRepo.findAll({});
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} company`;
+  async getOneById(companyId: string) {
+    return await this.companiesRepo.findUnique({ where: { id: companyId } });
   }
 
-  update(id: number, updateCompanyDto: UpdateCompanyDto) {
-    return `This action updates a #${id} company`;
+  async getOneByCompanyRegistration(companyId: string) {
+    return await this.companiesRepo.findUnique({ where: { companyRegistration: companyId } });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} company`;
+  async findManyOpportunities(companyId: string) {
+    return await this.companiesRepo.findUnique({ 
+      where: { id: companyId },
+      include: { 
+        opportunities : true
+      }
+    });
+  }
+
+  async update(companyId: UUID, updateCompanyDto: UpdateCompanyDto) {
+    return await this.companiesRepo.update({ 
+      where: { id: companyId },
+      data: updateCompanyDto 
+    });
+  }
+
+  async delete(companyId: string) {
+    await this.companiesRepo.delete({ where: { id: companyId } });
   }
 }

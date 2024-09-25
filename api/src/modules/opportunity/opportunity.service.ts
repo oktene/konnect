@@ -1,26 +1,77 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateOpportunityDto } from './dto/create-opportunity.dto';
 import { UpdateOpportunityDto } from './dto/update-opportunity.dto';
+import { OpportunityRepository } from 'src/shared/database/repositories/opportunity.repositories';
+import { CompanyRepository } from 'src/shared/database/repositories/company.repositories';
+import { SubcategoryRepository } from 'src/shared/database/repositories/subcategory.repositories';
 
 @Injectable()
 export class OpportunityService {
-  create(createOpportunityDto: CreateOpportunityDto) {
-    return 'This action adds a new opportunity';
+  constructor(
+    private readonly opportunitiesRepo: OpportunityRepository,
+    private readonly companiesRepo: CompanyRepository,
+    private readonly subcategoriesRepo: SubcategoryRepository
+  ) {}
+
+  async create(createOpportunityDto: CreateOpportunityDto) {
+    const { companyId, subCategoryId } = createOpportunityDto;
+    
+    await this.verifyIfExists(companyId, subCategoryId);
+    const opportunityData = this.buildOpportunityData(createOpportunityDto);
+    return await this.opportunitiesRepo.create({ data: opportunityData });
   }
 
-  findAll() {
-    return `This action returns all opportunity`;
+  getAll() {
+    return this.opportunitiesRepo.findAll({});
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} opportunity`;
+  async getOneById(opportunityId: string) {
+    return await this.opportunitiesRepo.findUnique({
+      where: { id: opportunityId }
+    })
   }
 
-  update(id: number, updateOpportunityDto: UpdateOpportunityDto) {
-    return `This action updates a #${id} opportunity`;
+  async update(opportunityId: string, updateOpportunityDto: UpdateOpportunityDto) {
+    const opportunityData = this.buildOpportunityData(updateOpportunityDto);
+
+    return await this.opportunitiesRepo.update({
+      where: { id: opportunityId },
+      data: opportunityData
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} opportunity`;
+  async delete(opportunityId: string) {
+    return await this.opportunitiesRepo.remove({
+      where: { id: opportunityId }
+    })
+  }
+
+  private async verifyIfExists(companyId: string, subcategoryId: string) {
+    await Promise.all([
+      this.checkExists(this.companiesRepo, companyId, 'Empresa inexistente.'),
+      this.checkExists(this.subcategoriesRepo, subcategoryId, 'Subcategoria inexistente.')
+    ]);
+  }
+  
+  private async checkExists(repo: CompanyRepository | SubcategoryRepository, id: string, errorMessage: string) {
+    const record = await repo.findUnique({ where: { id } });
+    if (!record) {
+      throw new NotFoundException(errorMessage);
+    }
+  }
+  
+  private buildOpportunityData(opportunityDto: CreateOpportunityDto | UpdateOpportunityDto) {
+    return {
+      codeRFQ: opportunityDto.codeRFQ,
+      description: opportunityDto.description,
+      quantity: opportunityDto.quantity,
+      unityMetric: opportunityDto.unityMetric,
+      executionPeriod: opportunityDto.executionPeriod,
+      deadlineSubmission: opportunityDto.deadlineSubmission,
+      typeOpportunity: opportunityDto.typeOpportunity,
+      isExpired: opportunityDto.isExpired,
+      companyId: opportunityDto.companyId,
+      subCategoryId: opportunityDto.subCategoryId,
+    };
   }
 }

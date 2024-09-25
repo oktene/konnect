@@ -1,0 +1,5 @@
+export enum PermissionLevel {
+  ADMIN = 'ADMIN',
+  USER = 'USER',
+  EDITOR = 'EDITOR'
+}

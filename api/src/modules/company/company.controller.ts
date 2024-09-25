@@ -1,36 +1,68 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { CompanyService } from './company.service';
 import { CreateCompanyDto } from './dto/create-company.dto';
 import { UpdateCompanyDto } from './dto/update-company.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { UUID } from 'crypto';
 
 @ApiTags('Company')
 @Controller('company')
 export class CompanyController {
   constructor(private readonly companyService: CompanyService) {}
 
-  @Post()
-  create(@Body() createCompanyDto: CreateCompanyDto) {
-    return this.companyService.create(createCompanyDto);
-  }
+  // @Post()
+  // @ApiOperation({ summary: 'Create a Company' })
+  // async create(@Body() createCompanyDto: CreateCompanyDto) {
+  //   return await this.companyService.create(createCompanyDto);
+  // }
 
   @Get()
-  findAll() {
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Get all companies in the Konnect' })
+  getAll() {
     return this.companyService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.companyService.findOne(+id);
+  @Get(':companyId')
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Get a specific company by Id' })
+  getOneById(@Param() companyId: string) {
+    return this.companyService.getOneById(companyId);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCompanyDto: UpdateCompanyDto) {
-    return this.companyService.update(+id, updateCompanyDto);
+  @Get(':companyId')
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Get a specific company by Company Registration' })
+  getOneByCompanyRegistration(@Param() companyRegistration: string) {
+    return this.companyService.getOneByCompanyRegistration(companyRegistration);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.companyService.remove(+id);
+  @Get(':opportunityId')
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Get all oppportunities of a specific company' })
+  getOpportunitiesByCompany(@Param('companyId') companyId: string) {
+    return this.companyService.findManyOpportunities(companyId);
+  }
+
+  @Patch(':companyId')
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Update a specific company' })
+  update(@Param() companyId: UUID, @Body() updateCompanyDto: UpdateCompanyDto) {
+    return this.companyService.update(companyId, updateCompanyDto);
+  }
+
+  @Delete(':companyId')
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Delete a specific company' })
+  delete(@Param() companyId: string) {
+    return this.companyService.delete(companyId);
   }
 }
