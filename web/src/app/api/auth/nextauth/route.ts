@@ -18,7 +18,7 @@ const authHandler = NextAuth({
 
                 try {
                     // Enviar credenciais para sua API de autenticação
-                    const response = await fetch(`process.env.API_BASE_URL/auth/sign-in`, {
+                    const response = await fetch(`process.env.API_BASE_URL/sign-in`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
