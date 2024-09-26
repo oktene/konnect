@@ -19,7 +19,15 @@ import { TableCell } from "@/components/ui/table";
 import { Opportunity } from "@/zodSchemas/opportunity";
 import { Separator } from "@radix-ui/react-dropdown-menu";
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, ChevronLeft, ChevronRight, EyeIcon, MoreHorizontal, PencilIcon, Trash2Icon } from "lucide-react";
+import {
+   ArrowUpDown,
+   ChevronLeft,
+   ChevronRight,
+   EyeIcon,
+   MoreHorizontal,
+   PencilIcon,
+   Trash2Icon,
+} from "lucide-react";
 import { useState } from "react";
 
 export const columns: ColumnDef<Opportunity>[] = [
@@ -45,16 +53,6 @@ export const columns: ColumnDef<Opportunity>[] = [
       cell: ({ row }) => <div>{row.getValue("description")}</div>,
       enableSorting: true,
       enableHiding: false,
-   },
-   {
-      accessorKey: "quantity",
-      header: "Quantity",
-      cell: ({ getValue }) => getValue() ?? "N/A", // Handling optional field
-   },
-   {
-      accessorKey: "unityMetric",
-      header: "Unit Metric",
-      cell: ({ getValue }) => getValue() ?? "N/A", // Handling optional field
    },
    {
       accessorKey: "executionPeriod",
@@ -94,6 +92,16 @@ export const columns: ColumnDef<Opportunity>[] = [
 
          return (
             <>
+               <Button
+                  className="h-8 w-8 p-0"
+                  aria-haspopup="true"
+                  size="icon"
+                  variant="ghost"
+                  onClick={handleVisualizarClick}
+               >
+                  <EyeIcon className="h-4 w-4" />
+                  <span className="sr-only">Visualizar oportunidade</span>
+               </Button>
                <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                      <Button
@@ -111,15 +119,15 @@ export const columns: ColumnDef<Opportunity>[] = [
                         className="hover:cursor-pointer"
                         onClick={handleVisualizarClick}
                      >
-                        <EyeIcon className="h-2 w-2 pr-2" />
+                        <EyeIcon className="h-3 mr-2" />
                         Visualizar
                      </DropdownMenuItem>
                      <DropdownMenuItem className="hover:cursor-pointer">
-                        <PencilIcon className="h-2 w-2 pr-2" /> 
+                        <PencilIcon className="h-3 mr-2" />
                         Editar
                      </DropdownMenuItem>
                      <DropdownMenuItem className="hover:cursor-pointer">
-                        <Trash2Icon className="h-2 w-2 pr-2" />
+                        <Trash2Icon className="h-3 mr-2" />
                         Deletar
                      </DropdownMenuItem>
                   </DropdownMenuContent>
@@ -141,11 +149,13 @@ export const columns: ColumnDef<Opportunity>[] = [
                         <p>Detalhe 2: Mais informações...</p>
                      </DialogHeader>
                      <DialogFooter>
-                        <Button className="h-8 ph-2 pw-4" size="lg" variant="default">
+                        <Button
+                           className="h-8 ph-2 pw-2"
+                           size="lg"
+                           variant="default"
+                        >
                            Aplicar proposta
-                           <ChevronRight
-                              className="h-4 w-4 "
-                           />
+                           <ChevronRight className="h-4 w-4 " />
                         </Button>
                      </DialogFooter>
                   </DialogContent>

@@ -40,12 +40,12 @@ async function getData(): Promise<Opportunity[]> {
     ];
   }
 
-const OportunidadesPublicas = async () => {
+const MinhasOportunidades = async () => {
     const data = await getData()
 
    return (
       <ContentLayout title="Konnect">
-         <Breadcrumb>
+         {/* <Breadcrumb>
             <BreadcrumbList>
                <BreadcrumbItem>
                   <BreadcrumbLink asChild>
@@ -57,10 +57,10 @@ const OportunidadesPublicas = async () => {
                   <BreadcrumbPage>Oportunidades Públicas</BreadcrumbPage>
                </BreadcrumbItem>
             </BreadcrumbList>
-         </Breadcrumb>
+         </Breadcrumb> */}
          <main>
             <div className="mt-2">
-                  <p className="text-zinc-900 text-lg">Oportunidades Públicas</p>
+                  <p className="text-zinc-900 text-lg">Minhas Oportunidades</p>
             </div>
             <div>
                   {/* <DataTable columns={null} data={data} /> */}
@@ -70,4 +70,4 @@ const OportunidadesPublicas = async () => {
    );
 };
 
-export default OportunidadesPublicas;
+export default MinhasOportunidades;
