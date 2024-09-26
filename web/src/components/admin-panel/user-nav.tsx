@@ -25,7 +25,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 export function UserNav() {
   return (
     <DropdownMenu>
-      <TooltipProvider disableHoverableContent>
+      <TooltipProvider >
         <Tooltip delayDuration={100}>
           <TooltipTrigger asChild>
             <DropdownMenuTrigger asChild>
@@ -35,19 +35,22 @@ export function UserNav() {
               >
                 <Avatar className="h-8 w-8">
                   <AvatarImage src="#" alt="Avatar" />
-                  <AvatarFallback className="bg-transparent">JD</AvatarFallback>
+                  <AvatarFallback className="bg-transparent">LF</AvatarFallback>
                 </Avatar>
               </Button>
             </DropdownMenuTrigger>
           </TooltipTrigger>
-          <TooltipContent side="bottom">Profile</TooltipContent>
+          <TooltipContent side="bottom">Minha conta</TooltipContent>
         </Tooltip>
       </TooltipProvider>
 
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">Lucas França</p>
+            <p className="text-sm font-semibold leading-none">Oktene</p>
+            <p className="text-xs leading-none text-muted-foreground">
+              Lucas França
+            </p>
             <p className="text-xs leading-none text-muted-foreground">
               lucasfranca@oktene.com.br
             </p>
@@ -64,7 +67,7 @@ export function UserNav() {
           <DropdownMenuItem className="hover:cursor-pointer" asChild>
             <Link href="/account" className="flex items-center">
               <User className="w-4 h-4 mr-3 text-muted-foreground" />
-              Account
+              Meu Perfil
             </Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>

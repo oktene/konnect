@@ -2,7 +2,7 @@ import Link from "next/link";
 import { MenuIcon, PanelsTopLeft } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { Menu } from "@/src/components/admin-panel/menu";
+import { Menu } from "@/components/admin-panel/menu";
 import {
   Sheet,
   SheetHeader,
@@ -22,13 +22,12 @@ export function SheetMenu() {
       <SheetContent className="sm:w-72 px-3 h-full flex flex-col" side="left">
         <SheetHeader>
           <Button
-            className="flex justify-center items-center pb-2 pt-1"
+            className="flex justify-start items-start pb-2 pt-1"
             variant="link"
             asChild
           >
-            <Link href="/dashboard" className="flex items-center gap-2">
-              <PanelsTopLeft className="w-6 h-6 mr-1" />
-              <SheetTitle className="font-bold text-lg">Brand</SheetTitle>
+            <Link href="/dashboard" className="flex items-start gap-2">
+              <SheetTitle className="font-medium text-lg">Konnect</SheetTitle>
             </Link>
           </Button>
         </SheetHeader>

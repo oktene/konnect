@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { PanelsTopLeft } from "lucide-react";
 
-import { cn } from "@/src/lib/utils";
-import { useStore } from "@/src/hooks/use-store";
-import { Button } from "@/src/components/ui/button";
-import { Menu } from "@/src/components/admin-panel/menu";
-import { useSidebarToggle } from "@/src/hooks/use-sidebar-toggle";
-import { SidebarToggle } from "@/src/components/admin-panel/sidebar-toggle";
+import { cn } from "@/lib/utils";
+import { useStore } from "@/hooks/use-store";
+import { Button } from "@/components/ui/button";
+import { Menu } from "@/components/admin-panel/menu";
+import { useSidebarToggle } from "@/hooks/use-sidebar-toggle";
+import { SidebarToggle } from "@/components/admin-panel/sidebar-toggle";
 
 export function Sidebar() {
   const sidebar = useStore(useSidebarToggle, (state) => state);
@@ -21,7 +21,7 @@ export function Sidebar() {
       )}
     >
       <SidebarToggle isOpen={sidebar?.isOpen} setIsOpen={sidebar?.setIsOpen} />
-      <div className="relative h-full flex flex-col px-3 py-4 overflow-y-auto shadow-md dark:shadow-zinc-800">
+      <div className="relative h-full flex flex-col px-3 py-4 overflow-y-auto shadow-md dark:bg-orange-500 ">
         <Button
           className={cn(
             "transition-transform ease-in-out duration-300 mb-1",
@@ -32,7 +32,7 @@ export function Sidebar() {
         >
           <Link href="/dashboard" className="flex items-center gap-2">
             <PanelsTopLeft className="w-6 h-6 mr-1" />
-              <img src="public/logo.png" alt="" />
+              <img src="web/public/logo.png" alt="" />
             <h1
               className={cn(
                 "font-bold text-lg whitespace-nowrap transition-[transform,opacity,display] ease-in-out duration-300",
@@ -41,7 +41,7 @@ export function Sidebar() {
                   : "translate-x-0 opacity-100"
               )}
             >
-              Brand
+              Konnect
             </h1>
           </Link>
         </Button>

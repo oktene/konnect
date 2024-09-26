@@ -74,14 +74,22 @@ export function DataTable<TData, TValue>({
                      <TableRow key={headerGroup.id}>
                         {headerGroup.headers.map((header) => {
                            return (
-                              <TableHead key={header.id}>
-                                 {header.isPlaceholder
-                                    ? null
-                                    : flexRender(
-                                         header.column.columnDef.header,
-                                         header.getContext()
-                                      )}
-                              </TableHead>
+                              <>
+                                 <TableHead
+                                    key={header.id}
+                                    className="hidden w-[100px] sm:table-cell"
+                                 >
+                                    {header.isPlaceholder
+                                       ? null
+                                       : flexRender(
+                                            header.column.columnDef.header,
+                                            header.getContext()
+                                         )}
+                                 </TableHead>
+                                 <TableHead>
+                                    <span className="sr-only">Actions</span>
+                                 </TableHead>
+                              </>
                            );
                         })}
                      </TableRow>

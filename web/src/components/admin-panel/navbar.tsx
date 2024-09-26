@@ -1,7 +1,7 @@
-// import { ModeToggle } from "@/src/components/mode-toggle";
-import { UserNav } from "@/src/components/admin-panel/user-nav";
-import { SheetMenu } from "@/src/components/admin-panel/sheet-menu";
+import { UserNav } from "@/components/admin-panel/user-nav";
+import { SheetMenu } from "@/components/admin-panel/sheet-menu";
 import { ModeToggle } from "../mode-toggle";
+import { LanguageToggle } from "../language-toggle";
 
 interface NavbarProps {
   title: string;
@@ -16,6 +16,7 @@ export function Navbar({ title }: NavbarProps) {
           <h1 className="font-bold">{title}</h1>
         </div>
         <div className="flex flex-1 items-center justify-end">
+          <LanguageToggle />
           <ModeToggle />
           <UserNav />
         </div>

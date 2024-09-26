@@ -6,6 +6,7 @@ import {
    SquarePen,
    LayoutGrid,
    LucideIcon,
+   BookOpen,
 } from "lucide-react";
 
 type Submenu = {
@@ -42,56 +43,62 @@ export function getMenuList(pathname: string): Group[] {
          ],
       },
       {
-         groupLabel: "COMPRADORES",
+         groupLabel: "Fonecedores",
          menus: [
             {
-               href: "",
+               href: "/fornecedores/oportunidades-publicas",
                label: "Oportunidades Públicas",
                active: pathname.includes("/oportunidades-publicas"),
-               icon: SquarePen,
-               submenus: [
-                  {
-                     href: "/posts",
-                     label: "All Posts",
-                     active: pathname === "/posts",
-                  },
-                  {
-                     href: "/posts/new",
-                     label: "New Post",
-                     active: pathname === "/posts/new",
-                  },
-               ],
-            },
-            {
-               href: "/categories",
-               label: "Categories",
-               active: pathname.includes("/categories"),
-               icon: Bookmark,
+               icon: BookOpen,
                submenus: [],
             },
             {
-               href: "/tags",
-               label: "Tags",
-               active: pathname.includes("/tags"),
-               icon: Tag,
+               href: "/fornecedores/minhas-oportunidades",
+               label: "Minhas Oportunidades",
+               active: pathname.includes("/minhas-oportunidades"),
+               icon: Bookmark,
                submenus: [],
             },
          ],
       },
       {
-         groupLabel: "Settings",
+         groupLabel: "Contratantes",
          menus: [
             {
-               href: "/dashboard/perfil",
+               href: "/contratantes/minhas-demandas",
+               label: "Minhas Demandas",
+               active: pathname.includes("/minhas-demandas"),
+               icon: SquarePen,
+               submenus: [],
+            },
+         ],
+      },
+      {
+         groupLabel: "Empresas",
+         menus: [
+            {
+               href: "/empresas/empresas-cadastradas",
+               label: "Empresas Cadastradas",
+               active: pathname.includes("/empresas-cadastradas"),
+               icon: SquarePen,
+               submenus: [],
+            },
+         ],
+      },
+      {
+         groupLabel: "Configurações",
+         menus: [
+            {
+               href: "/perfil",
                label: "Meu Perfil",
                active: pathname.includes("/perfil"),
                icon: Users,
                submenus: [],
             },
             {
-               href: "/account",
-               label: "Account",
-               active: pathname.includes("/account"),
+               href: "/configuracoes",
+               label: "Configurações",
+               active: pathname.includes("/configuracoes"),
                icon: Settings,
                submenus: [],
             },
