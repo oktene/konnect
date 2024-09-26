@@ -2,8 +2,8 @@ import axios from 'axios';
 
 // Crie uma instância do Axios com a URL base da API
 export const apiClient = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL,  // Defina a URL base da API via variáveis de ambiente
-  timeout: 10000,                            // Tempo limite para requisições
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
+  timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
   },

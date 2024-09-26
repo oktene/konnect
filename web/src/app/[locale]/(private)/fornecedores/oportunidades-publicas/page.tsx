@@ -17,7 +17,6 @@ import Loading from "@/app/[locale]/loading";
 import Skeleton from "react-loading-skeleton";
 
 async function getData(): Promise<Opportunity[]> {
-   // Retorne dados fictícios de exemplo correspondendo ao esquema Opportunity
    return [
       {
          id: "728ed52f",
@@ -697,6 +696,33 @@ async function getData(): Promise<Opportunity[]> {
       {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
+         description: "Supply of drilling equipment",
+         quantity: 10,
+         unityMetric: "pieces",
+         executionPeriod: new Date("2024-12-31"),
+         deadlineSubmission: new Date("2024-11-01"),
+         typeOpportunity: "Service",
+         isExpired: false,
+         attachments: [
+            {
+               id: "att1",
+               filename: "specifications.pdf",
+               url: "https://example.com/specifications.pdf",
+            },
+         ],
+         proposals: [
+            {
+               id: "prop1",
+               amount: 1500,
+               status: "Pending",
+            },
+         ],
+         companyId: "company123",
+         subCategoryId: "subCat456",
+      },
+      {
+         id: "728ed52f",
+         codeRFQ: "RFQ1234567",
          description: "Supply of drilling equipment",
          quantity: 10,
          unityMetric: "pieces",

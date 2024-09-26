@@ -1,5 +1,5 @@
-import { apiClient } from './apiClient';
-import { Company } from '@/src/zodSchemas/company';
+import { apiClient } from '../apiClient';
+import { Company } from '@/zodSchemas/company';
 
 export const companyService = {
   // Buscar todas as empresas
