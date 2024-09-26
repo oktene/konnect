@@ -57,12 +57,16 @@ export function DataTable<TData, TValue>({
       <div>
          <div className="flex items-center py-4">
             <Input
-               placeholder="Filter REFQ Code..."
+               placeholder="Filtre pela descrição ou Código RFQ..."
                value={
-                  (table.getColumn("codeRFQ")?.getFilterValue() as string) ?? ""
+                  (table
+                     .getColumn("codeRFQ" || "description")
+                     ?.getFilterValue() as string) ?? ""
                }
                onChange={(event) =>
-                  table.getColumn("codeRFQ")?.setFilterValue(event.target.value)
+                  table
+                     .getColumn("codeRFQ" || "description")
+                     ?.setFilterValue(event.target.value)
                }
                className="max-w-sm"
             />
@@ -74,22 +78,17 @@ export function DataTable<TData, TValue>({
                      <TableRow key={headerGroup.id}>
                         {headerGroup.headers.map((header) => {
                            return (
-                              <>
-                                 <TableHead
-                                    key={header.id}
-                                    className="hidden w-[100px] sm:table-cell"
-                                 >
-                                    {header.isPlaceholder
-                                       ? null
-                                       : flexRender(
-                                            header.column.columnDef.header,
-                                            header.getContext()
-                                         )}
-                                 </TableHead>
-                                 <TableHead>
-                                    <span className="sr-only">Actions</span>
-                                 </TableHead>
-                              </>
+                              <TableHead
+                                 key={header.id}
+                                 className="hidden w-[100px] sm:table-cell"
+                              >
+                                 {header.isPlaceholder
+                                    ? null
+                                    : flexRender(
+                                         header.column.columnDef.header,
+                                         header.getContext()
+                                      )}
+                              </TableHead>
                            );
                         })}
                      </TableRow>
@@ -118,7 +117,7 @@ export function DataTable<TData, TValue>({
                            colSpan={columns.length}
                            className="h-24 text-center"
                         >
-                           No results.
+                           Sem resultados.
                         </TableCell>
                      </TableRow>
                   )}

@@ -43,7 +43,7 @@ export function getMenuList(pathname: string): Group[] {
          ],
       },
       {
-         groupLabel: "Fonecedores",
+         groupLabel: "FORNECEDORES",
          menus: [
             {
                href: "/fornecedores/oportunidades-publicas",
@@ -62,7 +62,7 @@ export function getMenuList(pathname: string): Group[] {
          ],
       },
       {
-         groupLabel: "Contratantes",
+         groupLabel: "CONTRATATNTES",
          menus: [
             {
                href: "/contratantes/minhas-demandas",
@@ -74,7 +74,7 @@ export function getMenuList(pathname: string): Group[] {
          ],
       },
       {
-         groupLabel: "Empresas",
+         groupLabel: "EMPRESAS",
          menus: [
             {
                href: "/empresas/empresas-cadastradas",
@@ -86,7 +86,7 @@ export function getMenuList(pathname: string): Group[] {
          ],
       },
       {
-         groupLabel: "Configurações",
+         groupLabel: "CONFIGURAÇÕES",
          menus: [
             {
                href: "/perfil",
