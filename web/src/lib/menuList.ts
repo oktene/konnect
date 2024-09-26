@@ -62,7 +62,7 @@ export function getMenuList(pathname: string): Group[] {
          ],
       },
       {
-         groupLabel: "CONTRATATNTES",
+         groupLabel: "CONTRATANTES",
          menus: [
             {
                href: "/contratantes/minhas-demandas",
