@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { DataTablePagination } from "@/components/ui/data-table-pagination";
 
 interface DataTableProps<TData, TValue> {
    columns: ColumnDef<TData, TValue>[];
@@ -120,7 +121,7 @@ export function DataTable<TData, TValue>({
                </TableBody>
             </Table>
          </div>
-         <div className="flex items-center justify-end space-x-2 py-4">
+         {/* <div className="flex items-center justify-end space-x-2 py-4">
             <div className="flex-1 text-sm text-muted-foreground">
                Mostrando {table.getPageOptions().length} of{" "}
                {table.getFilteredRowModel().rows.length} dado(s).
@@ -143,7 +144,8 @@ export function DataTable<TData, TValue>({
                   Próximo
                </Button>
             </div>
-         </div>
+         </div> */}
+         <DataTablePagination table={table} />
       </div>
    );
 }

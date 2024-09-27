@@ -76,10 +76,6 @@ export const columns: ColumnDef<Opportunity>[] = [
       header: "Tipo",
    },
    {
-      accessorKey: "company",
-      header: "Empresa",
-   },
-   {
       accessorKey: "subCategory",
       header: "Categoria",
    },
@@ -107,7 +103,7 @@ export const columns: ColumnDef<Opportunity>[] = [
 
          return (
             <>
-               <Button
+               {/* <Button
                   className="h-full w-85vw pw-2 ph-1"
                   aria-haspopup="true"
                   size="default"
@@ -117,8 +113,8 @@ export const columns: ColumnDef<Opportunity>[] = [
                   <EyeIcon className="h-4 w-4 mr-2"/> 
                   Visualizar
                   <span className="sr-only">Visualizar oportunidade</span>
-               </Button>
-               {/* <DropdownMenu>
+               </Button> */}
+               <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                      <Button
                         className="h-8 w-8 p-0"
@@ -147,7 +143,7 @@ export const columns: ColumnDef<Opportunity>[] = [
                         Deletar
                      </DropdownMenuItem>
                   </DropdownMenuContent>
-               </DropdownMenu> */}
+               </DropdownMenu>
 
                <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                   <DialogContent>

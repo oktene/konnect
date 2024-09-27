@@ -4,11 +4,9 @@ export const OpportunitySchema = z.object({
    id: z.string(),
    codeRFQ: z.string(),
    description: z.string(),
-   quantity: z.number().optional(),
-   unityMetric: z.string().optional(),
    executionPeriod: z.date().optional(),
    deadlineSubmission: z.date(),
-   typeOpportunity: z.enum(["Service", "Product"]),
+   typeOpportunity: z.enum(["Serviço", "Material"]),
    isExpired: z.boolean().default(false),
    attachments: z.array(
       z.object({ id: z.string(), filename: z.string(), url: z.string().url() })
@@ -20,8 +18,8 @@ export const OpportunitySchema = z.object({
          status: z.enum(["Pending", "Accepted", "Rejected"]),
       })
    ),
-   companyId: z.string(),
-   subCategoryId: z.string(),
+   company: z.string().optional(),
+   subCategory: z.string(),
 });
 
 export type Opportunity = z.infer<typeof OpportunitySchema>;

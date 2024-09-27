@@ -2,7 +2,7 @@ import { ContentLayout } from "@/components/admin-panel/content-layout";
 import { Link, PlusCircle } from "lucide-react";
 
 import { columns } from "./columns";
-import { DataTable } from "@/components/ui/data-table";
+
 import {
    Breadcrumb,
    BreadcrumbItem,
@@ -16,6 +16,7 @@ import React, { Suspense } from "react";
 import Loading from "@/app/[locale]/loading";
 import Skeleton from "react-loading-skeleton";
 import { Button } from "@/components/ui/button";
+import { DataTable } from "./data-table";
 
 async function getData(): Promise<Opportunity[]> {
    return [
@@ -23,11 +24,9 @@ async function getData(): Promise<Opportunity[]> {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -43,18 +42,16 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "company123",
+         subCategory: "subCat456",
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -70,18 +67,16 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "company123",
+         subCategory: "subCat456",
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -97,18 +92,16 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "company123",
+         subCategory: "subCat456",
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -124,18 +117,16 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "company123",
+         subCategory: "subCat456",
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -151,18 +142,16 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "company123",
+         subCategory: "subCat456",
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -178,18 +167,16 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "company123",
+         subCategory: "subCat456",
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -205,18 +192,16 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "company123",
+         subCategory: "subCat456",
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -232,18 +217,16 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "company123",
+         subCategory: "subCat456",
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -259,18 +242,16 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "company123",
+         subCategory: "subCat456",
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -286,18 +267,16 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "company123",
+         subCategory: "subCat456",
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -313,18 +292,16 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "company123",
+         subCategory: "subCat456",
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -340,18 +317,16 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "company123",
+         subCategory: "subCat456",
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -367,18 +342,16 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "company123",
+         subCategory: "subCat456",
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -394,18 +367,16 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "company123",
+         subCategory: "subCat456",
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -421,18 +392,16 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "company123",
+         subCategory: "subCat456",
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -448,18 +417,16 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "company123",
+         subCategory: "subCat456",
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -475,18 +442,16 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "company123",
+         subCategory: "subCat456",
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -502,18 +467,16 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "company123",
+         subCategory: "subCat456",
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -529,18 +492,16 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "company123",
+         subCategory: "subCat456",
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -556,18 +517,16 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "company123",
+         subCategory: "subCat456",
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -583,18 +542,16 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "company123",
+         subCategory: "subCat456",
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -610,18 +567,16 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "company123",
+         subCategory: "subCat456",
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -637,18 +592,16 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "company123",
+         subCategory: "subCat456",
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -664,18 +617,16 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "company123",
+         subCategory: "subCat456",
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -691,18 +642,16 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "company123",
+         subCategory: "subCat456",
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -718,18 +667,16 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "company123",
+         subCategory: "subCat456",
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ1234567",
          description: "Drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -745,8 +692,8 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "company123",
+         subCategory: "subCat456",
       },
    ];
 }
@@ -756,19 +703,6 @@ const OportunidadesPublicas = async () => {
 
    return (
       <ContentLayout title="Konnect">
-         {/* <Breadcrumb>
-            <BreadcrumbList>
-               <BreadcrumbItem>
-                  <BreadcrumbLink asChild>
-                     <Link href="/">Home</Link>
-                  </BreadcrumbLink>
-               </BreadcrumbItem>
-               <BreadcrumbSeparator />
-               <BreadcrumbItem>
-                  <BreadcrumbPage>Oportunidades Públicas</BreadcrumbPage>
-               </BreadcrumbItem>
-            </BreadcrumbList>
-         </Breadcrumb> */}
          <main>
             <div className="mt-2">
                <p className="text-zinc-900 text-lg">
