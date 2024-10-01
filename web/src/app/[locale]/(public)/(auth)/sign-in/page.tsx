@@ -23,13 +23,14 @@ const SignIn: React.FC = () => {
    };
 
    return (
-      <div className="w-full h-screen lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
+      <div className="w-full h-screen lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px] overflow-y-hidden">
          <div className="flex items-center justify-center h-screen">
             <div className="mx-auto grid w-[350px] gap-6">
                <div className="grid gap-2 text-center">
                   <h1 className="text-3xl font-bold">Login</h1>
                   <p className="text-balance text-muted-foreground">
-                     Enter your email below to login to your account
+                     Seja bem-vindo ao Konnect.
+                     O ambiente de oportunidades Oil & Gas do Brasil
                   </p>
                </div>
               <Suspense fallback={<Loading/>}>
@@ -45,36 +46,36 @@ const SignIn: React.FC = () => {
                     </div>
                     <div className="grid gap-2">
                       <div className="flex items-center">
-                          <Label htmlFor="password">Password</Label>
+                          <Label htmlFor="password">Senha</Label>
                           <Link
                             href="/forgot-password"
                             className="ml-auto inline-block text-sm underline"
                           >
-                            Forgot your password?
+                            Esqueci minha senha
                           </Link>
                       </div>
                       <Input id="password" type="password" required />
                     </div>
-                    <Button type="submit" className="w-full">
+                    <Button type="submit" className="w-full bg-orange-600 hover:bg-orange-700">
                       Login
                     </Button>
                 </div>
                </Suspense>
                <div className="mt-4 text-center text-sm">
-                  Don&apos;t have an account?{" "}
+                  Não possui conta?{" "}
                   <Link href="#" className="underline">
-                     Sign up
+                     Cadastre suas oportunidades
                   </Link>
                </div>
             </div>
          </div>
-         <div className="hidden bg-muted lg:block">
+         <div className="hidden bg-muted lg:block h-screen ">
             <Image
-               src="/placeholder.svg"
+               src="/placeholder.png"
                alt="Image"
                width="1920"
                height="1080"
-               className="h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+               className="h-[100vh] w-full object-cover dark:brightness-[0.2] dark:grayscale"
             />
          </div>
       </div>

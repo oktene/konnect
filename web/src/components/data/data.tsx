@@ -9,63 +9,56 @@ import {
     StopwatchIcon,
   } from "@radix-ui/react-icons"
   
-  export const labels = [
+  export const categories = [
     {
-      value: "bug",
-      label: "Bug",
+      value: "válvulas",
+      label: "Válvulas",
     },
     {
-      value: "feature",
-      label: "Feature",
+      value: "tubos",
+      label: "Tubos",
     },
     {
-      value: "documentation",
-      label: "Documentation",
-    },
-  ]
-  
-  export const statuses = [
-    {
-      value: "backlog",
-      label: "Backlog",
-      icon: QuestionMarkCircledIcon,
+      value: "bombas",
+      label: "Bombas",
     },
     {
-      value: "todo",
-      label: "Todo",
-      icon: CircleIcon,
+      value: "brocas",
+      label: "Brocas",
     },
     {
-      value: "in progress",
-      label: "In Progress",
-      icon: StopwatchIcon,
+      value: "caldeiraria",
+      label: "Caldeiraria",
     },
     {
-      value: "done",
-      label: "Done",
-      icon: CheckCircledIcon,
-    },
-    {
-      value: "canceled",
-      label: "Canceled",
-      icon: CrossCircledIcon,
+      value: "engenharia",
+      label: "Engenharia",
+      types: "Serviço"
     },
   ]
   
-  export const priorities = [
+  export const types = [
     {
-      label: "Low",
-      value: "low",
-      icon: ArrowDownIcon,
+      value: "serviço",
+      label: "Serviço",
     },
     {
-      label: "Medium",
-      value: "medium",
-      icon: ArrowRightIcon,
+      value: "material",
+      label: "Material",
+    },
+  ]
+  
+  export const companies = [
+    {
+      label: "Conterp",
+      value: "conterp",
     },
     {
-      label: "High",
-      value: "high",
-      icon: ArrowUpIcon,
+      label: "Oktene",
+      value: "oktene",
+    },
+    {
+      label: "Acelen",
+      value: "acelen",
     },
   ]
