@@ -1,15 +1,15 @@
+import axiosInstance from "@/config/axiosConfig";
 import { Opportunity } from "@/zodSchemas/opportunity";
-import axios from "axios";
 
 export const getOpportunities = async (): Promise<Opportunity[]> => {
-   const { data } = await axios.get("/opportunities");
+   const { data } = await axiosInstance.get("/opportunities");
    return data;
 };
 
 export const getOpportunitiesById = async (
    opportunityId: string
 ): Promise<Opportunity> => {
-   const { data } = await axios.get<Opportunity>(
+   const { data } = await axiosInstance.get<Opportunity>(
       `/opportunities/${opportunityId}`
    );
    return data;
@@ -18,7 +18,7 @@ export const getOpportunitiesById = async (
 export const createOpportunity = async (
    newOpportunity: Omit<Opportunity, "id">
 ): Promise<Opportunity> => {
-   const { data } = await axios.post<Opportunity>(
+   const { data } = await axiosInstance.post<Opportunity>(
       "/opportunity",
       newOpportunity
    );

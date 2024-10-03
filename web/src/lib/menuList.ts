@@ -33,18 +33,13 @@ export function getMenuList(pathname: string): Group[] {
       {
          groupLabel: "",
          menus: [
-            {
-               href: "/dashboard",
-               label: "Dashboard",
-               active: pathname.includes("/dashboard"),
-               icon: LayoutGrid,
-               submenus: [],
-            },
-         ],
-      },
-      {
-         groupLabel: "FORNECEDORES",
-         menus: [
+            // {
+            //    href: "/dashboard",
+            //    label: "Dashboard",
+            //    active: pathname.includes("/dashboard"),
+            //    icon: LayoutGrid,
+            //    submenus: [],
+            // },
             {
                href: "/fornecedores/oportunidades-publicas",
                label: "Oportunidades Públicas",
@@ -52,6 +47,11 @@ export function getMenuList(pathname: string): Group[] {
                icon: BookOpen,
                submenus: [],
             },
+         ],
+      },
+      {
+         groupLabel: "FORNECEDORES",
+         menus: [
             {
                href: "/fornecedores/minhas-oportunidades",
                label: "Minhas Oportunidades",
@@ -62,7 +62,7 @@ export function getMenuList(pathname: string): Group[] {
          ],
       },
       {
-         groupLabel: "CONTRATATNTES",
+         groupLabel: "CONTRATANTES",
          menus: [
             {
                href: "/contratantes/minhas-demandas",
@@ -73,18 +73,18 @@ export function getMenuList(pathname: string): Group[] {
             },
          ],
       },
-      {
-         groupLabel: "EMPRESAS",
-         menus: [
-            {
-               href: "/empresas/empresas-cadastradas",
-               label: "Empresas Cadastradas",
-               active: pathname.includes("/empresas-cadastradas"),
-               icon: SquarePen,
-               submenus: [],
-            },
-         ],
-      },
+      // {
+      //    groupLabel: "EMPRESAS",
+      //    menus: [
+      //       {
+      //          href: "/empresas/empresas-cadastradas",
+      //          label: "Empresas Cadastradas",
+      //          active: pathname.includes("/empresas-cadastradas"),
+      //          icon: SquarePen,
+      //          submenus: [],
+      //       },
+      //    ],
+      // },
       {
          groupLabel: "CONFIGURAÇÕES",
          menus: [
@@ -95,13 +95,13 @@ export function getMenuList(pathname: string): Group[] {
                icon: Users,
                submenus: [],
             },
-            {
-               href: "/configuracoes",
-               label: "Configurações",
-               active: pathname.includes("/configuracoes"),
-               icon: Settings,
-               submenus: [],
-            },
+            // {
+            //    href: "/configuracoes",
+            //    label: "Configurações",
+            //    active: pathname.includes("/configuracoes"),
+            //    icon: Settings,
+            //    submenus: [],
+            // },
          ],
       },
    ];

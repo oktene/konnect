@@ -15,7 +15,7 @@ export default function SplashScreen() {
   }, []);
 
   return (
-    <div className={`flex items-center justify-center h-screen bg-gray-900 transition-opacity duration-1000 ${fadeOut ? 'opacity-0' : 'opacity-100'}`}>
+    <div className={`flex items-center justify-center h-screen bg-orange-600 transition-opacity duration-1000 ${fadeOut ? 'opacity-0' : 'opacity-100'}`}>
       <div className="relative flex flex-col items-center">
         <div className="absolute inset-0 flex items-center justify-center">
           <Spinner className="text-white w-24 h-24 animate-spin" />

@@ -34,7 +34,7 @@ import { useState } from "react";
 export const columns: ColumnDef<Opportunity>[] = [
   {
     accessorKey: "codeRFQ",
-    header: "Código RFQa",
+    header: "Código RFQ",
   },
   {
     accessorKey: "description",
@@ -72,10 +72,6 @@ export const columns: ColumnDef<Opportunity>[] = [
     header: "Tipo",
   },
   {
-    accessorKey: "company",
-    header: "Empresa",
-  },
-  {
     accessorKey: "subCategory",
     header: "Categoria",
   },
@@ -101,47 +97,47 @@ export const columns: ColumnDef<Opportunity>[] = [
 
       return (
         <>
-          <Button
-            className="h-full w-85vw pw-2 ph-1"
-            aria-haspopup="true"
-            size="default"
-            variant="default"
-            onClick={handleVisualizarClick}
-          >
-            <EyeIcon className="h-4 w-4 mr-2" />
-            Visualizar
-            <span className="sr-only">Visualizar oportunidade</span>
-          </Button>
-          {/* <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                     <Button
-                        className="h-8 w-8 p-0"
-                        aria-haspopup="true"
-                        size="icon"
-                        variant="ghost"
-                     >
-                        <MoreHorizontal className="h-4 w-4" />
-                        <span className="sr-only">Outras opções</span>
-                     </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                     <DropdownMenuItem
-                        className="hover:cursor-pointer"
-                        onClick={handleVisualizarClick}
-                     >
-                        <EyeIcon className="h-3 mr-2" />
-                        Visualizar
-                     </DropdownMenuItem>
-                     <DropdownMenuItem className="hover:cursor-pointer">
-                        <PencilIcon className="h-3 mr-2" />
-                        Editar
-                     </DropdownMenuItem>
-                     <DropdownMenuItem className="hover:cursor-pointer">
-                        <Trash2Icon className="h-3 mr-2" />
-                        Deletar
-                     </DropdownMenuItem>
-                  </DropdownMenuContent>
-               </DropdownMenu> */}
+          {/* <Button
+                  className="h-full w-85vw pw-2 ph-1"
+                  aria-haspopup="true"
+                  size="default"
+                  variant="default"
+                  onClick={handleVisualizarClick}
+               >
+                  <EyeIcon className="h-4 w-4 mr-2"/> 
+                  Visualizar
+                  <span className="sr-only">Visualizar oportunidade</span>
+               </Button> */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                className="h-8 w-8 p-0"
+                aria-haspopup="true"
+                size="icon"
+                variant="ghost"
+              >
+                <MoreHorizontal className="h-4 w-4" />
+                <span className="sr-only">Outras opções</span>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem
+                className="hover:cursor-pointer"
+                onClick={handleVisualizarClick}
+              >
+                <EyeIcon className="h-3 mr-2" />
+                Visualizar
+              </DropdownMenuItem>
+              <DropdownMenuItem className="hover:cursor-pointer">
+                <PencilIcon className="h-3 mr-2" />
+                Editar
+              </DropdownMenuItem>
+              <DropdownMenuItem className="hover:cursor-pointer">
+                <Trash2Icon className="h-3 mr-2" />
+                Deletar
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
 
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogContent>

@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { DataTablePagination } from "@/components/ui/data-table-pagination";
 
 interface DataTableProps<TData, TValue> {
    columns: ColumnDef<TData, TValue>[];
@@ -57,16 +58,12 @@ export function DataTable<TData, TValue>({
       <div>
          <div className="flex items-center py-4">
             <Input
-               placeholder="Filtre pela descrição ou Código RFQ..."
+               placeholder="Filtre pelo código RFQ..."
                value={
-                  (table
-                     .getColumn("codeRFQ" || "description")
-                     ?.getFilterValue() as string) ?? ""
+                  (table.getColumn("codeRFQ")?.getFilterValue() as string) ?? ""
                }
                onChange={(event) =>
-                  table
-                     .getColumn("codeRFQ" || "description")
-                     ?.setFilterValue(event.target.value)
+                  table.getColumn("codeRFQ")?.setFilterValue(event.target.value)
                }
                className="max-w-sm"
             />
@@ -80,7 +77,7 @@ export function DataTable<TData, TValue>({
                            return (
                               <TableHead
                                  key={header.id}
-                                 className="hidden w-[100px] sm:table-cell"
+                                 className="text-center w-[100px] sm:table-cell"
                               >
                                  {header.isPlaceholder
                                     ? null
@@ -94,7 +91,7 @@ export function DataTable<TData, TValue>({
                      </TableRow>
                   ))}
                </TableHeader>
-               <TableBody>
+               <TableBody className="text-wrap text-center">
                   {table.getRowModel().rows?.length ? (
                      table.getRowModel().rows.map((row) => (
                         <TableRow
@@ -124,24 +121,31 @@ export function DataTable<TData, TValue>({
                </TableBody>
             </Table>
          </div>
-         <div className="flex items-center justify-end space-x-2 py-4">
-            <Button
-               variant="outline"
-               size="sm"
-               onClick={() => table.previousPage()}
-               disabled={!table.getCanPreviousPage()}
-            >
-               Previous
-            </Button>
-            <Button
-               variant="outline"
-               size="sm"
-               onClick={() => table.nextPage()}
-               disabled={!table.getCanNextPage()}
-            >
-               Next
-            </Button>
-         </div>
+         {/* <div className="flex items-center justify-end space-x-2 py-4">
+            <div className="flex-1 text-sm text-muted-foreground">
+               Mostrando {table.getPageOptions().length} of{" "}
+               {table.getFilteredRowModel().rows.length} dado(s).
+            </div>
+            <div className="space-x-2">
+               <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => table.previousPage()}
+                  disabled={!table.getCanPreviousPage()}
+               >
+                  Anterior
+               </Button>
+               <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => table.nextPage()}
+                  disabled={!table.getCanNextPage()}
+               >
+                  Próximo
+               </Button>
+            </div>
+         </div> */}
+         <DataTablePagination table={table} />
       </div>
    );
 }
