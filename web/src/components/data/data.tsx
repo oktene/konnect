@@ -1,49 +1,44 @@
-import {
-    ArrowDownIcon,
-    ArrowRightIcon,
-    ArrowUpIcon,
-    CheckCircledIcon,
-    CircleIcon,
-    CrossCircledIcon,
-    QuestionMarkCircledIcon,
-    StopwatchIcon,
-  } from "@radix-ui/react-icons"
   
   export const categories = [
     {
-      value: "válvulas",
+      value: "Válvulas",
       label: "Válvulas",
     },
     {
-      value: "tubos",
+      value: "Tubos",
       label: "Tubos",
     },
     {
-      value: "bombas",
+      value: "Bombas",
       label: "Bombas",
     },
     {
-      value: "brocas",
+      value: "Brocas",
       label: "Brocas",
     },
     {
-      value: "caldeiraria",
+      value: "Caldeiraria",
       label: "Caldeiraria",
     },
     {
-      value: "engenharia",
+      value: "Engenharia",
       label: "Engenharia",
+      types: "Serviço"
+    },
+    {
+      value: "Inspeção",
+      label: "Inspeção",
       types: "Serviço"
     },
   ]
   
   export const types = [
     {
-      value: "serviço",
+      value: "Serviço",
       label: "Serviço",
     },
     {
-      value: "material",
+      value: "Material",
       label: "Material",
     },
   ]
@@ -51,14 +46,14 @@ import {
   export const companies = [
     {
       label: "Conterp",
-      value: "conterp",
+      value: "Conterp",
     },
     {
       label: "Oktene",
-      value: "oktene",
+      value: "Oktene",
     },
     {
       label: "Acelen",
-      value: "acelen",
+      value: "Acelen",
     },
   ]

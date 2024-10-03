@@ -33,7 +33,17 @@ async function getData(): Promise<Opportunity[]> {
             status: "Pending",
           },
         ],
-        subCategory: "subCat456",
+        company: "Conterp",
+        subCategory: [
+          {
+             id: "1",
+             name: "Válvulas" 
+          },
+          {
+             id: "2",
+             name: "Tubos" 
+          },
+       ],
       },
     ];
   }

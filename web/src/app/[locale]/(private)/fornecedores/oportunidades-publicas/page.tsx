@@ -2,15 +2,6 @@ import { ContentLayout } from "@/components/admin-panel/content-layout";
 import { Link, PlusCircle } from "lucide-react";
 
 import { columns } from "./columns";
-
-import {
-   Breadcrumb,
-   BreadcrumbItem,
-   BreadcrumbLink,
-   BreadcrumbList,
-   BreadcrumbPage,
-   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
 import { Opportunity } from "@/zodSchemas/opportunity";
 import React, { Suspense } from "react";
 import Loading from "@/app/[locale]/loading";
@@ -42,8 +33,17 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         company: "company123",
-         subCategory: "subCat456",
+         company: "Acelen",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
       },
       {
          id: "728ed52f",
@@ -67,8 +67,17 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         company: "company123",
-         subCategory: "subCat456",
+         company: "Acelen",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
       },
       {
          id: "728ed52f",
@@ -92,8 +101,17 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         company: "company123",
-         subCategory: "subCat456",
+         company: "Acelen",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
       },
       {
          id: "728ed52f",
@@ -117,8 +135,17 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         company: "company123",
-         subCategory: "subCat456",
+         company: "Acelen",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
       },
       {
          id: "728ed52f",
@@ -142,8 +169,17 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         company: "company123",
-         subCategory: "subCat456",
+         company: "Acelen",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
       },
       {
          id: "728ed52f",
@@ -167,8 +203,17 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         company: "company123",
-         subCategory: "subCat456",
+         company: "Conterp",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
       },
       {
          id: "728ed52f",
@@ -192,8 +237,17 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         company: "company123",
-         subCategory: "subCat456",
+         company: "Conterp",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
       },
       {
          id: "728ed52f",
@@ -217,8 +271,17 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         company: "company123",
-         subCategory: "subCat456",
+         company: "Conterp",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
       },
       {
          id: "728ed52f",
@@ -242,8 +305,17 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         company: "company123",
-         subCategory: "subCat456",
+         company: "Conterp",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
       },
       {
          id: "728ed52f",
@@ -267,8 +339,17 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         company: "company123",
-         subCategory: "subCat456",
+         company: "Conterp",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
       },
       {
          id: "728ed52f",
@@ -292,8 +373,17 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         company: "company123",
-         subCategory: "subCat456",
+         company: "Conterp",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
       },
       {
          id: "728ed52f",
@@ -317,8 +407,17 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         company: "company123",
-         subCategory: "subCat456",
+         company: "Conterp",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
       },
       {
          id: "728ed52f",
@@ -342,8 +441,17 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         company: "company123",
-         subCategory: "subCat456",
+         company: "Conterp",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
       },
       {
          id: "728ed52f",
@@ -367,8 +475,17 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         company: "company123",
-         subCategory: "subCat456",
+         company: "Conterp",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
       },
       {
          id: "728ed52f",
@@ -392,8 +509,17 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         company: "company123",
-         subCategory: "subCat456",
+         company: "Conterp",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
       },
       {
          id: "728ed52f",
@@ -417,8 +543,17 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         company: "company123",
-         subCategory: "subCat456",
+         company: "Conterp",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
       },
       {
          id: "728ed52f",
@@ -442,8 +577,17 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         company: "company123",
-         subCategory: "subCat456",
+         company: "Conterp",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
       },
       {
          id: "728ed52f",
@@ -467,8 +611,17 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         company: "company123",
-         subCategory: "subCat456",
+         company: "Conterp",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
       },
       {
          id: "728ed52f",
@@ -492,8 +645,17 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         company: "company123",
-         subCategory: "subCat456",
+         company: "Conterp",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
       },
       {
          id: "728ed52f",
@@ -517,8 +679,17 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         company: "company123",
-         subCategory: "subCat456",
+         company: "Oktene",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
       },
       {
          id: "728ed52f",
@@ -542,8 +713,51 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         company: "company123",
-         subCategory: "subCat456",
+         company: "Conterp",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
+      },
+      {
+         id: "728ed52f",
+         codeRFQ: "RFQ12345",
+         description: "Supply of drilling equipment",
+         executionPeriod: new Date("2024-12-31"),
+         deadlineSubmission: new Date("2024-11-01"),
+         typeOpportunity: "Material",
+         isExpired: false,
+         attachments: [
+            {
+               id: "att1",
+               filename: "specifications.pdf",
+               url: "https://example.com/specifications.pdf",
+            },
+         ],
+         proposals: [
+            {
+               id: "prop1",
+               amount: 1500,
+               status: "Pending",
+            },
+         ],
+         company: "Conterp",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
       },
       {
          id: "728ed52f",
@@ -567,8 +781,17 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         company: "company123",
-         subCategory: "subCat456",
+         company: "Conterp",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
       },
       {
          id: "728ed52f",
@@ -592,8 +815,17 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         company: "company123",
-         subCategory: "subCat456",
+         company: "Acelen",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
       },
       {
          id: "728ed52f",
@@ -617,8 +849,17 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         company: "company123",
-         subCategory: "subCat456",
+         company: "Acelen",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
       },
       {
          id: "728ed52f",
@@ -642,33 +883,17 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         company: "company123",
-         subCategory: "subCat456",
-      },
-      {
-         id: "728ed52f",
-         codeRFQ: "RFQ12345",
-         description: "Supply of drilling equipment",
-         executionPeriod: new Date("2024-12-31"),
-         deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Serviço",
-         isExpired: false,
-         attachments: [
+         company: "Conterp",
+         subCategory: [
             {
-               id: "att1",
-               filename: "specifications.pdf",
-               url: "https://example.com/specifications.pdf",
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
             },
          ],
-         proposals: [
-            {
-               id: "prop1",
-               amount: 1500,
-               status: "Pending",
-            },
-         ],
-         company: "company123",
-         subCategory: "subCat456",
       },
       {
          id: "728ed52f",
@@ -692,8 +917,17 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         company: "company123",
-         subCategory: "subCat456",
+         company: "Oktene",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
       },
    ];
 }

@@ -5,34 +5,25 @@ import { Button } from "@/components/ui/button";
 import { DataTableColumnHeader } from "@/components/ui/data-table-column-header";
 import {
    Dialog,
+   DialogClose,
    DialogContent,
    DialogDescription,
    DialogFooter,
    DialogHeader,
    DialogTitle,
 } from "@/components/ui/dialog";
-import {
-   DropdownMenu,
-   DropdownMenuContent,
-   DropdownMenuItem,
-   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { TableCell } from "@/components/ui/table";
 import { Opportunity } from "@/zodSchemas/opportunity";
 import { Separator } from "@radix-ui/react-dropdown-menu";
 import { ColumnDef } from "@tanstack/react-table";
 import {
+   ArchiveXIcon,
    ArrowUpDown,
-   ChevronLeft,
    ChevronRight,
-   EyeIcon,
-   MoreHorizontal,
-   PencilIcon,
    Trash2Icon,
 } from "lucide-react";
 import { useState } from "react";
 
-export const columns: ColumnDef<Opportunity>[] = [
+export const demandas: ColumnDef<Opportunity>[] = [
    {
       accessorKey: "codeRFQ",
       header: "Código RFQ",
@@ -44,25 +35,17 @@ export const columns: ColumnDef<Opportunity>[] = [
             <DataTableColumnHeader column={column} title="Título" />
          );
       },
-      cell: ({ row }) => <div>{row.getValue("description")}</div>,
-      enableSorting: true,
-      enableHiding: false,
+      cell: ({ row }) => <div>{row.getValue("description")}</div>
    },
    {
       accessorKey: "executionPeriod",
-      header: ({ column }) => {
-         return (
-            <DataTableColumnHeader column={column} title="Período de Execução" />
-         );
-      },
+      header: "Período de Execução",
       cell: ({ getValue }) =>
          getValue()
             ? new Date(
                  getValue() as string | number | Date
               ).toLocaleDateString()
-            : "N/A",
-      enableSorting: true,
-      enableHiding: false,
+            : "N/A", // Format date if exists
    },
    {
       accessorKey: "deadlineSubmission",
@@ -81,22 +64,6 @@ export const columns: ColumnDef<Opportunity>[] = [
    {
       accessorKey: "subCategory",
       header: "Categoria",
-      cell: ({ getValue }) => {
-         const categorias = getValue() as Array<{ name: string }>;
-         console.log(categorias); 
-
-         if (Array.isArray(categorias)) {
-            return (
-              <>
-                {categorias.map((categoria, index) => (
-                  <span key={index}>{categoria.name.toString()}</span>
-                ))}
-              </>
-            );
-          }
-      
-          return null;
-      }
    },
    {
       accessorKey: "isExpired",
@@ -123,70 +90,46 @@ export const columns: ColumnDef<Opportunity>[] = [
          return (
             <>
                <Button
-                  className="h-full w-85vw pw-2 ph-1"
+                  className="h-full w-85vw pw-2 ph-1 bg-orange-500 hover:bg-orange-600"
                   aria-haspopup="true"
                   size="default"
                   variant="default"
                   onClick={handleVisualizarClick}
                >
-                  <EyeIcon className="h-4 w-4 mr-2"/> 
-                  Visualizar
-                  <span className="sr-only">Visualizar oportunidade</span>
+                  <ArchiveXIcon className="h-4 w-4 mr-2"/> 
+                  Desaplicar
+                  <span className="sr-only">Desaplicar</span>
                </Button>
-               {/* <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                     <Button
-                        className="h-8 w-8 p-0"
-                        aria-haspopup="true"
-                        size="icon"
-                        variant="ghost"
-                     >
-                        <MoreHorizontal className="h-4 w-4" />
-                        <span className="sr-only">Outras opções</span>
-                     </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                     <DropdownMenuItem
-                        className="hover:cursor-pointer"
-                        onClick={handleVisualizarClick}
-                     >
-                        <EyeIcon className="h-3 mr-2" />
-                        Visualizar
-                     </DropdownMenuItem>
-                     <DropdownMenuItem className="hover:cursor-pointer">
-                        <PencilIcon className="h-3 mr-2" />
-                        Editar
-                     </DropdownMenuItem>
-                     <DropdownMenuItem className="hover:cursor-pointer">
-                        <Trash2Icon className="h-3 mr-2" />
-                        Deletar
-                     </DropdownMenuItem>
-                  </DropdownMenuContent>
-               </DropdownMenu> */}
 
                <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                   <DialogContent>
                      <DialogHeader>
                         <DialogTitle>
-                           Oportunidade #{opportunity.codeRFQ}
+                           Tem certeza?
                         </DialogTitle>
                         <DialogDescription>
                            Aqui estão os detalhes da oportunidade que você
                            selecionou.
                         </DialogDescription>
                         <Separator />
-                        {/* Exemplo de campos que podem ser mostrados */}
-                        <p>Detalhe 1: Informações adicionais...</p>
-                        <p>Detalhe 2: Mais informações...</p>
                      </DialogHeader>
-                     <DialogFooter>
+                     <DialogFooter className="grid grid-flow-col">
+                     <DialogClose asChild>
+                        <Button
+                           className="h-8 ph-2 pw-2"
+                           size="lg"
+                           variant="secondary"
+                        >
+                           Cancelar
+                        </Button>
+                     </DialogClose>
                         <Button
                            className="h-8 ph-2 pw-2"
                            size="lg"
                            variant="default"
                         >
-                           Aplicar proposta
-                           <ChevronRight className="h-4 w-4 " />
+                           <Trash2Icon className="h-4 w-4 mr-2" />
+                           Deletar
                         </Button>
                      </DialogFooter>
                   </DialogContent>
