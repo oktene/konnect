@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { DatePicker } from "@/components/ui/date-picker";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -158,7 +159,14 @@ export function NewOportunityModal({
             </div>
           </div>
           <DialogFooter>
-            <Button type="submit">Salvar Alterações</Button>
+            <DialogClose asChild>
+              <Button type="button" variant="secondary">
+                Cancelar
+              </Button>
+              <Button type="submit">
+                Salvar
+              </Button>
+            </DialogClose>
           </DialogFooter>
         </form>
       </DialogContent>
