@@ -16,12 +16,13 @@ export const useOpportunities = () => {
 export const useCreateOpportunity = () => {
    const queryClient = useQueryClient();
 
-//    return useMutation<Opportunity, Error, Omit<Opportunity, "id">>(
-//       createOpportunity,
-//       {
-//          onSuccess: () => {
-//             queryClient.invalidateQueries({ queryKey: ["opportunity"] });
-//          },
-//       }
-//    );
+   // return useMutation<Opportunity, Error, Omit<Opportunity, "id">>(
+   //    createOpportunity, // Chama a função que utiliza axios
+   //    {
+   //       onSuccess: () => {
+   //          // Invalida e refaz a query para oportunidades após criar uma nova
+   //          queryClient.invalidateQueries({ queryKey: ["opportunity"] });
+   //       },
+   //    }
+   // );
 };

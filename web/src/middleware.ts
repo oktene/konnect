@@ -8,3 +8,4 @@ export const config = {
 //   matcher: ['/', '/(br|en)/:path*']
   matcher: ['/((?!api|_next|.*\\..*).*)'],
 };
+

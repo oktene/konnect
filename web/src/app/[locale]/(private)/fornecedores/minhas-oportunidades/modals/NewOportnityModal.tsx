@@ -30,6 +30,7 @@ export const TemporaryOpportunitySchema = z.object({
   typeOpportunity: z.enum(["Serviço", "Material"]),
   subCategory: z.string(),
   description: z.string(),
+  RFQCode: z.string(),
 });
 
 export type TenporaryOpportunity = z.infer<typeof TemporaryOpportunitySchema>;

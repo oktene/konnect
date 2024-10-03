@@ -10,14 +10,14 @@ export const OpportunitySchema = z.object({
    isExpired: z.boolean().default(false),
    attachments: z.array(
       z.object({ id: z.string(), filename: z.string(), url: z.string().url() })
-   ),
+   ).optional(),
    proposals: z.array(
       z.object({
          id: z.string(),
          amount: z.number(),
          status: z.enum(["Pending", "Accepted", "Rejected"]),
       })
-   ),
+   ).optional(),
    company: z.string().optional(),
    subCategory: z.string(),
 });
