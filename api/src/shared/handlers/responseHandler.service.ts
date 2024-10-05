@@ -10,12 +10,7 @@ export class ResponseHandlerService {
     };
   }
 
-  error(errorMessage: string, statusCode: number = 400, data: any = null) {
-    return {
-      status: 'error',
-      message: errorMessage,
-      statusCode,
-      data,
-    };
+  error(errorMessage: string) {
+    throw new Error(errorMessage);
   }
 }

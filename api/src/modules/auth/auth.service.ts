@@ -27,7 +27,7 @@ export class AuthService {
     private readonly companiesRepo: CompanyRepository,
     private readonly jwtService: JwtService,
     private readonly mailerService: MailerService,
-    private readonly responseHandler: ResponseHandlerService
+    private readonly responseHandler: ResponseHandlerService,
   ) {}
 
   async signIn(signInDto: SigninDto) {
@@ -68,27 +68,14 @@ export class AuthService {
       role,
     } = signUpDto;
 
-    let createdCompany: Company = null;
-
     //Verifica primeiro a existência da empresa
     const companyExists = await this.companiesRepo.findUnique({
       where: { companyRegistration: company.companyRegistration },
     });
 
     if (companyExists) {
-      return this.responseHandler.error(`The company alredy exist`, 401);
-      throw new NotFoundException('A empresa não existe.');
-    } else {
-      createdCompany = await this.companiesRepo.create({
-        data: {
-          name: company.name,
-          companyRegistration: company.companyRegistration,
-          isInternational: company.isInternational,
-          about: company.about
-        },
-      });
+      throw new ConflictException('Empresa já cadastrada!');
     }
-
     //Verifica se já existe um usuário com o mesmo email
     const isEmailTaken = await this.usersRepo.findUnique({
       where: { email },
@@ -111,7 +98,14 @@ export class AuthService {
         permissionLevel,
         phone,
         role,
-        companyId: createdCompany.id,
+        company: {
+          create: {
+            name: company.name,
+            companyRegistration: company.companyRegistration,
+            isInternational: company.isInternational,
+            about: company.about,
+          },
+        },
         cpf,
       },
     });
@@ -129,14 +123,18 @@ export class AuthService {
   async requestPasswordRecovery(email: string): Promise<void> {
     const user = await this.usersRepo.findByEmail(email);
     if (!user) {
-      this.responseHandler.error('User not found', 401);
-      // throw new BadRequestException('User not found');
+      // this.responseHandler.error('User not found');
+      throw new BadRequestException('User not found');
     }
 
     const recoveryToken = uuidv4();
     const recoveryTokenExpires = new Date(Date.now() + 3600000); // Token expira em 1 hora
 
-    await this.usersRepo.updateRecoveryToken(email, recoveryToken, recoveryTokenExpires);
+    await this.usersRepo.updateRecoveryToken(
+      email,
+      recoveryToken,
+      recoveryTokenExpires,
+    );
 
     const recoveryLink = `http://your-app.com/reset-password?token=${recoveryToken}`;
     await this.mailerService.sendMail({
@@ -146,20 +144,28 @@ export class AuthService {
       context: { recoveryLink },
     });
   }
-  
+
   async resetPassword(token: string, newPassword: string): Promise<void> {
-    const hasUserRecoveryToken = await this.usersRepo.findByRecoveryToken(token);
+    const hasUserRecoveryToken =
+      await this.usersRepo.findByRecoveryToken(token);
 
     if (!hasUserRecoveryToken) {
       throw new BadRequestException('Invalid or expired token');
     }
 
     const hashedPassword = await hash(newPassword, 10);
-    await this.usersRepo.updatePassword(hasUserRecoveryToken.id, hashedPassword);
+    await this.usersRepo.updatePassword(
+      hasUserRecoveryToken.id,
+      hashedPassword,
+    );
   }
 
   //Função para gerar o JWT com as informações do usuário
-  private async generateAccessToken(userId: string, permissionLevel: PermissionLevel, role: Role) {
+  private async generateAccessToken(
+    userId: string,
+    permissionLevel: PermissionLevel,
+    role: Role,
+  ) {
     return await this.jwtService.signAsync({
       sub: userId,
       permissionLevel: permissionLevel,
