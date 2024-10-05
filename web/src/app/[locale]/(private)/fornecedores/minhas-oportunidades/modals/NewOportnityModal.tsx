@@ -159,14 +159,14 @@ export function NewOportunityModal({
             </div>
           </div>
           <DialogFooter>
-            <DialogClose asChild>
+            {/* <DialogClose asChild>
               <Button type="button" variant="secondary">
                 Cancelar
-              </Button>
-              <Button type="submit">
-                Salvar
-              </Button>
-            </DialogClose>
+              </Button> 
+            </DialogClose> */}
+            <Button type="submit">
+              Salvar
+            </Button>
           </DialogFooter>
         </form>
       </DialogContent>
