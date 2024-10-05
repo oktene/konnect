@@ -2,5 +2,6 @@
     "conventionalCommits.scopes": [
         "Data-tables",
         "Modal"
+        "Deploy"
     ]
 }
