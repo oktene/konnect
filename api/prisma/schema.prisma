@@ -121,7 +121,6 @@ enum PermissionLevel {
 enum Role {
   COMPRADOR
   FORNECEDOR
-  EDITOR
   AMBOS
 }
 
