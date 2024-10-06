@@ -42,8 +42,8 @@ export class CreateUserDto {
 
   @IsEnum(Role)
   @IsNotEmpty()
-  @ApiProperty({ enum: ['COMPRADOR', 'FORNECEDOR', 'AMBOS', 'EDITOR']})
-  role: 'COMPRADOR' | 'FORNECEDOR' | 'AMBOS' | 'EDITOR';
+  @ApiProperty({ enum: ['COMPRADOR', 'FORNECEDOR', 'AMBOS']})
+  role: 'COMPRADOR' | 'FORNECEDOR' | 'AMBOS';
 
   @IsString()
   @IsNotEmpty()
