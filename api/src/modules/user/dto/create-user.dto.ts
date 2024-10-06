@@ -27,8 +27,8 @@ export class CreateUserDto {
 
   @IsEnum(PermissionLevel)
   @IsNotEmpty()
-  @ApiProperty({ enum: ['USER', 'ADMIN']})
-  permissionLevel: 'USER' | 'ADMIN';
+  @ApiProperty({ enum: ['USER', 'ADMIN', 'EDITOR']})
+  permissionLevel: 'USER' | 'ADMIN' | 'EDITOR';
 
   @IsString()
   @IsNotEmpty()
