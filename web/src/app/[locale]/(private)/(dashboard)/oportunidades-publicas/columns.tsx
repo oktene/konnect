@@ -36,21 +36,6 @@ export const columns: ColumnDef<Opportunity>[] = [
       cell: ({ getValue }) => getValue() ?? "N/A", // Handling optional field
    },
    {
-      accessorKey: "unityMetric",
-      header: "Unit Metric",
-      cell: ({ getValue }) => getValue() ?? "N/A", // Handling optional field
-   },
-   {
-      accessorKey: "executionPeriod",
-      header: "Execution Period",
-      cell: ({ getValue }) =>
-         getValue()
-            ? new Date(
-                 getValue() as string | number | Date
-              ).toLocaleDateString()
-            : "N/A", // Format date if exists
-   },
-   {
       accessorKey: "deadlineSubmission",
       header: "Deadline Submission",
       cell: ({ getValue }) =>

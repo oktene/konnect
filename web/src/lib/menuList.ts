@@ -34,7 +34,7 @@ export function getMenuList(pathname: string): Group[] {
          groupLabel: "",
          menus: [
             {
-               href: "/fornecedores/oportunidades-publicas",
+               href: "/oportunidades-publicas",
                label: "Oportunidades Públicas",
                active: pathname.includes("/oportunidades-publicas"),
                icon: BookOpen,
