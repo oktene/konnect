@@ -52,9 +52,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   if (!signedIn) {
-    router.push("/sign-in"); // Redireciona para a página de login se o token não existir
+    router.push("/sign-in");
   } else {
-    router.push("/dashboard"); // Redireciona para o dashboard se o token existir
+    router.push("/oportunidades-publicas");
   }
 
   const { data, isError, error, isFetching, isSuccess, isLoading } = useQuery({
