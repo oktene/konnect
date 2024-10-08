@@ -20,7 +20,5 @@ export class PermissionsLevelsGuard implements CanActivate {
     if (!user || !requiredPermissions.some(permission => user.permissions.includes(permission))) {
       throw new ForbiddenException('You do not have the required permissions to access this resource');
     }
-
-    return true;
   }
 }

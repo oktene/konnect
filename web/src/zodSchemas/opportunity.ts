@@ -19,7 +19,12 @@ export const OpportunitySchema = z.object({
       })
    ).optional(),
    company: z.string().optional(),
-   subCategory: z.string(),
+   subCategory: z.array(
+      z.object({
+         id: z.string(),
+         name: z.string()
+      })
+   ),
 });
 
 export type Opportunity = z.infer<typeof OpportunitySchema>;

@@ -1,71 +1,59 @@
-import {
-    ArrowDownIcon,
-    ArrowRightIcon,
-    ArrowUpIcon,
-    CheckCircledIcon,
-    CircleIcon,
-    CrossCircledIcon,
-    QuestionMarkCircledIcon,
-    StopwatchIcon,
-  } from "@radix-ui/react-icons"
   
-  export const labels = [
+  export const categories = [
     {
-      value: "bug",
-      label: "Bug",
+      value: "Válvulas",
+      label: "Válvulas",
     },
     {
-      value: "feature",
-      label: "Feature",
+      value: "Tubos",
+      label: "Tubos",
     },
     {
-      value: "documentation",
-      label: "Documentation",
+      value: "Bombas",
+      label: "Bombas",
+    },
+    {
+      value: "Brocas",
+      label: "Brocas",
+    },
+    {
+      value: "Caldeiraria",
+      label: "Caldeiraria",
+    },
+    {
+      value: "Engenharia",
+      label: "Engenharia",
+      types: "Serviço"
+    },
+    {
+      value: "Inspeção",
+      label: "Inspeção",
+      types: "Serviço"
     },
   ]
   
-  export const statuses = [
+  export const types = [
     {
-      value: "backlog",
-      label: "Backlog",
-      icon: QuestionMarkCircledIcon,
+      value: "Serviço",
+      label: "Serviço",
     },
     {
-      value: "todo",
-      label: "Todo",
-      icon: CircleIcon,
-    },
-    {
-      value: "in progress",
-      label: "In Progress",
-      icon: StopwatchIcon,
-    },
-    {
-      value: "done",
-      label: "Done",
-      icon: CheckCircledIcon,
-    },
-    {
-      value: "canceled",
-      label: "Canceled",
-      icon: CrossCircledIcon,
+      value: "Material",
+      label: "Material",
     },
   ]
   
-  export const priorities = [
+  export const companies = [
     {
-      label: "Low",
-      value: "low",
-      icon: ArrowDownIcon,
+      label: "Conterp",
+      value: "Conterp",
     },
     {
-      label: "Medium",
-      value: "medium",
-      icon: ArrowRightIcon,
+      label: "Oktene",
+      value: "Oktene",
     },
     {
-      label: "High",
-      value: "high",
-      icon: ArrowUpIcon,
+      label: "Acelen",
+      value: "Acelen",
     },
   ]

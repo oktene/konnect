@@ -1,16 +1,13 @@
-'use client';
+"use client";
 
+import SplashScreen from "./page";
+import { useAuth } from "@/hooks/useAuth";
 import { useEffect, useState } from 'react';
-import SplashScreen from './page';
 import { useRouter } from 'next/navigation';
 
 
-export default function SplashScreenWrapper({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const [isLoading, setLoading] = useState(true);
+export default function SplashScreenWrapper({ children }: { children: React.ReactNode }) {
+  const { isLoading } = useAuth();
   const [isMounted, setIsMounted] = useState(false); // Verifica se o componente foi montado
   const router = useRouter();
 
@@ -23,12 +20,7 @@ export default function SplashScreenWrapper({
   useEffect(() => {
     if (isMounted) {
       const timer = setTimeout(() => {
-        setLoading(false);
-        // if (typeof window !== 'undefined') {
-        //   // Garante que o router.push só seja chamado no lado do cliente
-        //   router.push('/sign-in', undefined, { locale: router.locale });
-        // }
-      }, 3000); // 3 segundos de splash
+      }, 3000);
 
       return () => clearTimeout(timer); // Limpa o timer quando o componente desmonta
     }

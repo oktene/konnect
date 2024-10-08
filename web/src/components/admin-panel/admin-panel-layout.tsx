@@ -5,11 +5,7 @@ import { useStore } from "@/hooks/use-store";
 import { Sidebar } from "@/components/admin-panel/sidebar";
 import { useSidebarToggle } from "@/hooks/use-sidebar-toggle";
 
-export default function AdminPanelLayout({
-  children
-}: {
-  children: React.ReactNode;
-}) {
+export default function AdminPanelLayout({ children }: { children: React.ReactNode }) {
   const sidebar = useStore(useSidebarToggle, (state) => state);
 
   if (!sidebar) return null;

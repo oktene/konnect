@@ -56,8 +56,6 @@ model Opportunity {
   id                 String          @id @default(uuid()) @db.Uuid
   codeRFQ            String          @unique
   description        String
-  quantity           Int?
-  unityMetric        String?
   executionPeriod    DateTime?
   deadlineSubmission DateTime
   typeOpportunity    TypeOpportunity
@@ -129,7 +127,6 @@ enum Role {
 enum TypeOpportunity {
   SERVICO
   MATERIAL
-  LOCACAO
 }
 
 enum Country {

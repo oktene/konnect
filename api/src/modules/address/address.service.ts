@@ -10,35 +10,35 @@ export class AddressService {
   constructor(
     private readonly companiesRepo: CompanyRepository,
     private readonly addressesRepo: AddressRepository,
-    private readonly responseHandler: ResponseHandlerService
+    private readonly responseHandler: ResponseHandlerService,
   ) {}
 
   async create(createAddressDto: CreateAddressDto) {
-    const { companyId } = createAddressDto
+    const { companyId } = createAddressDto;
 
     const companyExists = await this.companiesRepo.findUnique({
       where: { id: companyId },
     });
 
     if (!companyExists) {
-      return this.responseHandler.error(`The company doesn't exist`, 401);
+      return this.responseHandler.error(`The company doesn't exist`);
       throw new NotFoundException('A empresa não existe.');
     }
 
-    const addressData = this.buildOpportunityData(createAddressDto, companyId)
-    return this.addressesRepo.create({ data: addressData })
+    const addressData = this.buildOpportunityData(createAddressDto, companyId);
+    return this.addressesRepo.create({ data: addressData });
   }
 
   findAll() {
-    return this.addressesRepo.findAll({})
+    return this.addressesRepo.findAll({});
   }
 
   findOne(addressId: string) {
     return this.addressesRepo.findUnique({
       where: {
-        id: addressId
-      }
-    })
+        id: addressId,
+      },
+    });
   }
 
   async update(addressId: string, updateAddressDto: UpdateAddressDto) {
@@ -46,21 +46,21 @@ export class AddressService {
 
     return await this.addressesRepo.update({
       where: { id: addressId },
-      data: addressData
+      data: addressData,
     });
   }
 
   remove(addressId: string) {
     return this.addressesRepo.remove({
       where: {
-        id: addressId
-      }
-    })
+        id: addressId,
+      },
+    });
   }
 
   private buildOpportunityData(
     addressDto: CreateAddressDto | UpdateAddressDto,
-    companyId: string
+    companyId: string,
   ) {
     return {
       street: addressDto.street,
