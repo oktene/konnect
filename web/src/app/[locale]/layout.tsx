@@ -7,38 +7,45 @@ import { getMessages } from "next-intl/server";
 import { useEffect, useState } from "react";
 import SplashScreenWrapper from "./SplashScreenWrapper";
 import { QueryProvider } from "@/context/QueryProvider";
+import { AuthProvider } from "../contexts/AuthContext";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { Toaster } from "@/components/ui/toaster";
 
 const poppins = Poppins({
-   weight: ["400", "600", "900"],
-   subsets: ["latin"],
+  weight: ["400", "600", "900"],
+  subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-   title: "Konnect",
-   description: "",
+  title: "Konnect",
+  description: "",
 };
 
 export default async function RootLayout({
-   children,
-   params: { locale },
+  children,
+  params: { locale },
 }: Readonly<{
-   children: React.ReactNode;
-   params: { locale: string };
+  children: React.ReactNode;
+  params: { locale: string };
 }>) {
-   const messages = await getMessages();
+  const messages = await getMessages();
 
-   return (
-      <html lang={locale}>
-         <head>
-            <link rel="icon" href="/favicon.ico" />
-         </head>
-         <QueryProvider>
-            <NextIntlClientProvider messages={messages}>
-               <body className={cn("", poppins.className)}>
-                  <SplashScreenWrapper>{children}</SplashScreenWrapper>
-               </body>
-            </NextIntlClientProvider>
-         </QueryProvider>
-      </html>
-   );
+  return (
+    <html lang={locale}>
+      <head>
+        <link rel="icon" href="/favicon.ico" />
+      </head>
+      <QueryProvider>
+        <NextIntlClientProvider messages={messages}>
+          <body className={cn("", poppins.className)}>
+            <AuthProvider>
+              <SplashScreenWrapper>{children}</SplashScreenWrapper>
+              <Toaster />
+            </AuthProvider>
+            <ReactQueryDevtools />
+          </body>
+        </NextIntlClientProvider>
+      </QueryProvider>
+    </html>
+  );
 }

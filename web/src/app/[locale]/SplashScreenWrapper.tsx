@@ -1,22 +1,11 @@
-'use client';
+"use client";
 
 import { useEffect, useState } from "react";
 import SplashScreen from "./page";
+import { useAuth } from "@/hooks/useAuth";
 
-export default function SplashScreenWrapper({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
-
-    return () => clearTimeout(timer);
-  }, []);
+export default function SplashScreenWrapper({ children }: { children: React.ReactNode }) {
+  const { isLoading } = useAuth();
 
   return <>{isLoading ? <SplashScreen /> : children}</>;
 }
