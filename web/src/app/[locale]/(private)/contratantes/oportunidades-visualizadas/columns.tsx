@@ -108,8 +108,7 @@ export const demandas: ColumnDef<Opportunity>[] = [
                            Tem certeza?
                         </DialogTitle>
                         <DialogDescription>
-                           Aqui estão os detalhes da oportunidade que você
-                           selecionou.
+                           A proposta da sua empresa será removida da oportunidade da empresa.
                         </DialogDescription>
                         <Separator />
                      </DialogHeader>

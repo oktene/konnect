@@ -39,10 +39,10 @@ async function getData(): Promise<Opportunity[]> {
                id: "1",
                name: "Válvulas" 
             },
-            {
-               id: "2",
-               name: "Tubos" 
-            },
+            // {
+            //    id: "2",
+            //    name: "Tubos" 
+            // },
          ],
       },
       {

@@ -50,7 +50,7 @@ export function getMenuList(pathname: string): Group[] {
          ],
       },
       {
-         groupLabel: "FORNECEDORES",
+         groupLabel: "CONTRATANTES",
          menus: [
             {
                href: "/fornecedores/minhas-oportunidades",
@@ -62,12 +62,12 @@ export function getMenuList(pathname: string): Group[] {
          ],
       },
       {
-         groupLabel: "CONTRATANTES",
+         groupLabel: "FORNECEDORES",
          menus: [
             {
-               href: "/contratantes/minhas-demandas",
-               label: "Minhas Demandas",
-               active: pathname.includes("/minhas-demandas"),
+               href: "/contratantes/oportunidades-visualizadas",
+               label: "Oportunidades Visualizadas",
+               active: pathname.includes("/oportunidades-visualizadas"),
                icon: SquarePen,
                submenus: [],
             },

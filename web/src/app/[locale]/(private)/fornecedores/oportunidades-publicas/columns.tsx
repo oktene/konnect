@@ -49,26 +49,16 @@ export const columns: ColumnDef<Opportunity>[] = [
       enableHiding: false,
    },
    {
-      accessorKey: "executionPeriod",
+      accessorKey: "deadlineSubmission",
       header: ({ column }) => {
          return (
-            <DataTableColumnHeader column={column} title="Período de Execução" />
+            <DataTableColumnHeader column={column} title="Limite de Submissão" />
          );
       },
       cell: ({ getValue }) =>
-         getValue()
-            ? new Date(
-                 getValue() as string | number | Date
-              ).toLocaleDateString()
-            : "N/A",
+         new Date(getValue() as string | number | Date).toLocaleDateString(),
       enableSorting: true,
       enableHiding: false,
-   },
-   {
-      accessorKey: "deadlineSubmission",
-      header: "Limite de Submissão",
-      cell: ({ getValue }) =>
-         new Date(getValue() as string | number | Date).toLocaleDateString(),
    },
    {
       accessorKey: "typeOpportunity",
