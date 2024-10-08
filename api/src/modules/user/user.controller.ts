@@ -14,6 +14,7 @@ import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { PermissionsLevelsGuard } from 'src/shared/guards/permissionLevels.guard';
 import { Permissions } from 'src/shared/decorators/permission.decorator';
 import { PermissionLevel as UserPermission } from 'src/shared/enums/permissionLevel.enum';
+import { ActiveUserId } from 'src/shared/decorators/activeUserId.decorator';
 
 @ApiBearerAuth()
 @ApiTags('User')
@@ -27,6 +28,12 @@ export class UserController {
   @ApiOperation({ summary: 'Get all users in the Konnect' })
   async getAll() {
     return this.userService.getAll();
+  }
+
+  @Get('/me')
+  @ApiOperation({ summary: 'Get the loggedd user by JWT Token' })
+  me(@ActiveUserId() userId: string) {
+    return this.userService.getOneById(userId);
   }
 
   @Get(':id')
@@ -44,9 +51,14 @@ export class UserController {
   }
 
   @Patch(':id')
-  @Permissions(UserPermission.EDITOR || UserPermission.ADMIN || UserPermission.USER)
+  @Permissions(
+    UserPermission.EDITOR || UserPermission.ADMIN || UserPermission.USER,
+  )
   @ApiOperation({ summary: 'Update an user' })
-  async update(@Param('id') userId: string, @Body() updateUserDto: UpdateUserDto) {
+  async update(
+    @Param('id') userId: string,
+    @Body() updateUserDto: UpdateUserDto,
+  ) {
     return await this.userService.update(userId, updateUserDto);
   }
 

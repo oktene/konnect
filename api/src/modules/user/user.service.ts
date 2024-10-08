@@ -5,31 +5,34 @@ import { UserRepository } from 'src/shared/database/repositories/users.repositor
 
 @Injectable()
 export class UserService {
-  constructor(
-    private readonly usersRepo: UserRepository
-  ) {}
+  constructor(private readonly usersRepo: UserRepository) {}
 
   async getAll() {
     return await this.usersRepo.findAll({});
   }
 
   async getOneById(userId: string) {
-    return await this.usersRepo.findUnique({ 
-      where: { id: userId } 
+    return await this.usersRepo.findUnique({
+      where: { id: userId },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+      },
     });
   }
-  
+
   async getOneByEmail(userEmail: string) {
-    return await this.usersRepo.findUnique({ 
-      where: { email: userEmail } 
+    return await this.usersRepo.findUnique({
+      where: { email: userEmail },
     });
   }
-  
+
   async update(userId: string, updateUserDto: UpdateUserDto) {
     return this.usersRepo.update({
       where: { id: userId },
-      data: updateUserDto
-    })
+      data: updateUserDto,
+    });
   }
 
   async delete(companyId: string) {

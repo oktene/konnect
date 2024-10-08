@@ -9,8 +9,13 @@ import { getMenuList } from "@/lib/menuList";
 import { Button } from "@/components/ui/button";
 import { CollapseMenuButton } from "@/components/admin-panel/collapse-menu-button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { useAuth } from "@/hooks/useAuth";
 
 interface MenuProps {
   isOpen: boolean | undefined;
@@ -19,6 +24,7 @@ interface MenuProps {
 export function Menu({ isOpen }: MenuProps) {
   const pathname = usePathname();
   const menuList = getMenuList(pathname);
+  const { signout } = useAuth();
 
   return (
     <ScrollArea className="[&>div>div[style]]:!block">
@@ -46,56 +52,51 @@ export function Menu({ isOpen }: MenuProps) {
               ) : (
                 <p className="pb-2"></p>
               )}
-              {menus.map(
-                ({ href, label, icon: Icon, active, submenus }, index) =>
-                  submenus.length === 0 ? (
-                    <div className="w-full" key={index}>
-                      <TooltipProvider disableHoverableContent>
-                        <Tooltip delayDuration={100}>
-                          <TooltipTrigger asChild>
-                            <Button
-                              variant={active ? "secondary" : "ghost"}
-                              className="w-full justify-start h-10 mb-1"
-                              asChild
-                            >
-                              <Link href={href}>
-                                <span
-                                  className={cn(isOpen === false ? "" : "mr-4")}
-                                >
-                                  <Icon size={18} />
-                                </span>
-                                <p
-                                  className={cn(
-                                    "max-w-[200px] truncate",
-                                    isOpen === false
-                                      ? "-translate-x-96 opacity-0"
-                                      : "translate-x-0 opacity-100"
-                                  )}
-                                >
-                                  {label}
-                                </p>
-                              </Link>
-                            </Button>
-                          </TooltipTrigger>
-                          {isOpen === false && (
-                            <TooltipContent side="right">
-                              {label}
-                            </TooltipContent>
-                          )}
-                        </Tooltip>
-                      </TooltipProvider>
-                    </div>
-                  ) : (
-                    <div className="w-full" key={index}>
-                      <CollapseMenuButton
-                        icon={Icon}
-                        label={label}
-                        active={active}
-                        submenus={submenus}
-                        isOpen={isOpen}
-                      />
-                    </div>
-                  )
+              {menus.map(({ href, label, icon: Icon, active, submenus }, index) =>
+                submenus.length === 0 ? (
+                  <div className="w-full" key={index}>
+                    <TooltipProvider disableHoverableContent>
+                      <Tooltip delayDuration={100}>
+                        <TooltipTrigger asChild>
+                          <Button
+                            variant={active ? "secondary" : "ghost"}
+                            className="w-full justify-start h-10 mb-1"
+                            asChild
+                          >
+                            <Link href={href}>
+                              <span className={cn(isOpen === false ? "" : "mr-4")}>
+                                <Icon size={18} />
+                              </span>
+                              <p
+                                className={cn(
+                                  "max-w-[200px] truncate",
+                                  isOpen === false
+                                    ? "-translate-x-96 opacity-0"
+                                    : "translate-x-0 opacity-100"
+                                )}
+                              >
+                                {label}
+                              </p>
+                            </Link>
+                          </Button>
+                        </TooltipTrigger>
+                        {isOpen === false && (
+                          <TooltipContent side="right">{label}</TooltipContent>
+                        )}
+                      </Tooltip>
+                    </TooltipProvider>
+                  </div>
+                ) : (
+                  <div className="w-full" key={index}>
+                    <CollapseMenuButton
+                      icon={Icon}
+                      label={label}
+                      active={active}
+                      submenus={submenus}
+                      isOpen={isOpen}
+                    />
+                  </div>
+                )
               )}
             </li>
           ))}
@@ -104,7 +105,7 @@ export function Menu({ isOpen }: MenuProps) {
               <Tooltip delayDuration={100}>
                 <TooltipTrigger asChild>
                   <Button
-                    onClick={() => {}}
+                    onClick={signout}
                     variant="outline"
                     className="w-full justify-center h-10 mt-5"
                   >
@@ -122,7 +123,9 @@ export function Menu({ isOpen }: MenuProps) {
                   </Button>
                 </TooltipTrigger>
                 {isOpen === false && (
-                  <TooltipContent side="right">Sair</TooltipContent>
+                  <TooltipContent side="right" onClick={signout}>
+                    Sair
+                  </TooltipContent>
                 )}
               </Tooltip>
             </TooltipProvider>
