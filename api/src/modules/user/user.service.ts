@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { CompanyService } from '../company/company.service';
 import { UserRepository } from 'src/shared/database/repositories/users.repositories';
@@ -12,14 +12,22 @@ export class UserService {
   }
 
   async getOneById(userId: string) {
-    return await this.usersRepo.findUnique({
+    const user = await this.usersRepo.findUnique({
       where: { id: userId },
       select: {
-        id: true,
-        email: true,
         name: true,
+        phone: true,
+        cpf: true,
+        permissionLevel: true,
+        role: true,
+        company: true,
       },
     });
+
+    if (!user) {
+      throw new NotFoundException('Usuário não encontrado!');
+    }
+    return user;
   }
 
   async getOneByEmail(userEmail: string) {
