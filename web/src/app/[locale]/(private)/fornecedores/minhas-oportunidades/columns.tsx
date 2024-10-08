@@ -2,7 +2,6 @@
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { DataTableColumnHeader } from "@/components/ui/data-table-column-header";
 import {
    Dialog,
    DialogContent,
@@ -41,7 +40,15 @@ export const columns: ColumnDef<Opportunity>[] = [
       accessorKey: "description",
       header: ({ column }) => {
          return (
-            <DataTableColumnHeader column={column} title="Título" />
+            <Button
+               variant="ghost"
+               onClick={() =>
+                  column.toggleSorting(column.getIsSorted() === "asc")
+               }
+            >
+               Título
+               <ArrowUpDown className="ml-2 h-4 w-4" />
+            </Button>
          );
       },
       cell: ({ row }) => <div>{row.getValue("description")}</div>,
@@ -49,44 +56,28 @@ export const columns: ColumnDef<Opportunity>[] = [
       enableHiding: false,
    },
    {
+      accessorKey: "executionPeriod",
+      header: "Período de Execução",
+      cell: ({ getValue }) =>
+         getValue()
+            ? new Date(
+                 getValue() as string | number | Date
+              ).toLocaleDateString()
+            : "N/A", // Format date if exists
+   },
+   {
       accessorKey: "deadlineSubmission",
-      header: ({ column }) => {
-         return (
-            <DataTableColumnHeader column={column} title="Limite de Submissão" />
-         );
-      },
+      header: "Limite de Submissão",
       cell: ({ getValue }) =>
          new Date(getValue() as string | number | Date).toLocaleDateString(),
-      enableSorting: true,
-      enableHiding: false,
    },
    {
       accessorKey: "typeOpportunity",
       header: "Tipo",
    },
    {
-      accessorKey: "company",
-      header: "Empresa",
-   },
-   {
       accessorKey: "subCategory",
       header: "Categoria",
-      cell: ({ getValue }) => {
-         const categorias = getValue() as Array<{ name: string }>;
-         console.log(categorias); 
-
-         if (Array.isArray(categorias)) {
-            return (
-              <>
-                {categorias.map((categoria, index) => (
-                  <span key={index}>{categoria.name.toString()}</span>
-                ))}
-              </>
-            );
-          }
-      
-          return null;
-      }
    },
    {
       accessorKey: "isExpired",
@@ -112,7 +103,7 @@ export const columns: ColumnDef<Opportunity>[] = [
 
          return (
             <>
-               <Button
+               {/* <Button
                   className="h-full w-85vw pw-2 ph-1"
                   aria-haspopup="true"
                   size="default"
@@ -122,8 +113,8 @@ export const columns: ColumnDef<Opportunity>[] = [
                   <EyeIcon className="h-4 w-4 mr-2"/> 
                   Visualizar
                   <span className="sr-only">Visualizar oportunidade</span>
-               </Button>
-               {/* <DropdownMenu>
+               </Button> */}
+               <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                      <Button
                         className="h-8 w-8 p-0"
@@ -152,7 +143,7 @@ export const columns: ColumnDef<Opportunity>[] = [
                         Deletar
                      </DropdownMenuItem>
                   </DropdownMenuContent>
-               </DropdownMenu> */}
+               </DropdownMenu>
 
                <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                   <DialogContent>

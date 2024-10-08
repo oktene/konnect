@@ -1,20 +1,13 @@
 import { ContentLayout } from "@/components/admin-panel/content-layout";
-import { Link } from "lucide-react";
+import { Link, PlusCircle } from "lucide-react";
 
 import { columns } from "./columns";
-import { DataTable } from "@/components/ui/data-table";
-import {
-   Breadcrumb,
-   BreadcrumbItem,
-   BreadcrumbLink,
-   BreadcrumbList,
-   BreadcrumbPage,
-   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
 import { Opportunity } from "@/zodSchemas/opportunity";
 import React, { Suspense } from "react";
 import Loading from "@/app/[locale]/loading";
 import Skeleton from "react-loading-skeleton";
+import { Button } from "@/components/ui/button";
+import { DataTable } from "./data-table";
 
 async function getData(): Promise<Opportunity[]> {
    return [
@@ -22,11 +15,9 @@ async function getData(): Promise<Opportunity[]> {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -42,18 +33,25 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "Acelen",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            // {
+            //    id: "2",
+            //    name: "Tubos" 
+            // },
+         ],
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -69,18 +67,25 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "Acelen",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -96,18 +101,25 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "Acelen",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -123,18 +135,25 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "Acelen",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -150,18 +169,25 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "Acelen",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -177,18 +203,25 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "Conterp",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -204,18 +237,25 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "Conterp",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -231,18 +271,25 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "Conterp",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -258,18 +305,25 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "Conterp",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -285,18 +339,25 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "Conterp",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -312,18 +373,25 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "Conterp",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -339,18 +407,25 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "Conterp",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -366,18 +441,25 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "Conterp",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -393,18 +475,25 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "Conterp",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -420,18 +509,25 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "Conterp",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -447,18 +543,25 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "Conterp",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -474,18 +577,25 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "Conterp",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -501,18 +611,25 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "Conterp",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -528,18 +645,25 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "Conterp",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -555,18 +679,25 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "Oktene",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -582,18 +713,25 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "Conterp",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Material",
          isExpired: false,
          attachments: [
             {
@@ -609,18 +747,25 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "Conterp",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -636,18 +781,25 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "Conterp",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -663,18 +815,25 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "Acelen",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -690,18 +849,25 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "Acelen",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ12345",
          description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -717,18 +883,25 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "Conterp",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
       },
       {
          id: "728ed52f",
          codeRFQ: "RFQ1234567",
-         description: "Supply of drilling equipment",
-         quantity: 10,
-         unityMetric: "pieces",
+         description: "Drilling equipment",
          executionPeriod: new Date("2024-12-31"),
          deadlineSubmission: new Date("2024-11-01"),
-         typeOpportunity: "Service",
+         typeOpportunity: "Serviço",
          isExpired: false,
          attachments: [
             {
@@ -744,8 +917,17 @@ async function getData(): Promise<Opportunity[]> {
                status: "Pending",
             },
          ],
-         companyId: "company123",
-         subCategoryId: "subCat456",
+         company: "Oktene",
+         subCategory: [
+            {
+               id: "1",
+               name: "Válvulas" 
+            },
+            {
+               id: "2",
+               name: "Tubos" 
+            },
+         ],
       },
    ];
 }
@@ -755,19 +937,6 @@ const OportunidadesPublicas = async () => {
 
    return (
       <ContentLayout title="Konnect">
-         {/* <Breadcrumb>
-            <BreadcrumbList>
-               <BreadcrumbItem>
-                  <BreadcrumbLink asChild>
-                     <Link href="/">Home</Link>
-                  </BreadcrumbLink>
-               </BreadcrumbItem>
-               <BreadcrumbSeparator />
-               <BreadcrumbItem>
-                  <BreadcrumbPage>Oportunidades Públicas</BreadcrumbPage>
-               </BreadcrumbItem>
-            </BreadcrumbList>
-         </Breadcrumb> */}
          <main>
             <div className="mt-2">
                <p className="text-zinc-900 text-lg">

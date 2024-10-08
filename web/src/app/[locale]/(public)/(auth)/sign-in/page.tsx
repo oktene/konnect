@@ -73,7 +73,7 @@ const SignIn: React.FC = () => {
           <div className="grid gap-2 text-center">
             <h1 className="text-3xl font-bold">Login</h1>
             <p className="text-balance text-muted-foreground">
-              Enter your email below to login to your account
+            Bem-vindo ao Konnect
             </p>
           </div>
           <Suspense fallback={<Loading />}>
@@ -97,12 +97,12 @@ const SignIn: React.FC = () => {
                 </div>
                 <div className="grid gap-2">
                   <div className="flex items-center">
-                    <Label htmlFor="password">Password</Label>
+                    <Label htmlFor="password">Senha</Label>
                     <Link
                       href="/forgot-password"
                       className="ml-auto inline-block text-sm underline"
                     >
-                      Forgot your password?
+                      Esqueceu a senha?
                     </Link>
                   </div>
                   <Input
@@ -125,9 +125,9 @@ const SignIn: React.FC = () => {
             </form>
           </Suspense>
           <div className="mt-4 text-center text-sm">
-            Don&apos;t have an account?{" "}
+            Não possui conta?{" "}
             <Link href="#" className="underline">
-              Sign up
+              Clique aqui e cadastre-se agora
             </Link>
           </div>
         </div>
@@ -143,31 +143,6 @@ const SignIn: React.FC = () => {
       </div>
     </div>
   );
-
-  //  return (
-  //     <div style={{ maxWidth: "300px", margin: "auto" }}>
-  //        <h1>Sign In</h1>
-  //        <form onSubmit={handleSubmit}>
-  //           <label>
-  //              Email
-  //              <input
-  //                 type="text"
-  //                 value={email}
-  //                 onChange={(e) => setEmail(e.target.value)}
-  //              />
-  //           </label>
-  //           <label>
-  //              Password
-  //              <input
-  //                 type="password"
-  //                 value={password}
-  //                 onChange={(e) => setPassword(e.target.value)}
-  //              />
-  //           </label>
-  //           <button type="submit">Sign In</button>
-  //        </form>
-  //     </div>
-  //  );
 };
 
 export default SignIn;

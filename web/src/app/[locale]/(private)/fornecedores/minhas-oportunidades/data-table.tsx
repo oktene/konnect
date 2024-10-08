@@ -6,11 +6,14 @@ import {
    ColumnFiltersState,
    flexRender,
    getCoreRowModel,
+   getFacetedRowModel,
+   getFacetedUniqueValues,
    getFilteredRowModel,
    getPaginationRowModel,
    getSortedRowModel,
    SortingState,
    useReactTable,
+   VisibilityState,
 } from "@tanstack/react-table";
 
 import {
@@ -23,6 +26,7 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { DataTablePagination } from "@/components/ui/data-table-pagination";
 
 interface DataTableProps<TData, TValue> {
    columns: ColumnDef<TData, TValue>[];
@@ -33,22 +37,32 @@ export function DataTable<TData, TValue>({
    columns,
    data,
 }: DataTableProps<TData, TValue>) {
-   const [sorting, setSorting] = React.useState<SortingState>([]);
-   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-      []
-   );
+   const [rowSelection, setRowSelection] = React.useState({})
+  const [columnVisibility, setColumnVisibility] =
+    React.useState<VisibilityState>({})
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
+    []
+  )
+  const [sorting, setSorting] = React.useState<SortingState>([])
 
    const table = useReactTable({
       data,
       columns,
-      getCoreRowModel: getCoreRowModel(),
-      getPaginationRowModel: getPaginationRowModel(),
+      enableRowSelection: true,
+      onRowSelectionChange: setRowSelection,
       onSortingChange: setSorting,
-      getSortedRowModel: getSortedRowModel(),
       onColumnFiltersChange: setColumnFilters,
+      onColumnVisibilityChange: setColumnVisibility,
+      getCoreRowModel: getCoreRowModel(),
       getFilteredRowModel: getFilteredRowModel(),
+      getPaginationRowModel: getPaginationRowModel(),
+      getSortedRowModel: getSortedRowModel(),
+      getFacetedRowModel: getFacetedRowModel(),
+      getFacetedUniqueValues: getFacetedUniqueValues(),
       state: {
          sorting,
+         columnVisibility,
+         rowSelection,
          columnFilters,
       },
    });
@@ -57,16 +71,12 @@ export function DataTable<TData, TValue>({
       <div>
          <div className="flex items-center py-4">
             <Input
-               placeholder="Filtre pela descrição ou Código RFQ..."
+               placeholder="Filtre pelo código RFQ..."
                value={
-                  (table
-                     .getColumn("codeRFQ" || "description")
-                     ?.getFilterValue() as string) ?? ""
+                  (table.getColumn("codeRFQ")?.getFilterValue() as string) ?? ""
                }
                onChange={(event) =>
-                  table
-                     .getColumn("codeRFQ" || "description")
-                     ?.setFilterValue(event.target.value)
+                  table.getColumn("codeRFQ")?.setFilterValue(event.target.value)
                }
                className="max-w-sm"
             />
@@ -80,7 +90,7 @@ export function DataTable<TData, TValue>({
                            return (
                               <TableHead
                                  key={header.id}
-                                 className="hidden w-[100px] sm:table-cell"
+                                 className="text-center w-[100px] sm:table-cell"
                               >
                                  {header.isPlaceholder
                                     ? null
@@ -94,7 +104,7 @@ export function DataTable<TData, TValue>({
                      </TableRow>
                   ))}
                </TableHeader>
-               <TableBody>
+               <TableBody className="text-wrap text-center">
                   {table.getRowModel().rows?.length ? (
                      table.getRowModel().rows.map((row) => (
                         <TableRow
@@ -124,23 +134,8 @@ export function DataTable<TData, TValue>({
                </TableBody>
             </Table>
          </div>
-         <div className="flex items-center justify-end space-x-2 py-4">
-            <Button
-               variant="outline"
-               size="sm"
-               onClick={() => table.previousPage()}
-               disabled={!table.getCanPreviousPage()}
-            >
-               Previous
-            </Button>
-            <Button
-               variant="outline"
-               size="sm"
-               onClick={() => table.nextPage()}
-               disabled={!table.getCanNextPage()}
-            >
-               Next
-            </Button>
+         <div className="py-4">
+            <DataTablePagination table={table} />
          </div>
       </div>
    );
