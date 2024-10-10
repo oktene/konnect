@@ -124,13 +124,13 @@ const SignIn: React.FC = () => {
                                  required
                                  {...register("password")}
                               />
-                              <button
+                              {/* <button
                                 type="button"
                                 onClick={() => setShowPassword(!showPassword)}
                                 className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"
                               >
                                 {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-                              </button>
+                              </button> */}
                               {errors.password?.message && (
                                  <div className="flex gap-2 items-center mt-2 p-[2px] rounded-md text-red-700 font-semibold bg-redAccent-500 w-full ">
                                     <CrossCircledIcon />

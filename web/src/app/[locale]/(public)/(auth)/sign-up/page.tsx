@@ -42,40 +42,40 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 //Importando do Auth Context
-const { signin } = useAuth();
-const { toast } = useToast();
+// const { signin } = useAuth();
+// const { toast } = useToast();
 
-const { isPending: isLoading, mutateAsync } = useMutation({
-   mutationKey: ["sign-up"],
-   mutationFn: async (data: SignUpParams) => {
-      return await authService.signUp(data);
-   },
-});
+// const { isPending: isLoading, mutateAsync } = useMutation({
+//    mutationKey: ["sign-up"],
+//    mutationFn: async (data: SignUpParams) => {
+//       return await authService.signUp(data);
+//    },
+// });
 
-const {
-   handleSubmit: hookFormHandleSubmit,
-   register,
-   formState: { errors },
-} = useForm<FormData>({
-   resolver: zodResolver(schema),
-});
+// const {
+//    handleSubmit: hookFormHandleSubmit,
+//    register,
+//    formState: { errors },
+// } = useForm<FormData>({
+//    resolver: zodResolver(schema),
+// });
 
-const handleSubmit = hookFormHandleSubmit(async (data) => {
-   //API Call
+// const handleSubmit = hookFormHandleSubmit(async (data) => {
+//    //API Call
 
-   try {
-      // const { accessToken } = await mutateAsync(data);
-      // signin(accessToken);
-      console.log('try')
-   } catch (error: any | typeof AxiosError) {
-      console.log(error);
-      toast({
-         title: "Erro",
-         description: error.response.data.message,
-         variant: "destructive",
-      });
-   }
-});
+//    try {
+//       // const { accessToken } = await mutateAsync(data);
+//       // signin(accessToken);
+//       console.log('try')
+//    } catch (error: any | typeof AxiosError) {
+//       console.log(error);
+//       toast({
+//          title: "Erro",
+//          description: error.response.data.message,
+//          variant: "destructive",
+//       });
+//    }
+// });
 
 const SignUp: React.FC = () => {
    return (
@@ -88,28 +88,29 @@ const SignUp: React.FC = () => {
                </CardDescription>
             </CardHeader>
             <CardContent>
-               <form onSubmit={handleSubmit} className="grid gap-4">
-                  <div className="grid gap-2">
-                     <Label htmlFor="name">Nome</Label>
-                     <Input
-                        id="name"
-                        placeholder="Digite seu nome"
-                        {...register("name")}
-                        className={errors.name ? "border-red-500" : ""}
-                     />
-                     {errors.name && <p className="text-red-500">{errors.name.message}</p>}
-                  </div>
-
-                  <div className="grid gap-2">
-                     <Label htmlFor="email">Email</Label>
-                     <Input
-                        id="email"
-                        type="email"
-                        placeholder="m@example.com"
-                        {...register("email")}
-                        className={errors.email ? "border-red-500" : ""}
-                     />
-                     {errors.email && <p className="text-red-500">{errors.email.message}</p>}
+               <form className="grid gap-4">
+                  <div className="grid grid-cols-2 gap-4">
+                     <div className="grid gap-2">
+                        <Label htmlFor="name">Nome</Label>
+                        <Input
+                           id="name"
+                           placeholder="Digite seu nome completo"
+                           // {...register("name")}
+                           // className={errors.name ? "border-red-500" : ""}
+                        />
+                        {/* {errors.name && <p className="text-red-500">{errors.name.message}</p>} */}
+                     </div>
+                     <div className="grid gap-2">
+                        <Label htmlFor="email">Email</Label>
+                        <Input
+                           id="email"
+                           type="email"
+                           placeholder="m@example.com"
+                           // {...register("email")}
+                           // className={errors.email ? "border-red-500" : ""}
+                        />
+                        {/* {errors.email && <p className="text-red-500">{errors.email.message}</p>} */}
+                     </div>
                   </div>
 
                   <div className="grid gap-2">
@@ -118,10 +119,10 @@ const SignUp: React.FC = () => {
                         id="phone"
                         type="tel"
                         placeholder="Digite seu telefone"
-                        {...register("phone")}
-                        className={errors.phone ? "border-red-500" : ""}
+                        // {...register("phone")}
+                        // className={errors.phone ? "border-red-500" : ""}
                      />
-                     {errors.phone && <p className="text-red-500">{errors.phone.message}</p>}
+                     {/* {errors.phone && <p className="text-red-500">{errors.phone.message}</p>} */}
                   </div>
 
                   <div className="grid gap-2">
@@ -129,11 +130,11 @@ const SignUp: React.FC = () => {
                      <Input
                         id="password"
                         type="password"
-                        placeholder="Digite sua senha"
-                        {...register("password")}
-                        className={errors.password ? "border-red-500" : ""}
+                        placeholder="Escolha uma senha forte"
+                        // {...register("password")}
+                        // className={errors.password ? "border-red-500" : ""}
                      />
-                     {errors.password && <p className="text-red-500">{errors.password.message}</p>}
+                     {/* {errors.password && <p className="text-red-500">{errors.password.message}</p>} */}
                   </div>
 
                   <div className="grid gap-2">
@@ -141,23 +142,23 @@ const SignUp: React.FC = () => {
                      <Input
                         id="company-name"
                         placeholder="Nome da Empresa"
-                        {...register("company.name")}
-                        className={errors.company?.name ? "border-red-500" : ""}
+                        // {...register("company.name")}
+                        // className={errors.company?.name ? "border-red-500" : ""}
                      />
-                     {errors.company?.name && <p className="text-red-500">{errors.company?.name.message}</p>}
+                     {/* {errors.company?.name && <p className="text-red-500">{errors.company?.name.message}</p>} */}
                   </div>
 
                   <div className="grid gap-2">
                      <Label htmlFor="company-registration">Registro da Empresa</Label>
                      <Input
                         id="company-registration"
-                        placeholder="Digite o registro da empresa"
-                        {...register("company.companyRegistration")}
-                        className={errors.company?.companyRegistration ? "border-red-500" : ""}
+                        placeholder="Digite o CNPJ ou identificador internacional da empresa"
+                        // {...register("company.companyRegistration")}
+                        // className={errors.company?.companyRegistration ? "border-red-500" : ""}
                      />
-                     {errors.company?.companyRegistration && (
+                     {/* {errors.company?.companyRegistration && (
                         <p className="text-red-500">{errors.company?.companyRegistration.message}</p>
-                     )}
+                     )} */}
                   </div>
 
                   <Button type="submit" className="w-full bg-orange-500">
