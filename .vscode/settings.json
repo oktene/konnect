@@ -1,6 +1,8 @@
 {
     "conventionalCommits.scopes": [
         "Data-tables",
+        "Deploy",
+        "Auth"
         "Modal"
         "Deploy"
     ]

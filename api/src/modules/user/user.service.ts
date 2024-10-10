@@ -18,6 +18,15 @@ export class UserService {
         id: true,
         email: true,
         name: true,
+        phone: true,
+        role: true,
+        permissionLevel: true,
+        company: {
+          select: {
+            name: true,
+            companyRegistration: true,
+          },
+        },
       },
     });
   }

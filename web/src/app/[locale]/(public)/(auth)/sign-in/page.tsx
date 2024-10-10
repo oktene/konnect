@@ -17,6 +17,15 @@ import { authService, SigninParams } from "@/services/auth/authService";
 import { CrossCircledIcon } from "@radix-ui/react-icons";
 import { useToast } from "@/hooks/use-toast";
 import { AxiosError } from "axios";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { EyeOff, Eye } from "lucide-react";
 
 const schema = z.object({
   email: z.string().min(1).email("Informe um E-mail válido."),
@@ -29,8 +38,6 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 const SignIn: React.FC = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   //Importando do Auth Context
   const { signin } = useAuth();
   const { toast } = useToast();
@@ -67,79 +74,81 @@ const SignIn: React.FC = () => {
   });
 
   return (
-    <div className="w-full h-screen lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
+    <div className="w-full h-screen lg:grid lg:min-h-[600px] xl:min-h-[800px]">
       <div className="flex items-center justify-center h-screen">
-        <div className="mx-auto grid w-[350px] gap-6">
-          <div className="grid gap-2 text-center">
-            <h1 className="text-3xl font-bold">Login</h1>
-            <p className="text-balance text-muted-foreground">
-            Bem-vindo ao Konnect
-            </p>
-          </div>
-          <Suspense fallback={<Loading />}>
-            <form onSubmit={handleSubmit}>
-              <div className="grid gap-4">
-                <div className="grid gap-2">
-                  <Label htmlFor="email">Email</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="m@example.com"
-                    required
-                    {...register("email")}
-                  />
-                  {errors.email?.message && (
-                    <div className="flex gap-2 items-center mt-2 p-[2px] rounded-md text-white font-semibold bg-redAccent-500 w-full ">
-                      <CrossCircledIcon />
-                      <span className="text-xs">{errors.email?.message}</span>
-                    </div>
-                  )}
-                </div>
-                <div className="grid gap-2">
-                  <div className="flex items-center">
-                    <Label htmlFor="password">Senha</Label>
-                    <Link
-                      href="/forgot-password"
-                      className="ml-auto inline-block text-sm underline"
-                    >
-                      Esqueceu a senha?
-                    </Link>
+        <Card className="w-full max-w-sm">
+          <CardHeader className="flex justify-center items-center">
+            <CardTitle className="text-2xl">Login</CardTitle>
+            <CardDescription className="text-center">
+              Bem-vindo ao Konnect. <br />O mundo de oportunidades Oil & Gas.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="grid gap-4">
+            <Suspense fallback={<Loading />}>
+              <form onSubmit={handleSubmit}>
+                <div className="grid gap-4">
+                  <div className="grid gap-2">
+                    <Label htmlFor="email">Email</Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      placeholder="m@example.com"
+                      required
+                      {...register("email")}
+                    />
+                    {errors.email?.message && (
+                      <div className="flex gap-2 items-center mt-2 p-[2px] rounded-md text-red-700 font-semibold bg-redAccent-500 w-full ">
+                        <CrossCircledIcon />
+                        <span className="text-xs">{errors.email?.message}</span>
+                      </div>
+                    )}
                   </div>
-                  <Input
-                    id="password"
-                    type="password"
-                    required
-                    {...register("password")}
-                  />
-                  {errors.password?.message && (
-                    <div className="flex gap-2 items-center mt-2 p-[2px] rounded-md text-white font-semibold bg-redAccent-500 w-full ">
-                      <CrossCircledIcon />
-                      <span className="text-xs">{errors.password?.message}</span>
+                  <div className="grid gap-2">
+                    <div className="flex items-center">
+                      <Label htmlFor="password">Senha</Label>
+                      {/* <Link
+                                    href="/forgot-password"
+                                    className="ml-auto inline-block text-sm underline"
+                                  >
+                                    Esqueci minha
+                                  </Link> */}
                     </div>
-                  )}
+                    <Input
+                      id="password"
+                      type="password"
+                      required
+                      {...register("password")}
+                    />
+                    {/* <button
+                                type="button"
+                                onClick={() => setShowPassword(!showPassword)}
+                                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"
+                              >
+                                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                              </button> */}
+                    {errors.password?.message && (
+                      <div className="flex gap-2 items-center mt-2 p-[2px] rounded-md text-red-700 font-semibold bg-redAccent-500 w-full ">
+                        <CrossCircledIcon />
+                        <span className="text-xs">
+                          {errors.password?.message}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                  <Button type="submit" className="w-full bg-orange-600">
+                    Login
+                  </Button>
                 </div>
-                <Button type="submit" className="w-full ">
-                  Login
-                </Button>
-              </div>
-            </form>
-          </Suspense>
-          <div className="mt-4 text-center text-sm">
-            Não possui conta?{" "}
-            <Link href="#" className="underline">
-              Clique aqui e cadastre-se agora
-            </Link>
-          </div>
-        </div>
-      </div>
-      <div className="hidden bg-muted lg:block">
-        <Image
-          src="/placeholder.svg"
-          alt="Image"
-          width="1920"
-          height="1080"
-          className="h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
-        />
+              </form>
+            </Suspense>
+            <div className="mt-4 text-center text-sm">
+              Não possui conta?{" "}
+              <Link href="/sign-up" className="underline text-orange-600 hover">
+                Cadastre-se
+              </Link>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );

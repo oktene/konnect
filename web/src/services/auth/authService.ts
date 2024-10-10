@@ -1,11 +1,33 @@
-import { TemporaryUserType } from "@/app/contexts/AuthContext";
 import { apiClient } from "../apiClient";
-import { Company } from "@/zodSchemas/company";
-import { signIn } from "next-auth/react";
+
+export enum roleType {
+  FORNECEDOR = "FORNECEDOR",
+  COMPRADOR = "COMPRADOR",
+  AMBOS = "AMBOS",
+}
+
+export enum PermissionLevel {
+  ADMIN = "ADMIN",
+  USER = "USER",
+  EDITOR = "EDITOR",
+}
 
 export interface SigninParams {
   email: string;
   password: string;
+}
+
+export interface SignUpParams {
+  email: string;
+  password: string;
+  name: string;
+  phone: string;
+  role: roleType;
+  permissionLevel: PermissionLevel;
+  company: {
+    name: string;
+    companyRegistration: string;
+  };
 }
 
 interface SigninResponse {
@@ -13,9 +35,13 @@ interface SigninResponse {
 }
 
 export const authService = {
-  // Buscar todas as empresas
   async signIn(params: SigninParams) {
     const { data } = await apiClient.post<SigninResponse>("/sign-in", params);
+    return data;
+  },
+
+  async signUp(params: SignUpParams) {
+    const { data } = await apiClient.post<SigninResponse>("/sign-up", params);
     return data;
   },
 };
