@@ -76,7 +76,7 @@ export function UserNav() {
         <DropdownMenuSeparator />
         <DropdownMenuItem className="hover:cursor-pointer" onClick={signout}>
           <LogOut className="w-4 h-4 mr-3 text-muted-foreground" />
-          Sign out
+          Sair
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

@@ -33,8 +33,15 @@ export function getMenuList(pathname: string): Group[] {
       {
          groupLabel: "",
          menus: [
+            // {
+            //    href: "/dashboard",
+            //    label: "Dashboard",
+            //    active: pathname.includes("/dashboard"),
+            //    icon: LayoutGrid,
+            //    submenus: [],
+            // },
             {
-               href: "/oportunidades-publicas",
+               href: "/fornecedores/oportunidades-publicas",
                label: "Oportunidades Públicas",
                active: pathname.includes("/oportunidades-publicas"),
                icon: BookOpen,
@@ -43,7 +50,7 @@ export function getMenuList(pathname: string): Group[] {
          ],
       },
       {
-         groupLabel: "FORNECEDORES",
+         groupLabel: "CONTRATANTES",
          menus: [
             {
                href: "/fornecedores/minhas-oportunidades",
@@ -55,7 +62,7 @@ export function getMenuList(pathname: string): Group[] {
          ],
       },
       {
-         groupLabel: "CONTRATATNTES",
+         groupLabel: "FORNECEDORES",
          menus: [
             {
                href: "/contratantes/oportunidades-visualizadas",
@@ -88,6 +95,13 @@ export function getMenuList(pathname: string): Group[] {
                icon: Users,
                submenus: [],
             },
+            // {
+            //    href: "/configuracoes",
+            //    label: "Configurações",
+            //    active: pathname.includes("/configuracoes"),
+            //    icon: Settings,
+            //    submenus: [],
+            // },
          ],
       },
    ];
