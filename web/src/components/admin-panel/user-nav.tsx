@@ -21,8 +21,11 @@ import {
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useAuth } from "@/hooks/useAuth";
 
 export function UserNav() {
+  const {user} = useAuth()
+  console.log("user", user)
   return (
     <DropdownMenu>
       <TooltipProvider >
@@ -49,10 +52,10 @@ export function UserNav() {
           <div className="flex flex-col space-y-1">
             <p className="text-sm font-semibold leading-none">Oktene</p>
             <p className="text-xs leading-none text-muted-foreground">
-              Lucas França
+              {user?.name}
             </p>
             <p className="text-xs leading-none text-muted-foreground">
-              lucasfranca@oktene.com.br
+              {user?.email}
             </p>
           </div>
         </DropdownMenuLabel>

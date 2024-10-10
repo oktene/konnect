@@ -1,5 +1,5 @@
 "use client";
-import { authService, SignUpParams } from "@/services/auth/authService";
+import { authService, roleType, SignUpParams } from "@/services/auth/authService";
 import { userService } from "@/services/user/userService";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
@@ -9,7 +9,13 @@ export type TemporaryUserType = {
    id: string;
    email: string;
    name: string;
+   phone:string;
+   role:roleType;
    permissionLevel: string;
+   company: {
+     name: string;
+     companyRegistration: string;
+   };
 };
 
 interface AuthContextValue {
@@ -26,7 +32,6 @@ export const AuthContext = createContext({} as AuthContextValue);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [signedIn, setSignedIn] = useState<boolean>(false);
-  const [user, setUser] = useState<TemporaryUserType | undefined>(undefined);
   const queryClient = useQueryClient();
   const router = useRouter();
 

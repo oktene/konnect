@@ -41,39 +41,7 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-//Importando do Auth Context
 
-// const { isPending: isLoading, mutateAsync } = useMutation({
-//    mutationKey: ["sign-up"],
-//    mutationFn: async (data: SignUpParams) => {
-//       return await authService.signUp(data);
-//    },
-// });
-
-// const {
-//    handleSubmit: hookFormHandleSubmit,
-//    register,
-//    formState: { errors },
-// } = useForm<FormData>({
-//    resolver: zodResolver(schema),
-// });
-
-// const handleSubmit = hookFormHandleSubmit(async (data) => {
-//    //API Call
-
-//    try {
-//       // const { accessToken } = await mutateAsync(data);
-//       // signin(accessToken);
-//       console.log('try')
-//    } catch (error: any | typeof AxiosError) {
-//       console.log(error);
-//       toast({
-//          title: "Erro",
-//          description: error.response.data.message,
-//          variant: "destructive",
-//       });
-//    }
-// });
 
 const SignUp: React.FC = () => {
   const { signin } = useAuth();
@@ -114,7 +82,7 @@ const SignUp: React.FC = () => {
   });
   return (
     <div className="w-full h-screen flex items-center justify-center">
-      <Card className="mx-auto max-w-lg">
+      <Card className="mx-auto max-w-lg md:h-[calc(100vh-2rem)}">
         <CardHeader>
           <CardTitle className="text-xl">Cadastre-se</CardTitle>
           <CardDescription>
@@ -199,6 +167,7 @@ const SignUp: React.FC = () => {
             </div>
 
             <div className="grid gap-2">
+              <Label htmlFor="role">Perfil da Empresa</Label>
               <Controller
                 control={control}
                 name="role"
@@ -210,15 +179,15 @@ const SignUp: React.FC = () => {
                   >
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem value="FORNECEDOR" id="r1" />
-                      <Label htmlFor="r1">FORNECEDOR</Label>
+                      <Label htmlFor="r1">Fornecedor</Label>
                     </div>
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem value="COMPRADOR" id="r2" />
-                      <Label htmlFor="r2">COMPRADOR</Label>
+                      <Label htmlFor="r2">Comprador</Label>
                     </div>
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem value="AMBOS" id="r3" />
-                      <Label htmlFor="r3">AMBOS</Label>
+                      <Label htmlFor="r3">Ambos</Label>
                     </div>
                   </RadioGroup>
                 )}
