@@ -1,5 +1,17 @@
 import { apiClient } from "../apiClient";
 
+export enum roleType {
+  FORNECEDOR = "FORNECEDOR",
+  COMPRADOR = "COMPRADOR",
+  AMBOS = "AMBOS",
+}
+
+export enum PermissionLevel {
+  ADMIN = "ADMIN",
+  USER = "USER",
+  EDITOR = "EDITOR",
+}
+
 export interface SigninParams {
   email: string;
   password: string;
@@ -10,7 +22,8 @@ export interface SignUpParams {
   password: string;
   name: string;
   phone: string;
-  permissionLevel: string
+  role: roleType;
+  permissionLevel: PermissionLevel;
   company: {
     name: string;
     companyRegistration: string;
@@ -32,4 +45,3 @@ export const authService = {
     return data;
   },
 };
-
