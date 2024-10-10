@@ -9,6 +9,17 @@ export const apiClient = axios.create({
   },
 });
 
+apiClient.interceptors.request.use(async (config) => {
+  const accessToken = localStorage.getItem('accessToken');
+
+  //await timeout(1500);
+
+  if (accessToken) {
+    config.headers.Authorization = `Bearer ${accessToken}`;
+  }
+  return config;
+});
+
 // Interceptores para manipular requisições e respostas
 /* apiClient.interceptors.request.use(
   (config) => {
