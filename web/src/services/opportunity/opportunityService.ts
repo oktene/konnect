@@ -1,6 +1,7 @@
 
 import { Opportunity } from "@/app/[locale]/(private)/(dashboard)/oportunidades-publicas/columns";
 import { apiClient } from "../apiClient";
+// import { OpportunityWCompany } from "@/app/[locale]/(private)/contratantes/minhas-oportunidades/page";
 
 export type OpportunityType = {
    codeRFQ: string;
@@ -48,14 +49,10 @@ const opportunityService = {
       return data
    },
 
-      getAllByCompanyId: async (
-      companyId: string
-   ): Promise<Opportunity> => {
-      const { data } = await apiClient.get<Opportunity>(
-         `/opportunity/${companyId}`
-      );
-      return data
-   },
+   getAllByCompanyId: async (companyId: string): Promise<OpportunityWCompany[]> => {
+      const { data } = await apiClient.get<OpportunityWCompany[]>(`/opportunity/${companyId}`);
+      return data;
+    },
 
    createOpportunity: async (
       newOpportunity: Omit<Opportunity, "id">

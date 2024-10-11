@@ -17,7 +17,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { TableCell } from "@/components/ui/table";
-import { Opportunity } from "@/zodSchemas/opportunity";
 import { Separator } from "@radix-ui/react-dropdown-menu";
 import { ColumnDef } from "@tanstack/react-table";
 import {
@@ -30,6 +29,7 @@ import {
   Trash2Icon,
 } from "lucide-react";
 import { useState } from "react";
+import { Opportunity } from "../../(dashboard)/oportunidades-publicas/columns";
 
 export const columns: ColumnDef<Opportunity>[] = [
   {

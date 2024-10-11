@@ -4,60 +4,47 @@ import React, { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { DataTable } from "./data-table";
 import { columns } from "./columns";
+import { useQuery } from "@tanstack/react-query";
+import opportunityService from "@/services/opportunity/opportunityService";
 
-interface Company {
-  id: string;
-  name: string;
-  companyRegistration: string;
-}
-
-interface Attachment {
-  id: string;
-  filename: string;
-  url: string;
-}
-
-interface Proposal {
-  id: string;
-  amount: number;
-}
-
-interface Opportunity {
-  id: string;
-  codeRFQ: string;
-  description: string;
-  deadlineSubmission: Date;
-  typeOpportunity: string;
-  isExpired: boolean;  // Empresa representada como um array de objetos `Company`
-  attachments: Attachment[];
-  proposals: Proposal[];
-}
+// export type OpportunityWCompany = {
+//   id: string;
+//   codeRFQ: string;
+//   description: string;
+//   deadlineSubmission: Date;
+//   typeOpportunity: "Serviço" | "Material";
+//   isExpired: boolean;
+//   company: string;
+//   subCategory?: { id: string; name: string }[];
+//   // attachments?: { id: string; filename: string; url: string }[];
+//   // proposals?: { id: string; }[];
+// };
 
 const MinhasOportunidades = () => {
   const { user } = useAuth();
-  const myOpportunities:Opportunity[] = [
-    {
-      id: "728ed52f",
-      codeRFQ: "RFQ12345",
-      description: "Supply of drilling equipment",
-      deadlineSubmission: new Date("2024-11-01"),
-      typeOpportunity: "Serviço",
-      isExpired: false,
-      attachments: [
-        {
-          id: "att1",
-          filename: "specifications.pdf",
-          url: "https://example.com/specifications.pdf",
-        },
-      ],
-      proposals: [
-        {
-          id: "prop1",
-          amount: 1500,
-        },
-      ],
-    },
-  ];
+
+  // const { data, isLoading, isSuccess } = useQuery<OpportunityWCompany[]>({
+  //   queryKey: ["opportunity", user?.company?.id], // Use o ID correto
+  //   queryFn: async () => {
+  //     if (!user?.company?.id) return []; // Evitar chamadas se companyId não estiver disponível
+  //     return await opportunityService.getAllByCompanyId(user.company.id); // Retorna um array de oportunidades
+  //   },
+  //   enabled: !!user?.company?.id, // Habilitar apenas quando companyId estiver disponível
+  // });
+
+  // const myOpportunities =
+  //   data?.map((opportunity) => ({
+  //     id: opportunity.id,
+  //     codeRFQ: opportunity.codeRFQ,
+  //     description: opportunity.description,
+  //     deadlineSubmission: new Date(opportunity.deadlineSubmission), 
+  //     typeOpportunity: opportunity.typeOpportunity,
+  //     isExpired: opportunity.isExpired, 
+  //     company: opportunity.company, 
+  //     subCategory: opportunity.subCategory || [],
+  //     // attachments: opportunity.attachments,
+  //     // proposals: opportunity.proposals
+  //   })) || [];
 
   return (
     <ContentLayout title="Konnect">
@@ -69,11 +56,10 @@ const MinhasOportunidades = () => {
           </div>
         </div>
         <div>
-          <DataTable columns={columns} data={myOpportunities} />
+          {/* <DataTable columns={columns} data={myOpportunities} /> */}
         </div>
       </main>
     </ContentLayout>
   );
 };
-
 export default MinhasOportunidades;

@@ -31,7 +31,7 @@ export type Opportunity = {
    company: { id: string; name: string, companyRegistration: string };
    subCategory?: { id: string; name: string }[];
    attachments?: { id: string; filename: string; url: string }[];
-   proposals?: { id: string; amount: number }[];
+   proposals?: { id: string; }[];
  };
 
 export const columns: ColumnDef<Opportunity>[] = [
