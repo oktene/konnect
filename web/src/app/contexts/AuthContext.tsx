@@ -1,31 +1,32 @@
 "use client";
-import { authService, roleType, SignUpParams } from "@/services/auth/authService";
+import { createContext, useCallback, useEffect, useState } from "react";
+import { authService } from "@/services/auth/authService";
 import { userService } from "@/services/user/userService";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { createContext, useCallback, useEffect, useState } from "react";
+import { hasPermission as checkPermission } from "@/utils/permissions";
 
 export type TemporaryUserType = {
-   id: string;
-   email: string;
-   name: string;
-   phone:string;
-   role:roleType;
-   permissionLevel: string;
-   company: {
-     name: string;
-     companyRegistration: string;
-   };
+  id: string;
+  email: string;
+  name: string;
+  phone: string;
+  role: string;
+  permissionLevel: string;
+  company: {
+    id: string;
+    name: string;
+    companyRegistration: string;
+  };
 };
 
 interface AuthContextValue {
-   signedIn: boolean;
-   user: TemporaryUserType | undefined;
-   signin(accessToken: string): void;
-   signout(): void;
-  //  signup(accessToken: string): void;
-   isLoading: boolean;
-   hasPermission(permissionLevel: string): boolean;
+  signedIn: boolean;
+  user: TemporaryUserType | undefined;
+  signin(accessToken: string): void;
+  signout(): void;
+  isLoading: boolean;
+  hasPermission(permissionLevel: string): boolean;
 }
 
 export const AuthContext = createContext({} as AuthContextValue);
@@ -35,80 +36,79 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const queryClient = useQueryClient();
   const router = useRouter();
 
-   // useEffect(() => {
-   //   if (typeof window !== "undefined") {
-   //     const storedAccessToken = localStorage.getItem("accessToken");
-   //     setSignedIn(!!storedAccessToken);
-   //   }
-   // }, []);
+  const redirectUser = useCallback(
+    (path: string) => {
+      router.push(path);
+    },
+    [router]
+  );
 
-   useEffect(() => {
-      const storedAccessToken = localStorage.getItem("accessToken");
-      if (storedAccessToken) {
-         setSignedIn(true);
-      } else {
-         router.push("/sign-in");
-      }
-   }, []);
-
-   const signin = useCallback((accessToken: string) => {
-      if (typeof window !== "undefined") {
-         localStorage.setItem("accessToken", accessToken);
-         setSignedIn(true);
-      }
-
+  useEffect(() => {
+    if (authService.isAuthenticated()) {
       setSignedIn(true);
-   }, []);
-
-   const signup = useCallback((accessToken: string) => {
-    if (typeof window !== "undefined") {
-      localStorage.setItem("accessToken", accessToken);
-      setSignedIn(true);
+    } else {
+      redirectUser("/sign-in");
     }
-    setSignedIn(true);
-    router.push("/oportunidades-publicas"); // Redireciona para oportunidades públicas após o cadastro
-  }, [router]);
+  }, [redirectUser]);
 
-   const signout = useCallback(() => {
-      if (typeof window !== "undefined") {
-         localStorage.removeItem("accessToken");
-         setSignedIn(false);
-         queryClient.invalidateQueries({ queryKey: ["me"] });
-      }
-      queryClient.invalidateQueries({ queryKey: ["me"] });
-   }, []);
+  const signin = useCallback(
+    (accessToken: string) => {
+      authService.setToken(accessToken);
+      setSignedIn(true);
+      redirectUser("/oportunidades-publicas");
+    },
+    [redirectUser]
+  );
 
-   if (!signedIn) {
-      router.push("/sign-in");
-   } else {
-      router.push("/oportunidades-publicas");
+  const signout = useCallback(() => {
+    authService.clearToken();
+    setSignedIn(false);
+    queryClient.invalidateQueries({ queryKey: ["me"] });
+    redirectUser("/sign-in");
+  }, [queryClient, redirectUser]);
+
+  const { data, isError, isFetching, isSuccess, isLoading } = useQuery({
+   queryKey: ["me"],
+   queryFn: userService.fetchMe,
+   enabled: signedIn,
+   staleTime: Infinity,
+ });
+
+ // Tratamento de erro pode ser feito após a consulta
+ useEffect(() => {
+   if (isError) {
+     signout();
    }
+ }, [isError, signout]);
 
-   const hasPermission = (requiredPermission: string): boolean => {
-      if (!data || !data.permissionLevel) return false;
-      return data.permissionLevel === requiredPermission;
-   };
+ const hasPermission = useCallback(
+   (requiredPermission: string): boolean => {
+     return checkPermission(data, requiredPermission);
+   },
+   [data]
+ );
 
-   const { data, isError, error, isFetching, isSuccess, isLoading } = useQuery({
-      queryKey: ["me"],
-      queryFn: () => userService.me(),
-      enabled: signedIn,
-      staleTime: Infinity,
-   });
+ // Gerenciar redirecionamento com base no status do usuário
+ useEffect(() => {
+   if (!isLoading && signedIn) {
+     redirectUser("/oportunidades-publicas");
+   } else if (!signedIn && !isLoading) {
+     redirectUser("/sign-in");
+   }
+ }, [signedIn, isLoading, redirectUser]);
 
-   return (
-      <AuthContext.Provider
-         value={{
-            signedIn: isSuccess && signedIn,
-            signin,
-            signout,
-            // signup,
-            user: data,
-            isLoading: isLoading || isFetching,
-            hasPermission,
-         }}
-      >
-         {children}
-      </AuthContext.Provider>
-   );
+  return (
+    <AuthContext.Provider
+      value={{
+        signedIn: isSuccess && signedIn,
+        signin,
+        signout,
+        user: data,
+        isLoading: isLoading || isFetching,
+        hasPermission,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
 };

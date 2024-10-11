@@ -29,7 +29,7 @@ export function DataTableToolbar<TData>({
           onChange={(event) =>
             table.getColumn("codeRFQ")?.setFilterValue(event.target.value)
           }
-          className="h-8 w-[150px] lg:w-[250px]"
+          className="h-8 w-[300px] lg:w-[450px]"
         />
         {table.getColumn("typeOpportunity") && (
           <DataTableFacetedFilter

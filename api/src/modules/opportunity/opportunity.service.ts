@@ -22,13 +22,32 @@ export class OpportunityService {
   }
 
   getAll() {
-    return this.opportunitiesRepo.findAll({});
+    return this.opportunitiesRepo.findAll({
+      include: {
+        company: true,
+      },
+    });
   }
 
   async getOneById(opportunityId: string) {
     return await this.opportunitiesRepo.findUnique({
-      where: { id: opportunityId }
+      where: { id: opportunityId },
+      include: {
+        company: true,
+      },
     })
+  }
+
+  async getAllByCompanyId(companyId: string) {
+    console.log("Fetching opportunities for companyId:", companyId);
+  
+    const opportunities = await this.opportunitiesRepo.findAll({
+      where: { companyId: companyId },
+    });
+  
+    console.log("Opportunities found:", opportunities);
+  
+    return "Opportunities found:";
   }
 
   async update(opportunityId: string, updateOpportunityDto: UpdateOpportunityDto) {

@@ -35,6 +35,26 @@ interface SigninResponse {
 }
 
 export const authService = {
+  getToken: () => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("accessToken");
+    }
+    return null;
+  },
+  setToken: (token: string) => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("accessToken", token);
+    }
+  },
+  clearToken: () => {
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("accessToken");
+    }
+  },
+  isAuthenticated: () => {
+    return !!authService.getToken();
+  },
+
   async signIn(params: SigninParams) {
     const { data } = await apiClient.post<SigninResponse>("/sign-in", params);
     return data;

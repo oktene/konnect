@@ -23,6 +23,7 @@ export class UserService {
         permissionLevel: true,
         company: {
           select: {
+            id: true,
             name: true,
             companyRegistration: true,
           },

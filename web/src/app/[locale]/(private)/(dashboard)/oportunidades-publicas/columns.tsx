@@ -11,26 +11,26 @@ import {
    DialogHeader,
    DialogTitle,
 } from "@/components/ui/dialog";
-import {
-   DropdownMenu,
-   DropdownMenuContent,
-   DropdownMenuItem,
-   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { TableCell } from "@/components/ui/table";
-import { Opportunity } from "@/zodSchemas/opportunity";
 import { Separator } from "@radix-ui/react-dropdown-menu";
 import { ColumnDef } from "@tanstack/react-table";
 import {
-   ArrowUpDown,
-   ChevronLeft,
    ChevronRight,
    EyeIcon,
-   MoreHorizontal,
-   PencilIcon,
-   Trash2Icon,
 } from "lucide-react";
 import { useState } from "react";
+
+export type Opportunity = {
+   id: string;
+   codeRFQ: string;
+   description: string;
+   deadlineSubmission: Date;
+   typeOpportunity: "Serviço" | "Material";
+   isExpired: boolean;
+   company: { id: string; name: string, companyRegistration: string };
+   subCategory?: { id: string; name: string }[];
+   attachments?: { id: string; filename: string; url: string }[];
+   proposals?: { id: string; amount: number }[];
+ };
 
 export const columns: ColumnDef<Opportunity>[] = [
    {
@@ -65,29 +65,30 @@ export const columns: ColumnDef<Opportunity>[] = [
       header: "Tipo",
    },
    {
-      accessorKey: "company",
+      accessorKey: "company.name",
       header: "Empresa",
+      // cell: ({ row }) => <div>{row.getValue("description")}</div>,
    },
-   {
-      accessorKey: "subCategory",
-      header: "Categoria",
-      cell: ({ getValue }) => {
-         const categorias = getValue() as Array<{ name: string }>;
-         console.log(categorias); 
+   // {
+   //    accessorKey: "subCategory",
+   //    header: "Categoria",
+   //    cell: ({ getValue }) => {
+   //       const categorias = getValue() as Array<{ name: string }>;
+   //       console.log(categorias); 
 
-         if (Array.isArray(categorias)) {
-            return (
-              <>
-                {categorias.map((categoria, index) => (
-                  <span key={index}>{categoria.name.toString()}</span>
-                ))}
-              </>
-            );
-          }
+   //       if (Array.isArray(categorias)) {
+   //          return (
+   //            <>
+   //              {categorias.map((categoria, index) => (
+   //                <span key={index}>{categoria.name.toString()}</span>
+   //              ))}
+   //            </>
+   //          );
+   //        }
       
-          return null;
-      }
-   },
+   //        return null;
+   //    }
+   // },
    {
       accessorKey: "isExpired",
       header: "Expirado?",
