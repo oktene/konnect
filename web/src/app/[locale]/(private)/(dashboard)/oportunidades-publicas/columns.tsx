@@ -65,6 +65,7 @@ export const columns: ColumnDef<Opportunity>[] = [
       header: "Tipo",
    },
    {
+      id: "company",
       accessorKey: "company.name",
       header: "Empresa",
       // cell: ({ row }) => <div>{row.getValue("description")}</div>,
