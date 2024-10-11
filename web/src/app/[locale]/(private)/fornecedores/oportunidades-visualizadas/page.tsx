@@ -249,15 +249,15 @@ async function getData(): Promise<Opportunity[]> {
    ];
 }
 
-const { signin } = useAuth();
-const { toast } = useToast();
+// const { signin } = useAuth();
+// const { toast } = useToast();
 
-const { isPending: isLoading, mutateAsync } = useMutation({
-   mutationKey: ["opportunities"],
-   mutationFn: async () => {
-      return await opportunityService.getOpportunities();
-   },
-});
+// const { isPending: isLoading, mutateAsync } = useMutation({
+//    mutationKey: ["opportunities"],
+//    mutationFn: async () => {
+//       return await opportunityService.getOpportunities();
+//    },
+// });
 
 const OportunidadesVisualizadas = async () => {
    const data = await getData();

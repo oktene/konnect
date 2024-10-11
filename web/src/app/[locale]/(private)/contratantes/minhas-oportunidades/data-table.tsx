@@ -27,6 +27,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { DataTablePagination } from "@/components/ui/data-table-pagination";
+import { DataTableToolbar } from "@/components/ui/data-table-toolbar";
 
 interface DataTableProps<TData, TValue> {
    columns: ColumnDef<TData, TValue>[];
@@ -69,18 +70,7 @@ export function DataTable<TData, TValue>({
 
    return (
       <div>
-         <div className="flex items-center py-4">
-            <Input
-               placeholder="Filtre pelo código RFQ..."
-               value={
-                  (table.getColumn("codeRFQ")?.getFilterValue() as string) ?? ""
-               }
-               onChange={(event) =>
-                  table.getColumn("codeRFQ")?.setFilterValue(event.target.value)
-               }
-               className="max-w-sm"
-            />
-         </div>
+         <DataTableToolbar table={table} />
          <div className="rounded-md border">
             <Table>
                <TableHeader>

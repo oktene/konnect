@@ -37,9 +37,9 @@ export class CompanyService {
   }
 
   async findManyOpportunities(companyId: string) {
-    return await this.companiesRepo.findUnique({ 
+    return await this.companiesRepo.findMany({ 
       where: { id: companyId },
-      include: { 
+      select: { 
         opportunities : true
       }
     });

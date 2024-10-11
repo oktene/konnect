@@ -41,13 +41,14 @@ export class OpportunityService {
   async getAllByCompanyId(companyId: string) {
     console.log("Fetching opportunities for companyId:", companyId);
   
-    const opportunities = await this.opportunitiesRepo.findAll({
-      where: { companyId: companyId },
+    return await this.opportunitiesRepo.findAll({
+      where: { companyId: companyId }, // Corrigido: buscando por `companyId`
+      select: {
+        codeRFQ: true,
+        description: true,
+        // Adicione mais campos conforme necessário
+      },
     });
-  
-    console.log("Opportunities found:", opportunities);
-  
-    return "Opportunities found:";
   }
 
   async update(opportunityId: string, updateOpportunityDto: UpdateOpportunityDto) {

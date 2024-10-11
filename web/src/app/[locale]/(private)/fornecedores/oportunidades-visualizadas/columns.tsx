@@ -12,6 +12,7 @@ import {
    DialogHeader,
    DialogTitle,
 } from "@/components/ui/dialog";
+import { useToast } from "@/hooks/use-toast";
 import { Opportunity } from "@/zodSchemas/opportunity";
 import { Separator } from "@radix-ui/react-dropdown-menu";
 import { ColumnDef } from "@tanstack/react-table";
@@ -22,6 +23,7 @@ import {
    Trash2Icon,
 } from "lucide-react";
 import { useState } from "react";
+
 
 export const demandas: ColumnDef<Opportunity>[] = [
    {
@@ -38,16 +40,6 @@ export const demandas: ColumnDef<Opportunity>[] = [
       cell: ({ row }) => <div>{row.getValue("description")}</div>
    },
    {
-      accessorKey: "executionPeriod",
-      header: "Período de Execução",
-      cell: ({ getValue }) =>
-         getValue()
-            ? new Date(
-                 getValue() as string | number | Date
-              ).toLocaleDateString()
-            : "N/A", // Format date if exists
-   },
-   {
       accessorKey: "deadlineSubmission",
       header: "Limite de Submissão",
       cell: ({ getValue }) =>
@@ -60,10 +52,6 @@ export const demandas: ColumnDef<Opportunity>[] = [
    {
       accessorKey: "company",
       header: "Empresa",
-   },
-   {
-      accessorKey: "subCategory",
-      header: "Categoria",
    },
    {
       accessorKey: "isExpired",
@@ -80,17 +68,29 @@ export const demandas: ColumnDef<Opportunity>[] = [
       id: "actions",
       header: "",
       cell: ({ row }) => {
+         const { toast } = useToast();   
          const opportunity = row.original;
          const [isDialogOpen, setIsDialogOpen] = useState(false);
+         
+         const handleClick = () => {
+            setIsDialogOpen(false);
+         };
 
          const handleVisualizarClick = () => {
             setIsDialogOpen(true);
+            toast({
+               title: "Sucesso",
+               description: "Proposta desaplicada com sucesso.",
+               variant: "default",
+               });
+            // Call your API to delete the opportunity
+            // ...
          };
 
          return (
             <>
                <Button
-                  className="h-full w-85vw pw-2 ph-1 bg-orange-500 hover:bg-orange-600"
+                  className="h-full w-85vw pw-2 ph-1 bg-red-600 hover:bg-red-700"
                   aria-haspopup="true"
                   size="default"
                   variant="default"
@@ -108,7 +108,7 @@ export const demandas: ColumnDef<Opportunity>[] = [
                            Tem certeza?
                         </DialogTitle>
                         <DialogDescription>
-                           A proposta da sua empresa será removida da oportunidade da empresa.
+                           A proposta da sua empresa será removida da oportunidade.
                         </DialogDescription>
                         <Separator />
                      </DialogHeader>
@@ -126,6 +126,7 @@ export const demandas: ColumnDef<Opportunity>[] = [
                            className="h-8 ph-2 pw-2"
                            size="lg"
                            variant="default"
+                           onClick={handleClick}
                         >
                            <Trash2Icon className="h-4 w-4 mr-2" />
                            Deletar
