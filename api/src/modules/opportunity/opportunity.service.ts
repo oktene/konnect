@@ -10,12 +10,12 @@ export class OpportunityService {
   constructor(
     private readonly opportunitiesRepo: OpportunityRepository,
     private readonly companiesRepo: CompanyRepository,
-    private readonly subcategoriesRepo: SubcategoryRepository
+    private readonly subcategoriesRepo: SubcategoryRepository,
   ) {}
 
   async create(createOpportunityDto: CreateOpportunityDto) {
     const { companyId, subCategoryId } = createOpportunityDto;
-    
+
     await this.verifyIfExists(companyId, subCategoryId);
     const opportunityData = this.buildOpportunityData(createOpportunityDto);
     return await this.opportunitiesRepo.create({ data: opportunityData });
@@ -35,51 +35,62 @@ export class OpportunityService {
       include: {
         company: true,
       },
-    })
+    });
   }
 
   async getAllByCompanyId(companyId: string) {
-    console.log("Fetching opportunities for companyId:", companyId);
-  
+    console.log('Fetching opportunities for companyId:', companyId);
+
     const opportunities = await this.opportunitiesRepo.findAll({
       where: { companyId: companyId },
     });
-  
-    console.log("Opportunities found:", opportunities);
-  
-    return "Opportunities found:";
+
+    return opportunities;
   }
 
-  async update(opportunityId: string, updateOpportunityDto: UpdateOpportunityDto) {
+  async update(
+    opportunityId: string,
+    updateOpportunityDto: UpdateOpportunityDto,
+  ) {
     const opportunityData = this.buildOpportunityData(updateOpportunityDto);
 
     return await this.opportunitiesRepo.update({
       where: { id: opportunityId },
-      data: opportunityData
+      data: opportunityData,
     });
   }
 
   async delete(opportunityId: string) {
     return await this.opportunitiesRepo.remove({
-      where: { id: opportunityId }
-    })
+      where: { id: opportunityId },
+    });
   }
 
   private async verifyIfExists(companyId: string, subcategoryId: string) {
     await Promise.all([
       this.checkExists(this.companiesRepo, companyId, 'Empresa inexistente.'),
-      this.checkExists(this.subcategoriesRepo, subcategoryId, 'Subcategoria inexistente.')
+      this.checkExists(
+        this.subcategoriesRepo,
+        subcategoryId,
+        'Subcategoria inexistente.',
+      ),
     ]);
   }
-  
-  private async checkExists(repo: CompanyRepository | SubcategoryRepository, id: string, errorMessage: string) {
+
+  private async checkExists(
+    repo: CompanyRepository | SubcategoryRepository,
+    id: string,
+    errorMessage: string,
+  ) {
     const record = await repo.findUnique({ where: { id } });
     if (!record) {
       throw new NotFoundException(errorMessage);
     }
   }
-  
-  private buildOpportunityData(opportunityDto: CreateOpportunityDto | UpdateOpportunityDto) {
+
+  private buildOpportunityData(
+    opportunityDto: CreateOpportunityDto | UpdateOpportunityDto,
+  ) {
     return {
       codeRFQ: opportunityDto.codeRFQ,
       description: opportunityDto.description,
