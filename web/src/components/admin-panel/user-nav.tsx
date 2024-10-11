@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { LayoutGrid, LogOut, User } from "lucide-react";
+import { LayoutGrid, LogOut, User, Users } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
@@ -25,6 +25,7 @@ import { useAuth } from "@/hooks/useAuth";
 
 export function UserNav() {
   const {user, signout} = useAuth()
+  const initials = user?.name ? user.name.slice(0, 2).toUpperCase() : <Users/>;
   return (
     <DropdownMenu>
       <TooltipProvider >
@@ -37,7 +38,7 @@ export function UserNav() {
               >
                 <Avatar className="h-8 w-8">
                   <AvatarImage src="#" alt="Avatar" />
-                  <AvatarFallback className="bg-transparent">LF</AvatarFallback>
+                  <AvatarFallback className="bg-transparent">{ initials }</AvatarFallback>
                 </Avatar>
               </Button>
             </DropdownMenuTrigger>

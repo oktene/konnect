@@ -41,7 +41,7 @@ export function getMenuList(pathname: string): Group[] {
             //    submenus: [],
             // },
             {
-               href: "/fornecedores/oportunidades-publicas",
+               href: "/oportunidades-publicas",
                label: "Oportunidades Públicas",
                active: pathname.includes("/oportunidades-publicas"),
                icon: BookOpen,
@@ -53,7 +53,7 @@ export function getMenuList(pathname: string): Group[] {
          groupLabel: "CONTRATANTES",
          menus: [
             {
-               href: "/fornecedores/minhas-oportunidades",
+               href: "/contratantes/minhas-oportunidades",
                label: "Minhas Oportunidades",
                active: pathname.includes("/minhas-oportunidades"),
                icon: Bookmark,
@@ -65,7 +65,7 @@ export function getMenuList(pathname: string): Group[] {
          groupLabel: "FORNECEDORES",
          menus: [
             {
-               href: "/contratantes/oportunidades-visualizadas",
+               href: "/fornecedores/oportunidades-visualizadas",
                label: "Oportunidades Visualizadas",
                active: pathname.includes("/oportunidades-visualizadas"),
                icon: SquarePen,

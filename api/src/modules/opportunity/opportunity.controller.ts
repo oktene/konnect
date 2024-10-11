@@ -35,6 +35,12 @@ export class OpportunityController {
     return await this.opportunityService.getOneById(opportunityId);
   }
 
+  @Get(':companyId')
+  @ApiOperation({ summary: 'Get all opportunities by specif company' })
+  async getAllByCompanyId(@Param('companyId') opportunityId: string) {
+    return await this.opportunityService.getAllByCompanyId(opportunityId);
+  }
+
   @Patch(':opportunityId')
   @ApiOperation({ summary: 'Update an opportunity' })
   update(@Param('opportunityId') opportunityId: string, @Body() updateOpportunityDto: UpdateOpportunityDto) {

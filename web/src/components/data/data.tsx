@@ -34,11 +34,11 @@
   
   export const types = [
     {
-      value: "Serviço",
+      value: "SERVICO",
       label: "Serviço",
     },
     {
-      value: "Material",
+      value: "MATERIAL",
       label: "Material",
     },
   ]
