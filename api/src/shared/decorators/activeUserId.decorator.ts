@@ -9,7 +9,6 @@ export const ActiveUserId = createParamDecorator<undefined>(
     const request = context.switchToHttp().getRequest();
     const userId = request.user.sub;
     const path = request.path;
- console.log(request)
     if (!userId) {
       throw new UnauthorizedException('Credenciais inválidas!');
     }

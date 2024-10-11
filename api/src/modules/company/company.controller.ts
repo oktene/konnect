@@ -45,12 +45,12 @@ export class CompanyController {
     return this.companyService.getOneByCompanyRegistration(companyRegistration);
   }
 
-  @Get(':opportunityId')
-  @ApiBearerAuth()
-  @ApiOperation({ summary: 'Get all oppportunities of a specific company' })
-  getOpportunitiesByCompany(@Param('companyId') companyId: string) {
-    return this.companyService.findManyOpportunities(companyId);
-  }
+  // @Get(':opportunityId')
+  // @ApiBearerAuth()
+  // @ApiOperation({ summary: 'Get all oppportunities of a specific company' })
+  // getOpportunitiesByCompany(@Param('companyId') companyId: string) {
+  //   return this.companyService.findManyOpportunities(companyId);
+  // }
 
   @Patch(':companyId')
   @ApiBearerAuth()
