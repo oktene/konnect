@@ -47,8 +47,8 @@ export class OpportunityController {
   // para chamar o metodo de pegar todas as oportunidades por companyId"
   @Get('/get-all/:companyId')
   @ApiOperation({ summary: 'Get all opportunities by specif company' })
-  async getAllByCompanyId(@Param('companyId') opportunityId: string) {
-    return await this.opportunityService.getAllByCompanyId(opportunityId);
+  async getAllByCompanyId(@Param('companyId') companyId: string) {
+    return await this.opportunityService.getAllByCompanyId(companyId);
   }
 
   @Patch(':opportunityId')

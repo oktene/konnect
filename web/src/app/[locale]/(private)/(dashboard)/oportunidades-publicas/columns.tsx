@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { DataTableColumnHeader } from "@/components/ui/data-table-column-header";
 import {
    Dialog,
+   DialogClose,
    DialogContent,
    DialogDescription,
    DialogFooter,
@@ -16,6 +17,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import {
    ChevronRight,
    EyeIcon,
+   Trash2Icon,
 } from "lucide-react";
 import { useState } from "react";
 
@@ -65,6 +67,7 @@ export const columns: ColumnDef<Opportunity>[] = [
       header: "Tipo",
    },
    {
+      id: "company",
       accessorKey: "company.name",
       header: "Empresa",
       // cell: ({ row }) => <div>{row.getValue("description")}</div>,
@@ -111,6 +114,10 @@ export const columns: ColumnDef<Opportunity>[] = [
             setIsDialogOpen(true);
          };
 
+         const handleClick = () => {
+            setIsDialogOpen(false);
+         };
+
          return (
             <>
                <Button
@@ -124,6 +131,39 @@ export const columns: ColumnDef<Opportunity>[] = [
                   Visualizar
                   <span className="sr-only">Visualizar oportunidade</span>
                </Button>
+               <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                  <DialogContent>
+                     <DialogHeader>
+                        <DialogTitle>
+                           Oportunidade
+                        </DialogTitle>
+                        <DialogDescription>
+                           Você acabou de visualizar essa oportunidade e os arquivos com detalhes das informações para envio de proposta acabaram de ser baixados em seu computador.
+                        </DialogDescription>
+                        <Separator />
+                     </DialogHeader>
+                     <DialogFooter className="grid grid-flow-col">
+                     <DialogClose asChild>
+                        <Button
+                           className="h-8 ph-2 pw-2"
+                           size="lg"
+                           variant="secondary"
+                        >
+                           Entendi
+                        </Button>
+                     </DialogClose>
+                        {/* <Button
+                           className="h-8 ph-2 pw-2"
+                           size="lg"
+                           variant="default"
+                           onClick={handleClick}
+                        >
+                           <Trash2Icon className="h-4 w-4 mr-2" />
+                           Deletar
+                        </Button> */}
+                     </DialogFooter>
+                  </DialogContent>
+               </Dialog>
                {/* <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                      <Button
@@ -154,34 +194,6 @@ export const columns: ColumnDef<Opportunity>[] = [
                      </DropdownMenuItem>
                   </DropdownMenuContent>
                </DropdownMenu> */}
-
-               <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                  <DialogContent>
-                     <DialogHeader>
-                        <DialogTitle>
-                           Oportunidade #{opportunity.codeRFQ}
-                        </DialogTitle>
-                        <DialogDescription>
-                           Aqui estão os detalhes da oportunidade que você
-                           selecionou.
-                        </DialogDescription>
-                        <Separator />
-                        {/* Exemplo de campos que podem ser mostrados */}
-                        <p>Detalhe 1: Informações adicionais...</p>
-                        <p>Detalhe 2: Mais informações...</p>
-                     </DialogHeader>
-                     <DialogFooter>
-                        <Button
-                           className="h-8 ph-2 pw-2"
-                           size="lg"
-                           variant="default"
-                        >
-                           Aplicar proposta
-                           <ChevronRight className="h-4 w-4 " />
-                        </Button>
-                     </DialogFooter>
-                  </DialogContent>
-               </Dialog>
             </>
          );
       },

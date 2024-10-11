@@ -39,13 +39,9 @@ export class OpportunityService {
   }
 
   async getAllByCompanyId(companyId: string) {
-    console.log('Fetching opportunities for companyId:', companyId);
-
-    const opportunities = await this.opportunitiesRepo.findAll({
+    return await this.opportunitiesRepo.findAll({
       where: { companyId: companyId },
     });
-
-    return opportunities;
   }
 
   async update(

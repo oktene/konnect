@@ -54,14 +54,6 @@ export const columns: ColumnDef<Opportunity>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "executionPeriod",
-    header: "Período de Execução",
-    cell: ({ getValue }) =>
-      getValue()
-        ? new Date(getValue() as string | number | Date).toLocaleDateString()
-        : "N/A", // Format date if exists
-  },
-  {
     accessorKey: "deadlineSubmission",
     header: "Limite de Submissão",
     cell: ({ getValue }) =>
@@ -72,10 +64,6 @@ export const columns: ColumnDef<Opportunity>[] = [
     header: "Tipo",
   },
   {
-    accessorKey: "subCategory",
-    header: "Categoria",
-  },
-  {
     accessorKey: "isExpired",
     header: "Expirado?",
     cell: ({ getValue }) => {
@@ -83,6 +71,19 @@ export const columns: ColumnDef<Opportunity>[] = [
 
       return <Badge variant="secondary">{expired}</Badge>;
     },
+  },
+  {
+    id: "proposals",
+    accessorKey: "proposals",
+    header: "Visualizações",
+    cell: ({ getValue }) => {
+      return (
+        <p className="flex ">
+          <EyeIcon className="h-3 mr" />
+          27 
+        </p>
+      );
+    }
   },
   {
     id: "actions",
@@ -121,13 +122,6 @@ export const columns: ColumnDef<Opportunity>[] = [
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem
-                className="hover:cursor-pointer"
-                onClick={handleVisualizarClick}
-              >
-                <EyeIcon className="h-3 mr-2" />
-                Visualizar
-              </DropdownMenuItem>
               <DropdownMenuItem className="hover:cursor-pointer">
                 <PencilIcon className="h-3 mr-2" />
                 Editar
