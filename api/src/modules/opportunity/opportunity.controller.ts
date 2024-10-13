@@ -20,7 +20,7 @@ import { Role as UserRole } from 'src/shared/enums/role.enum';
 @ApiTags('Opportunity')
 @Controller('opportunity')
 @UseGuards(RolesGuard)
-@Roles(UserRole.COMPRADOR || UserRole.AMBOS)
+@Roles(UserRole.CONTRATANTE || UserRole.AMBOS)
 export class OpportunityController {
   constructor(private readonly opportunityService: OpportunityService) {}
 

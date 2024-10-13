@@ -2,7 +2,7 @@ import { apiClient } from "../apiClient";
 
 export enum roleType {
   FORNECEDOR = "FORNECEDOR",
-  COMPRADOR = "COMPRADOR",
+  CONTRATANTE = "CONTRATANTE",
   AMBOS = "AMBOS",
 }
 

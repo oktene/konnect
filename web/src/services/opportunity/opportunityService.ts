@@ -1,7 +1,7 @@
 
 import { Opportunity } from "@/app/[locale]/(private)/(dashboard)/oportunidades-publicas/columns";
 import { apiClient } from "../apiClient";
-// import { OpportunityWCompany } from "@/app/[locale]/(private)/contratantes/minhas-oportunidades/page";
+import { OpportunityWCompany } from "@/app/[locale]/(private)/contratantes/minhas-oportunidades/page";
 
 export type OpportunityType = {
    codeRFQ: string;

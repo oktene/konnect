@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { LayoutGrid, LogOut, User, Users } from "lucide-react";
+import { CircleUser, LayoutGrid, LogOut, User, Users } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
@@ -25,7 +25,7 @@ import { useAuth } from "@/hooks/useAuth";
 
 export function UserNav() {
   const {user, signout} = useAuth()
-  const initials = user?.name ? user.name.slice(0, 2).toUpperCase() : <Users/>;
+  const initials = user?.name ? user.name.slice(0, 2).toUpperCase() : <CircleUser/>;
   return (
     <DropdownMenu>
       <TooltipProvider >
@@ -69,7 +69,7 @@ export function UserNav() {
           </DropdownMenuItem>
           <DropdownMenuItem className="hover:cursor-pointer" asChild>
             <Link href="/perfil" className="flex items-center">
-              <User className="w-4 h-4 mr-3 text-muted-foreground" />
+              <CircleUser className="w-4 h-4 mr-3 text-muted-foreground" />
               Meu Perfil
             </Link>
           </DropdownMenuItem>

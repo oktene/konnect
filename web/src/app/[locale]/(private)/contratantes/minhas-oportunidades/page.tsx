@@ -7,18 +7,18 @@ import { columns } from "./columns";
 import { useQuery } from "@tanstack/react-query";
 import opportunityService from "@/services/opportunity/opportunityService";
 
-// export type OpportunityWCompany = {
-//   id: string;
-//   codeRFQ: string;
-//   description: string;
-//   deadlineSubmission: Date;
-//   typeOpportunity: "Serviço" | "Material";
-//   isExpired: boolean;
-//   company: string;
-//   subCategory?: { id: string; name: string }[];
-//   // attachments?: { id: string; filename: string; url: string }[];
-//   // proposals?: { id: string; }[];
-// };
+export type OpportunityWCompany = {
+  id: string;
+  codeRFQ: string;
+  description: string;
+  deadlineSubmission: Date;
+  typeOpportunity: "Serviço" | "Material";
+  isExpired: boolean;
+  company: string;
+  subCategory?: { id: string; name: string }[];
+  // attachments?: { id: string; filename: string; url: string }[];
+  // proposals?: { id: string; }[];
+};
 
 const MinhasOportunidades = () => {
   const { user } = useAuth();

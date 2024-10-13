@@ -1,13 +1,15 @@
-import {
-   Tag,
-   Users,
-   Settings,
-   Bookmark,
-   SquarePen,
-   LayoutGrid,
-   LucideIcon,
-   BookOpen,
-} from "lucide-react";
+import { Book, BookCopy, Bookmark, BookOpen, CircleUser, LucideIcon, SquarePen, Users } from "lucide-react";
+
+export type Role = "CONTRATANTE" | "FORNECEDOR" | "AMBOS";
+export type PermissionLevel = "ADMIN" | "USER" | "EDITOR";
+
+export function isValidRole(role: string): role is Role {
+   return ["CONTRATANTE", "FORNECEDOR", "AMBOS"].includes(role);
+}
+
+export function isValidPermissionLevel(permissionLevel: string): permissionLevel is PermissionLevel {
+   return ["ADMIN", "USER", "EDITOR"].includes(permissionLevel);
+ }
 
 type Submenu = {
    href: string;
@@ -21,6 +23,8 @@ type Menu = {
    active: boolean;
    icon: LucideIcon;
    submenus: Submenu[];
+   allowedRoles: Role[];
+   allowedPermissions: PermissionLevel[];
 };
 
 type Group = {
@@ -28,29 +32,28 @@ type Group = {
    menus: Menu[];
 };
 
-export function getMenuList(pathname: string): Group[] {
+export function getMenuList(pathname: string, role: Role, permissionLevel: PermissionLevel): Group[] {
    return [
       {
          groupLabel: "",
+         allowedRoles: ["CONTRATANTE", "FORNECEDOR", "AMBOS"] as Role[],
+         allowedPermissions: ["ADMIN", "USER", "EDITOR"] as PermissionLevel[],
          menus: [
-            // {
-            //    href: "/dashboard",
-            //    label: "Dashboard",
-            //    active: pathname.includes("/dashboard"),
-            //    icon: LayoutGrid,
-            //    submenus: [],
-            // },
             {
                href: "/oportunidades-publicas",
                label: "Oportunidades Públicas",
                active: pathname.includes("/oportunidades-publicas"),
                icon: BookOpen,
                submenus: [],
+               allowedRoles: ["CONTRATANTE", "FORNECEDOR", "AMBOS"] as Role[],
+               allowedPermissions: ["ADMIN", "USER", "EDITOR"] as PermissionLevel[],
             },
          ],
       },
       {
          groupLabel: "CONTRATANTES",
+         allowedRoles: ["CONTRATANTE"] as Role[],
+         allowedPermissions: ["ADMIN", "USER"] as PermissionLevel[],
          menus: [
             {
                href: "/contratantes/minhas-oportunidades",
@@ -58,11 +61,15 @@ export function getMenuList(pathname: string): Group[] {
                active: pathname.includes("/minhas-oportunidades"),
                icon: Bookmark,
                submenus: [],
+               allowedRoles: ["CONTRATANTE"] as Role[],
+               allowedPermissions: ["ADMIN", "USER"] as PermissionLevel[],
             },
          ],
       },
       {
          groupLabel: "FORNECEDORES",
+         allowedRoles: ["FORNECEDOR"] as Role[],
+         allowedPermissions: ["ADMIN", "USER"] as PermissionLevel[],
          menus: [
             {
                href: "/fornecedores/oportunidades-visualizadas",
@@ -70,39 +77,65 @@ export function getMenuList(pathname: string): Group[] {
                active: pathname.includes("/oportunidades-visualizadas"),
                icon: SquarePen,
                submenus: [],
+               allowedRoles: ["FORNECEDOR"] as Role[],
+               allowedPermissions: ["ADMIN", "USER"] as PermissionLevel[],
             },
          ],
       },
-      // {
-      //    groupLabel: "EMPRESAS",
-      //    menus: [
-      //       {
-      //          href: "/empresas/empresas-cadastradas",
-      //          label: "Empresas Cadastradas",
-      //          active: pathname.includes("/empresas-cadastradas"),
-      //          icon: SquarePen,
-      //          submenus: [],
-      //       },
-      //    ],
-      // },
+      {
+         groupLabel: "GERAL",
+         allowedRoles: ["CONTRATANTE", "FORNECEDOR", "AMBOS"] as Role[],
+         allowedPermissions: ["EDITOR"] as PermissionLevel[],
+         menus: [
+            {
+               href: "/categorias",
+               label: "Categorias",
+               active: pathname.includes("/categorias"),
+               icon: Book,
+               submenus: [],
+               allowedRoles: ["CONTRATANTE", "FORNECEDOR", "AMBOS"] as Role[],
+               allowedPermissions: ["EDITOR"] as PermissionLevel[],
+            },
+            {
+               href: "/subcategorias",
+               label: "Subcategorias",
+               active: pathname.includes("/subcategorias"),
+               icon: BookCopy,
+               submenus: [],
+               allowedRoles: ["CONTRATANTE", "FORNECEDOR", "AMBOS"] as Role[],
+               allowedPermissions: ["EDITOR"] as PermissionLevel[],
+            },
+            {
+               href: "/usuarios",
+               label: "Usuários",
+               active: pathname.includes("/usuarios"),
+               icon: Users,
+               submenus: [],
+               allowedRoles: ["CONTRATANTE", "FORNECEDOR", "AMBOS"] as Role[],
+               allowedPermissions: ["EDITOR"] as PermissionLevel[],
+            },
+         ],
+      },
       {
          groupLabel: "CONFIGURAÇÕES",
+         allowedRoles: ["CONTRATANTE", "FORNECEDOR", "AMBOS"] as Role[],
+         allowedPermissions: ["ADMIN", "USER", "EDITOR"] as PermissionLevel[],
          menus: [
             {
                href: "/perfil",
                label: "Meu Perfil",
                active: pathname.includes("/perfil"),
-               icon: Users,
+               icon: CircleUser,
                submenus: [],
+               allowedRoles: ["CONTRATANTE", "FORNECEDOR", "AMBOS"] as Role[],
+               allowedPermissions: ["ADMIN", "USER", "EDITOR"] as PermissionLevel[],
             },
-            // {
-            //    href: "/configuracoes",
-            //    label: "Configurações",
-            //    active: pathname.includes("/configuracoes"),
-            //    icon: Settings,
-            //    submenus: [],
-            // },
          ],
       },
-   ];
+   ]
+      .map((group) => ({
+         ...group,
+         menus: group.menus.filter((menu) => menu.allowedRoles.includes(role) && menu.allowedPermissions.includes(permissionLevel)),
+      }))
+      .filter((group) => group.menus.length > 0);
 }

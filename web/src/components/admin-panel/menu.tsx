@@ -5,7 +5,7 @@ import { Ellipsis, LogOut } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 import { cn } from "@/lib/utils";
-import { getMenuList } from "@/lib/menuList";
+import { getMenuList, isValidPermissionLevel, isValidRole, PermissionLevel, Role } from "@/lib/menuList";
 import { Button } from "@/components/ui/button";
 import { CollapseMenuButton } from "@/components/admin-panel/collapse-menu-button";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -23,8 +23,21 @@ interface MenuProps {
 
 export function Menu({ isOpen }: MenuProps) {
   const pathname = usePathname();
-  const menuList = getMenuList(pathname);
-  const { signout } = useAuth();
+  const { user, signout } = useAuth();
+  let role: Role = "CONTRATANTE";
+  let permissionLevel: PermissionLevel = "ADMIN";
+
+  // Verifica se a role do usuário é válida
+  if (user?.role && isValidRole(user.role)) {
+    role = user.role;
+  }
+
+  // Verifica se a role do usuário é válida
+  if (user?.permissionLevel && isValidPermissionLevel(user.permissionLevel)) {
+    permissionLevel = user.permissionLevel;
+  }
+  
+  const menuList = getMenuList(pathname, role, permissionLevel);
 
   return (
     <ScrollArea className="[&>div>div[style]]:!block">
@@ -32,8 +45,9 @@ export function Menu({ isOpen }: MenuProps) {
         <ul className="flex flex-col min-h-[calc(100vh-48px-36px-16px-32px)] lg:min-h-[calc(100vh-32px-40px-32px)] items-start space-y-1 px-2">
           {menuList.map(({ groupLabel, menus }, index) => (
             <li className={cn("w-full ", groupLabel ? "pt-5" : "")} key={index}>
+              {/* Exibe o groupLabel apenas se o isOpen for true ou undefined */}
               {(isOpen && groupLabel) || isOpen === undefined ? (
-                <p className="text-gray-50 text-sm font-normal text-muted-foreground px-4 pb-2 max-w-[248px] truncate">
+                <p className="text-gray-50 text-sm font-normal dark:text-gray-900 px-4 pb-2 max-w-[248px] truncate">
                   {groupLabel}
                 </p>
               ) : !isOpen && isOpen !== undefined && groupLabel ? (
@@ -52,6 +66,8 @@ export function Menu({ isOpen }: MenuProps) {
               ) : (
                 <p className="pb-2"></p>
               )}
+
+              {/* Renderiza os menus do grupo */}
               {menus.map(({ href, label, icon: Icon, active, submenus }, index) =>
                 submenus.length === 0 ? (
                   <div className="w-full" key={index}>
