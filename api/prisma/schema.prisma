@@ -119,7 +119,7 @@ enum PermissionLevel {
 }
 
 enum Role {
-  COMPRADOR
+  CONTRATANTE
   FORNECEDOR
   AMBOS
 }

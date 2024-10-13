@@ -3,7 +3,6 @@ import {
   BadRequestException,
   ConflictException,
   Injectable,
-  NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
 import { SigninDto } from './dto/sign-in.dto';
@@ -17,9 +16,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { PermissionLevel } from 'src/shared/enums/permissionLevel.enum';
 import { Role } from 'src/shared/enums/role.enum';
 import { ResponseHandlerService } from 'src/shared/handlers/responseHandler.service';
-import { CreateCompanyDto } from '../company/dto/create-company.dto';
-import { UpdateCompanyDto } from '../company/dto/update-company.dto';
-import { Company } from '../company/entities/company.entity';
 
 @Injectable()
 export class AuthService {
