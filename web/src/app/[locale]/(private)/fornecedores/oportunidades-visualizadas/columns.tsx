@@ -98,7 +98,7 @@ export const demandas: ColumnDef<Opportunity>[] = [
                >
                   <ArchiveXIcon className="h-4 w-4 mr-2"/> 
                   Desaplicar
-                  <span className="sr-only">Desaplicar</span>
+                  <span className="sr-only">Excluir</span>
                </Button>
 
                <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
