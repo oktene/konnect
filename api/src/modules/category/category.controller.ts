@@ -11,11 +11,11 @@ import { PermissionLevel } from 'src/shared/enums/permissionLevel.enum';
 @ApiTags('Category')
 @Controller('category')
 @UseGuards(PermissionsLevelsGuard)
-@Permissions(PermissionLevel.EDITOR)
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
-
+  
   @Post()
+  @Permissions(PermissionLevel.EDITOR)
   @ApiOperation({ summary: 'Create a category' })
   async create(@Body() createCategoryDto: CreateCategoryDto) {
     return await this.categoryService.create(createCategoryDto);
@@ -34,12 +34,14 @@ export class CategoryController {
   }
 
   @Patch(':categoryId')
+  @Permissions(PermissionLevel.EDITOR)
   @ApiOperation({ summary: 'Update a specific category' })
   update(@Param('categoryId') categoryId: string, @Body() updateCategoryDto: UpdateCategoryDto) {
     return this.categoryService.update(categoryId, updateCategoryDto);
   }
 
   @Delete(':categoryId')
+  @Permissions(PermissionLevel.EDITOR)
   @ApiOperation({ summary: 'Delete a specific category' })
   remove(@Param('categoryId') categoryId: string) {
     return this.categoryService.remove(categoryId);
