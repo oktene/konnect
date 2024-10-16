@@ -2,6 +2,10 @@ import { ApiProperty } from "@nestjs/swagger";
 import { IsNotEmpty, IsString } from "class-validator";
 
 export class CreateAttachmentDto {
+  @IsString()
+  @ApiProperty()
+  name: string;
+
   @IsNotEmpty()
   @IsString()
   @ApiProperty()
@@ -11,9 +15,4 @@ export class CreateAttachmentDto {
   @IsString()
   @ApiProperty()
   opportunityId: string;
-
-  @IsNotEmpty()
-  @IsString()
-  @ApiProperty()
-  proposalId: string;
 }

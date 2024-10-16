@@ -89,13 +89,14 @@ model SubCategory {
 
 model Attachment {
   id            String      @id @default(uuid()) @db.Uuid
+  name          String?      
   filePath      String
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
   opportunityId String      @db.Uuid
   opportunity   Opportunity @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
-  proposalId    String      @db.Uuid
-  proposal      Proposal    @relation(fields: [proposalId], references: [id], onDelete: Cascade)
+  proposalId    String?      @db.Uuid
+  proposal      Proposal?    @relation(fields: [proposalId], references: [id], onDelete: Cascade)
 }
 
 model Proposal {
