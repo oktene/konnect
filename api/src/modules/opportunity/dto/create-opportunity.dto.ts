@@ -57,7 +57,7 @@ export class CreateOpportunityDto {
   companyId: string;
 
   @IsUUID()
-  @IsNotEmpty()
+  @IsOptional()
   @ApiProperty()
-  subCategoryId: string;
+  subCategoryId?: string;
 }

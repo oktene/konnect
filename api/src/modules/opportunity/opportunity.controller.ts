@@ -41,10 +41,7 @@ export class OpportunityController {
   async getOneById(@Param('opportunityId') opportunityId: string) {
     return await this.opportunityService.getOneById(opportunityId);
   }
-
-  //Antes, os dois endpoints tinham a mesma assinatura, quando voce chamava o oportunity/qualquer coisa,
-  // ele sempre ia cair no endpoint de cima, por isso aqui eu coloquei mais um caminho mais especifico
-  // para chamar o metodo de pegar todas as oportunidades por companyId"
+  
   @Get('/get-all/:companyId')
   @ApiOperation({ summary: 'Get all opportunities by specif company' })
   async getAllByCompanyId(@Param('companyId') companyId: string) {

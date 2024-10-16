@@ -25,6 +25,8 @@ export class OpportunityService {
     return this.opportunitiesRepo.findAll({
       include: {
         company: true,
+        attachments: true,
+        proposals: true
       },
     });
   }
@@ -34,6 +36,8 @@ export class OpportunityService {
       where: { id: opportunityId },
       include: {
         company: true,
+        attachments: true,
+        proposals: true
       },
     });
   }
@@ -41,6 +45,21 @@ export class OpportunityService {
   async getAllByCompanyId(companyId: string) {
     return await this.opportunitiesRepo.findAll({
       where: { companyId: companyId },
+      include: {
+        company: true,
+        attachments: true,
+        proposals: {
+          include: { 
+            appliedBy: {
+              select: {
+                users: {
+                  include: {company: true}
+                }
+              }
+            } 
+          }
+        },
+      },
     });
   }
 
