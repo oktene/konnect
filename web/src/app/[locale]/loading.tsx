@@ -1,7 +1,5 @@
-import Skeleton from 'react-loading-skeleton'
+import { Spinner } from '@/components/ui/spinner'
 
 export default function Loading() {
-    return <Skeleton />
-    // You can add any UI inside Loading, including a Skeleton.
-    // return <LoadingSkeleton />
+    return <Spinner className="text-orange-600 w-24 h-24 animate-spin" />
   }
