@@ -14,12 +14,15 @@ import {
 } from "@/components/ui/dialog";
 import { Separator } from "@radix-ui/react-dropdown-menu";
 import { ColumnDef } from "@tanstack/react-table";
+import { format } from "date-fns";
 import {
+   ArrowUpDown,
    ChevronRight,
    EyeIcon,
    Trash2Icon,
 } from "lucide-react";
 import { useState } from "react";
+import ActionsCell from "./ActionsCell";
 
 export type Opportunity = {
    id: string;
@@ -30,9 +33,17 @@ export type Opportunity = {
    isExpired: boolean;
    company: { id: string; name: string, companyRegistration: string };
    subCategory?: { id: string; name: string }[];
-   attachments?: { id: string; filename: string; url: string }[];
+   attachments?: { id: string; name: string; filePath: string }[];
    proposals?: { id: string; }[];
  };
+
+ //@ts-ignore
+const FormattedDateCell = ({ value }) => {
+   const date = new Date(value as string | number | Date);
+   const formattedDate = format(date, 'dd/MM/yyyy à HH:mm');
+   
+   return <span>{formattedDate}</span>;
+};
 
 export const columns: ColumnDef<Opportunity>[] = [
    {
@@ -43,10 +54,17 @@ export const columns: ColumnDef<Opportunity>[] = [
       accessorKey: "description",
       header: ({ column }) => {
          return (
-            <DataTableColumnHeader column={column} title="Título" />
+            <Button
+               variant="ghost"
+               onClick={() =>
+                  column.toggleSorting(column.getIsSorted() === "asc")
+               }
+            >
+               Título
+               <ArrowUpDown className="ml-2 h-4 w-4" />
+            </Button>
          );
       },
-      cell: ({ row }) => <div>{row.getValue("description")}</div>,
       enableSorting: true,
       enableHiding: false,
    },
@@ -54,48 +72,43 @@ export const columns: ColumnDef<Opportunity>[] = [
       accessorKey: "deadlineSubmission",
       header: ({ column }) => {
          return (
-            <DataTableColumnHeader column={column} title="Limite de Submissão" />
+            <Button
+               variant="ghost"
+               onClick={() =>
+                  column.toggleSorting(column.getIsSorted() === "asc")
+               }
+            >
+               Limite de Submissão
+               <ArrowUpDown className="ml-2 h-4 w-4" />
+            </Button>
          );
       },
-      cell: ({ getValue }) =>
-         new Date(getValue() as string | number | Date).toLocaleDateString(),
+      cell: ({ getValue }) => <FormattedDateCell value={getValue()} />,
       enableSorting: true,
       enableHiding: false,
    },
    {
       accessorKey: "typeOpportunity",
       header: "Tipo",
+      cell: ({ getValue }) => {
+         const type = getValue() as "SERVICO" | "MATERIAL";
+
+         if (type === "MATERIAL") {
+            return "Material";
+         }
+
+         return "Serviço";
+      },
    },
    {
       id: "company",
       accessorKey: "company.name",
       header: "Empresa",
-      // cell: ({ row }) => <div>{row.getValue("description")}</div>,
    },
-   // {
-   //    accessorKey: "subCategory",
-   //    header: "Categoria",
-   //    cell: ({ getValue }) => {
-   //       const categorias = getValue() as Array<{ name: string }>;
-   //       console.log(categorias); 
-
-   //       if (Array.isArray(categorias)) {
-   //          return (
-   //            <>
-   //              {categorias.map((categoria, index) => (
-   //                <span key={index}>{categoria.name.toString()}</span>
-   //              ))}
-   //            </>
-   //          );
-   //        }
-      
-   //        return null;
-   //    }
-   // },
    {
       accessorKey: "isExpired",
       header: "Expirado?",
-      cell: ({ getValue }) => {
+      cell: ({ getValue } ) => {
          const expired = getValue() ? "Sim" : "Não";
 
          return (
@@ -106,96 +119,6 @@ export const columns: ColumnDef<Opportunity>[] = [
    {
       id: "actions",
       header: "",
-      cell: ({ row }) => {
-         const opportunity = row.original;
-         const [isDialogOpen, setIsDialogOpen] = useState(false);
-
-         const handleVisualizarClick = () => {
-            setIsDialogOpen(true);
-         };
-
-         const handleClick = () => {
-            setIsDialogOpen(false);
-         };
-
-         return (
-            <>
-               <Button
-                  className="h-full w-85vw pw-2 ph-1"
-                  aria-haspopup="true"
-                  size="default"
-                  variant="default"
-                  onClick={handleVisualizarClick}
-               >
-                  <EyeIcon className="h-4 w-4 mr-2"/> 
-                  Visualizar
-                  <span className="sr-only">Visualizar oportunidade</span>
-               </Button>
-               <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                  <DialogContent>
-                     <DialogHeader>
-                        <DialogTitle>
-                           Oportunidade
-                        </DialogTitle>
-                        <DialogDescription>
-                           Você acabou de visualizar essa oportunidade e os arquivos com detalhes das informações para envio de proposta acabaram de ser baixados em seu computador.
-                        </DialogDescription>
-                        <Separator />
-                     </DialogHeader>
-                     <DialogFooter className="grid grid-flow-col">
-                     <DialogClose asChild>
-                        <Button
-                           className="h-8 ph-2 pw-2"
-                           size="lg"
-                           variant="secondary"
-                        >
-                           Entendi
-                        </Button>
-                     </DialogClose>
-                        {/* <Button
-                           className="h-8 ph-2 pw-2"
-                           size="lg"
-                           variant="default"
-                           onClick={handleClick}
-                        >
-                           <Trash2Icon className="h-4 w-4 mr-2" />
-                           Deletar
-                        </Button> */}
-                     </DialogFooter>
-                  </DialogContent>
-               </Dialog>
-               {/* <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                     <Button
-                        className="h-8 w-8 p-0"
-                        aria-haspopup="true"
-                        size="icon"
-                        variant="ghost"
-                     >
-                        <MoreHorizontal className="h-4 w-4" />
-                        <span className="sr-only">Outras opções</span>
-                     </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                     <DropdownMenuItem
-                        className="hover:cursor-pointer"
-                        onClick={handleVisualizarClick}
-                     >
-                        <EyeIcon className="h-3 mr-2" />
-                        Visualizar
-                     </DropdownMenuItem>
-                     <DropdownMenuItem className="hover:cursor-pointer">
-                        <PencilIcon className="h-3 mr-2" />
-                        Editar
-                     </DropdownMenuItem>
-                     <DropdownMenuItem className="hover:cursor-pointer">
-                        <Trash2Icon className="h-3 mr-2" />
-                        Deletar
-                     </DropdownMenuItem>
-                  </DropdownMenuContent>
-               </DropdownMenu> */}
-            </>
-         );
-      },
+      cell: (props) => <ActionsCell {...props} />,
    },
 ];

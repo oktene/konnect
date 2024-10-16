@@ -30,7 +30,7 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale}>
+    <html lang={locale='br'}>
       <head>
         <link rel="icon" href="/favicon.ico" />
       </head>
@@ -38,7 +38,9 @@ export default async function RootLayout({
         <NextIntlClientProvider messages={messages}>
           <body className={cn("", poppins.className)}>
             <AuthProvider>
-              <SplashScreenWrapper>{children}</SplashScreenWrapper>
+              <SplashScreenWrapper>
+                {children}
+              </SplashScreenWrapper>
               <Toaster />
             </AuthProvider>
             <ReactQueryDevtools />

@@ -13,7 +13,9 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
       <div className="flex flex-col w-full ">
         <QueryProvider>
           <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
-            <AdminPanelLayout children={children} />
+            <AdminPanelLayout>
+              {children}
+            </AdminPanelLayout>
           </ThemeProvider>
         </QueryProvider>
       </div>
