@@ -26,9 +26,10 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { EyeOff, Eye } from "lucide-react";
+import { Spinner } from "@/components/ui/spinner";
 
 const schema = z.object({
-  email: z.string().min(1).email("Informe um E-mail válido."),
+  email: z.string().min(1).email("Informe um e-mail válido."),
   password: z
     .string()
 
@@ -76,11 +77,12 @@ const SignIn: React.FC = () => {
   return (
     <div className="w-full h-screen lg:grid lg:min-h-[600px] xl:min-h-[800px]">
       <div className="flex items-center justify-center h-screen">
-        <Card className="w-full max-w-sm">
+        <Card className="w-full max-w-md">
           <CardHeader className="flex justify-center items-center">
+            <Image src="web/public/logo.png" alt="" />
             <CardTitle className="text-2xl">Login</CardTitle>
             <CardDescription className="text-center">
-              Bem-vindo ao Konnect. <br />O mundo de oportunidades Oil & Gas.
+              Bem-vindo ao <span className="font-semibold">Konnect</span>. <br />O mundo de oportunidades do Oil & Gas no Brasil.
             </CardDescription>
           </CardHeader>
           <CardContent className="grid gap-4">
@@ -135,15 +137,22 @@ const SignIn: React.FC = () => {
                       </div>
                     )}
                   </div>
-                  <Button type="submit" className="w-full bg-orange-600">
-                    Login
+                  <Button type="submit" className="w-full bg-orange-600 hover:bg-orange-700">
+                    {isLoading && (
+                      <>
+                        <Spinner className="text-white w-4 h-4 animate-spin mr-2" /> Entrando...
+                      </>
+                    )}
+                    {!isLoading && (
+                      <p>Login</p>
+                    )}
                   </Button>
                 </div>
               </form>
             </Suspense>
             <div className="mt-4 text-center text-sm">
               Não possui conta?{" "}
-              <Link href="/sign-up" className="underline text-orange-600 hover">
+              <Link href="/sign-up" className="underline text-orange-600 hover hover:text-orange-700">
                 Cadastre-se
               </Link>
             </div>

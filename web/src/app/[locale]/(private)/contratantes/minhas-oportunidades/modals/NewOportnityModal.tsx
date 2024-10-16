@@ -27,6 +27,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { FileIcon } from "lucide-react";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
+import { Opportunity } from "../../../(dashboard)/oportunidades-publicas/columns";
 
 // Esquema de validação usando Zod
 const TemporaryOpportunitySchema = z.object({
@@ -58,13 +59,13 @@ export type TenporaryOpportunity = z.infer<typeof TemporaryOpportunitySchema>;
 export function NewOportunityModal() {
    const queryClient = useQueryClient();
 
-   // Mutação para criar a oportunidade usando o serviço
-   // const mutation = useMutation(opportunityService.createOpportunity, {
-   //   onSuccess: () => {
-   //     // Invalida e refetch da lista de oportunidades
-   //     queryClient.invalidateQueries("opportunity");
-   //   },
-   // });
+   const mutation = useMutation({
+      mutationFn: (newOpportunity: Omit<Opportunity, "id">) => opportunityService.createOpportunity(newOpportunity),
+      onSuccess: () => {
+        // Invalida e refetch da lista de oportunidades
+        queryClient.invalidateQueries({ queryKey: ["opportunity"] });
+      },
+   });
 
    const {
       handleSubmit: hookFormHandleSubmit,

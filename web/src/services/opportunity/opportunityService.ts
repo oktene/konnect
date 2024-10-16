@@ -34,7 +34,7 @@ export interface GetOpportunitiesParams {
    }
  }
 
-const opportunityService = {
+export const opportunityService = {
    getOpportunities: async (): Promise<Opportunity[]> => {
       const { data } = await apiClient.get("/opportunity");
       return data;
@@ -50,8 +50,8 @@ const opportunityService = {
    },
 
    getAllByCompanyId: async (companyId: string): Promise<OpportunityWCompany[]> => {
-      const { data } = await apiClient.get<OpportunityWCompany[]>(`/opportunity/${companyId}`);
-      return data;
+      const { data } = await apiClient.get<OpportunityWCompany[]>(`/opportunity/get-all/${companyId}`);
+      return data || [];
     },
 
    createOpportunity: async (
@@ -63,6 +63,9 @@ const opportunityService = {
       );
       return data
    },
+   deleteOpportunity: async (opportunityId: string): Promise<void> => {
+      await apiClient.delete(`/opportunity/${opportunityId}`);
+    },
 }
 
 export default opportunityService;

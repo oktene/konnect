@@ -36,6 +36,8 @@ import {
 import { useState } from "react";
 import { CheckedState } from "@radix-ui/react-checkbox";
 import { Spinner } from "@/components/ui/spinner";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { CircleHelp } from "lucide-react";
 
 const schema = z.object({
    name: z.string().min(1),
@@ -63,7 +65,7 @@ const SignUp: React.FC = () => {
       control,
       watch,
    } = useForm<FormData>({
-      mode: "onBlur",
+      mode: "all",
       resolver: zodResolver(schema),
    });
 
@@ -129,7 +131,7 @@ const SignUp: React.FC = () => {
                               className={errors.name ? "border-red-500" : ""}
                            />
                            {errors.name && (
-                              <p className="text-red-500">
+                              <p className="text-xs text-red-500">
                                  {errors.name.message}
                               </p>
                            )}
@@ -150,7 +152,7 @@ const SignUp: React.FC = () => {
                               className={errors.email ? "border-red-500" : ""}
                            />
                            {errors.email && (
-                              <p className="text-red-500">
+                              <p className="text-xs text-red-500">
                                  {errors.email.message}
                               </p>
                            )}
@@ -165,7 +167,7 @@ const SignUp: React.FC = () => {
                               className={errors.phone ? "border-red-500" : ""}
                            />
                            {errors.phone && (
-                              <p className="text-red-500">
+                              <p className="text-xs text-red-500">
                                  {errors.phone.message}
                               </p>
                            )}
@@ -193,7 +195,7 @@ const SignUp: React.FC = () => {
                                  }
                               />
                               {errors.company?.name && (
-                                 <p className="text-red-500">
+                                 <p className="text-xs text-red-500">
                                     {errors.company?.name.message}
                                  </p>
                               )}
@@ -216,7 +218,7 @@ const SignUp: React.FC = () => {
                                  }
                               />
                               {errors.company?.companyRegistration && (
-                                 <p className="text-red-500">
+                                 <p className="text-xs text-red-500">
                                     {
                                        errors.company?.companyRegistration
                                           .message
@@ -242,6 +244,19 @@ const SignUp: React.FC = () => {
                                              id="r1"
                                           />
                                           <Label htmlFor="r1">Fornecedor</Label>
+                                          <TooltipProvider>
+                                             <Tooltip>
+                                                <TooltipTrigger>
+                                                   <CircleHelp 
+                                                      className="h-4 w-4"
+                                                      
+                                                   />
+                                                </TooltipTrigger>
+                                                <TooltipContent className="max-w-lg">
+                                                   <p>Os fornecedores têm acesso a uma lista de oportunidades cadastradas pelos contratantes no Konnect. Vocês pode visualizar os detalhes de cada oportunidade e, por meio do e-mail disponibilizado pelo contratante, enviar arquivos para complementar suas ofertas.</p>
+                                                </TooltipContent>
+                                             </Tooltip>
+                                          </TooltipProvider>
                                        </div>
                                        <div className="flex items-center space-x-2">
                                           <RadioGroupItem
@@ -251,6 +266,19 @@ const SignUp: React.FC = () => {
                                           <Label htmlFor="r2">
                                              Contratante
                                           </Label>
+                                          <TooltipProvider>
+                                             <Tooltip>
+                                                <TooltipTrigger>
+                                                   <CircleHelp 
+                                                      className="h-4 w-4"
+                                                      
+                                                   />
+                                                </TooltipTrigger>
+                                                <TooltipContent className="max-w-lg">
+                                                   <p>Os contratantes podem cadastrar suas oportunidades, que ficam visíveis para todos os fornecedores no Konnect. É possível definir um prazo de submissão, especificar o tipo de oportunidade (material ou serviço), anexar arquivos com detalhes adicionais e gerenciar suas oportunidades. Além disso, os contratantes podem visualizar quantas pessoas demonstraram interesse em suas oportunidades.</p>
+                                                </TooltipContent>
+                                             </Tooltip>
+                                          </TooltipProvider>
                                        </div>
                                        <div className="flex items-center space-x-2">
                                           <RadioGroupItem
@@ -258,6 +286,19 @@ const SignUp: React.FC = () => {
                                              id="r3"
                                           />
                                           <Label htmlFor="r3">Ambos</Label>
+                                          <TooltipProvider>
+                                             <Tooltip>
+                                                <TooltipTrigger>
+                                                   <CircleHelp 
+                                                      className="h-4 w-4"
+                                                      
+                                                   />
+                                                </TooltipTrigger>
+                                                <TooltipContent className="max-w-lg">
+                                                   <p>Este perfil é destinado a empresas que atuam como contratantes e fornecedores. No Konnect, elas podem cadastrar oportunidades como contratantes e gerenciar suas propostas como fornecedores, permitindo que busquem serviços e produtos de outros contratantes enquanto oferecem suas próprias oportunidades.</p>
+                                                </TooltipContent>
+                                             </Tooltip>
+                                          </TooltipProvider>
                                        </div>
                                     </RadioGroup>
                                  )}
@@ -276,7 +317,7 @@ const SignUp: React.FC = () => {
                            className={errors.password ? "border-red-500" : ""}
                         />
                         {errors.password && (
-                           <p className="text-red-500">
+                           <p className="text-xs text-red-500">
                               {errors.password.message}
                            </p>
                         )}

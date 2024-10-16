@@ -5,18 +5,11 @@ import { ContentLayout } from "@/components/admin-panel/content-layout";
 import { columns, Opportunity } from "./columns";
 import React, { Suspense } from "react";
 import Loading from "@/app/[locale]/loading";
-import Skeleton from "react-loading-skeleton";
 import { DataTable } from "./data-table";
-import opportunityService from "@/services/opportunity/opportunityService";
-import { useQuery } from "@tanstack/react-query";
+import { useOpportunities } from "@/hooks/useOpportunities";
 
 const OportunidadesPublicas = () => {
-   const { data, isLoading, isSuccess } = useQuery<Opportunity[]>({
-      queryKey: ["opportunity"],
-      queryFn: async () => {
-         return await opportunityService.getOpportunities();
-      },
-   });
+   const { data, isLoading } = useOpportunities();
 
    const publicOpportunities =
       data?.map((opportunity) => ({
@@ -36,14 +29,14 @@ const OportunidadesPublicas = () => {
       <ContentLayout title="Konnect">
          <main>
             <div className="mt-2">
-               <p className="text-zinc-900 text-lg">
-                  {isSuccess ? "Oportunidades Públicas" : <Skeleton />}
-               </p>
+               <p className="text-zinc-900 text-lg">Oportunidades Públicas</p>
             </div>
             <Suspense fallback={<Loading />}>
-               <div>
+            {isLoading? (
+               <Loading />
+            ) : (
                   <DataTable columns={columns} data={publicOpportunities} />
-               </div>
+            )}
             </Suspense>
          </main>
       </ContentLayout>
