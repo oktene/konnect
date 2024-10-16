@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@n
 import { ProposalService } from './proposal.service';
 import { CreateProposalDto } from './dto/create-proposal.dto';
 import { UpdateProposalDto } from './dto/update-proposal.dto';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Roles } from 'src/shared/decorators/role.decorator';
 import { RolesGuard } from 'src/shared/guards/roles.guard';
 import { Role as UserRole } from 'src/shared/enums/role.enum';
@@ -28,6 +28,12 @@ export class ProposalController {
   @Get(':proposalId')
   findOne(@Param('proposalId') proposalId: string) {
     return this.proposalService.findOne(proposalId);
+  }
+
+  @Get('/get-all/:companyId')
+  @ApiOperation({ summary: 'Get all proposals by specif company' })
+  async getAllByCompanyId(@Param('companyId') companyId: string) {
+    return await this.proposalService.getAllByCompanyId(companyId);
   }
 
   @Patch(':proposalId')

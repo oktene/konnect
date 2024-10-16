@@ -33,6 +33,16 @@ export class ProposalService {
     });
   }
 
+  async getAllByCompanyId(companyId: string) {
+    return await this.proposalsRepo.findAll({
+      where: { companyApplicatorId: companyId },
+      include: {
+        opportunity: true,
+        attachments: true,
+      },
+    });
+  }
+
   update(proposalId: string, updateProposalDto: UpdateProposalDto) {
     return this.proposalsRepo.update({
       where: { id: proposalId },
